@@ -6,7 +6,7 @@ function FloatingSparkles({ count = 16 }: { count?: number }) {
   const sparkles = Array.from({ length: count }, (_, i) => ({
     id: i, x: Math.random() * 100, delay: Math.random() * 7,
     duration: 6 + Math.random() * 7, size: 2 + Math.random() * 3,
-    hue: [43, 210, 320, 260][i % 4],
+    hue: [43, 40, 38, 46][i % 4],
   }));
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">

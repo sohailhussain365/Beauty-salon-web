@@ -32,12 +32,12 @@ function InfoCards() {
     { icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>, label: "Booking", value: "Book online 24/7", href: "https://matthewdillard.com", color: "rgba(180,220,190,0.75)" },
   ];
   return (
-    <section className="py-16 section-light">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
+    <section className="py-16 section-divider relative overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
         <motion.div className="flex items-center gap-3 mb-10"
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
           <div className="h-px w-7" style={{ background: "hsl(43,65%,52%)" }} />
-          <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "hsl(43,60%,42%)" }}>Find Us</span>
+          <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(201,168,76,0.65)" }}>Find Us</span>
         </motion.div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {cards.map((info, i) => (
@@ -48,18 +48,21 @@ function InfoCards() {
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, amount: 0.08 }}
               transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group p-7 flex flex-col gap-4 relative overflow-hidden card-light"
-              whileHover={{ y: -5, boxShadow: "0 8px 40px rgba(22,15,8,0.1)", transition: { duration: 0.2 } }}
+              className="group p-7 flex flex-col gap-4 relative overflow-hidden"
+              style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.08)" }}
+              whileHover={{ y: -5, borderColor: "rgba(201,168,76,0.25)", transition: { duration: 0.2 } }}
             >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: `radial-gradient(ellipse at 50% 0%, ${info.color.replace("0.8","0.07").replace("0.75","0.07")}, transparent 70%)` }} aria-hidden="true" />
               <div className="absolute top-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
                 style={{ background: `linear-gradient(90deg, ${info.color}, transparent)` }} aria-hidden="true" />
               <div className="relative z-10">
                 <motion.div className="w-10 h-10 flex items-center justify-center mb-4"
-                  style={{ border: "1px solid rgba(22,15,8,0.12)", color: "hsl(43,60%,42%)", background: "rgba(201,168,76,0.07)" }}>
+                  style={{ border: "1px solid rgba(201,168,76,0.2)", color: "rgba(201,168,76,0.7)", background: "rgba(201,168,76,0.06)" }}>
                   {info.icon}
                 </motion.div>
-                <p style={{ fontSize: 8, letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(22,15,8,0.38)", marginBottom: 4 }}>{info.label}</p>
-                <p className="text-sm leading-relaxed whitespace-pre-line" style={{ color: "hsl(22,20%,16%)" }}>{info.value}</p>
+                <p style={{ fontSize: 8, letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(255,255,255,0.30)", marginBottom: 4 }}>{info.label}</p>
+                <p className="text-sm leading-relaxed whitespace-pre-line text-white/60 group-hover:text-white/80 transition-colors">{info.value}</p>
               </div>
             </motion.a>
           ))}

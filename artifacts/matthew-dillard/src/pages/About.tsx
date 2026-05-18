@@ -62,12 +62,11 @@ function StorySection() {
     { num: "03", title: "Continued Education", desc: "The world of hair never stops evolving. Matthew regularly trains with industry leaders to bring the latest techniques directly to your chair." },
   ];
   return (
-    <section className="py-24 md:py-32 section-light relative overflow-hidden">
-      {/* Light ambient sparkles */}
+    <section className="py-24 md:py-32 section-divider relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         {[...Array(6)].map((_, i) => (
           <motion.div key={i} className="absolute"
-            style={{ left: `${8 + i * 15}%`, top: `${15 + (i % 3) * 28}%`, color: "rgba(201,168,76,0.12)", fontSize: 12 + (i % 3) * 4 }}
+            style={{ left: `${8 + i * 15}%`, top: `${15 + (i % 3) * 28}%`, color: "rgba(201,168,76,0.10)", fontSize: 12 + (i % 3) * 4 }}
             animate={{ opacity: [0.04, 0.18, 0.04], scale: [0.7, 1.2, 0.7] }}
             transition={{ duration: 5 + i * 0.8, delay: i * 0.7, repeat: Infinity, ease: "easeInOut" }}>✦</motion.div>
         ))}
@@ -84,13 +83,13 @@ function StorySection() {
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
               <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 28 }} viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }} style={{ background: "hsl(43,65%,52%)" }} />
-              <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "hsl(43,60%,42%)" }}>Who We Are</span>
+              <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(201,168,76,0.65)" }}>Who We Are</span>
             </motion.div>
 
             <div className="overflow-hidden mb-2">
               <motion.h2
                 className="heading-bebas"
-                style={{ fontSize: "clamp(48px, 6.5vw, 84px)", color: "hsl(22,20%,8%)", lineHeight: 0.92 }}
+                style={{ fontSize: "clamp(48px, 6.5vw, 84px)", color: "rgba(255,255,255,0.90)", lineHeight: 0.92 }}
                 initial={{ y: "108%", opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, amount: 0.1 }}
@@ -111,7 +110,7 @@ function StorySection() {
             </div>
 
             <motion.p className="text-sm leading-relaxed mb-4"
-              style={{ color: "rgba(22,15,8,0.52)" }}
+              style={{ color: "rgba(255,255,255,0.48)" }}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -119,7 +118,7 @@ function StorySection() {
               Matthew Dillard Hair Salons was built on a simple belief: every person who sits in the chair deserves to feel extraordinary when they leave. Our Prosper, Texas studio is a sanctuary — designed to feel exclusive without feeling intimidating.
             </motion.p>
             <motion.p className="text-sm leading-relaxed mb-10"
-              style={{ color: "rgba(22,15,8,0.52)" }}
+              style={{ color: "rgba(255,255,255,0.48)" }}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -135,8 +134,8 @@ function StorySection() {
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.55, delay: 0.35 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                   className="px-4 py-2 text-[9px] tracking-[0.3em] uppercase"
-                  style={{ color: "hsl(43,60%,42%)", border: "1px solid rgba(201,168,76,0.32)", background: "rgba(201,168,76,0.06)" }}
-                  whileHover={{ borderColor: "rgba(201,168,76,0.65)", y: -2 }}
+                  style={{ color: "rgba(201,168,76,0.75)", border: "1px solid rgba(201,168,76,0.25)", background: "rgba(201,168,76,0.06)" }}
+                  whileHover={{ borderColor: "rgba(201,168,76,0.55)", y: -2 }}
                 >{badge}</motion.span>
               ))}
             </div>
@@ -151,8 +150,10 @@ function StorySection() {
                 viewport={{ once: true, amount: 0.08 }}
                 transition={{ duration: 0.85, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
               >
-                <TiltCard className="group p-7 relative overflow-hidden cursor-default card-light"
-                  style={{}}>
+                <TiltCard className="group p-7 relative overflow-hidden cursor-default"
+                  style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.08)" }}>
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06), transparent 70%)" }} aria-hidden="true" />
                   <div className="absolute top-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
                     style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} aria-hidden="true" />
                   <div className="relative z-10 flex items-start gap-5">
@@ -162,8 +163,8 @@ function StorySection() {
                       {p.num}
                     </motion.span>
                     <div>
-                      <h3 className="text-sm font-serif font-semibold mb-2" style={{ color: "hsl(22,20%,10%)" }}>{p.title}</h3>
-                      <p className="text-xs leading-relaxed" style={{ color: "rgba(22,15,8,0.48)" }}>{p.desc}</p>
+                      <h3 className="text-sm font-serif font-semibold mb-2 text-white/80 group-hover:text-white transition-colors">{p.title}</h3>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.38)" }}>{p.desc}</p>
                     </div>
                   </div>
                 </TiltCard>
