@@ -53,7 +53,7 @@ export default function BeforeAfter() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8">
+      <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -78,7 +78,7 @@ export default function BeforeAfter() {
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           ref={containerRef}
-          className="relative h-[380px] md:h-[480px] overflow-hidden select-none"
+          className="relative h-[300px] sm:h-[380px] md:h-[480px] overflow-hidden select-none"
           style={{
             cursor: dragging ? "ew-resize" : "col-resize",
             border: "1px solid rgba(201,168,76,0.1)",

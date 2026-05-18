@@ -77,7 +77,7 @@ export default function CtaSection() {
       <FloatingSparkles count={18} />
       <PulsingRings />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-5 sm:px-8 md:px-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -119,11 +119,11 @@ export default function CtaSection() {
           </motion.p>
 
           {/* Buttons */}
-          <motion.div className="flex flex-col sm:flex-row items-center gap-4 mt-2"
+          <motion.div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mt-2 w-full sm:w-auto"
             initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.65 }}>
-            <Link href="/booking">
-              <motion.div className="group relative px-10 py-5 overflow-hidden cursor-pointer"
+            <Link href="/booking" className="w-full sm:w-auto">
+              <motion.div className="group relative px-10 py-5 overflow-hidden cursor-pointer w-full sm:w-auto text-center"
                 whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                 style={{ background: "linear-gradient(135deg, hsl(43,72%,54%), hsl(35,78%,47%))", boxShadow: "0 6px 35px rgba(201,168,76,0.45), 0 0 0 1px rgba(201,168,76,0.2)" }}
                 animate={{ boxShadow: ["0 6px 35px rgba(201,168,76,0.35)", "0 6px 50px rgba(201,168,76,0.6)", "0 6px 35px rgba(201,168,76,0.35)"] }}
