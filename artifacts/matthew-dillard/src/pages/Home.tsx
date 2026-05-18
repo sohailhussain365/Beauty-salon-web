@@ -344,15 +344,38 @@ function ServicesPreview() {
     <section className="py-20 md:py-32 section-divider relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
         <div className="mb-12 md:mb-16">
-          <motion.div className="flex items-center gap-3 mb-5"
+          {/* Section label — left-aligned with flanking lines */}
+          <motion.div
+            className="flex items-center gap-3 mb-4"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}>
-            <div className="h-[1.5px] w-8" style={{ background: "hsl(22,15%,20%)" }} />
-            <span className="text-[13px] tracking-[0.32em] uppercase font-semibold" style={{ color: "hsl(22,20%,12%)" }}>Specialties</span>
+            transition={{ duration: 0.7 }}>
+            <motion.span
+              className="shrink-0 h-px"
+              initial={{ width: 0 }}
+              whileInView={{ width: 28 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              style={{ background: "hsl(22,15%,22%)" }}
+            />
+            <span
+              className="shrink-0 uppercase font-semibold"
+              style={{ fontSize: 11, letterSpacing: "0.38em", color: "hsl(22,20%,14%)" }}>
+              Specialties
+            </span>
+            <motion.span
+              className="h-px"
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              style={{ background: "linear-gradient(90deg, hsl(22,15%,22%), rgba(22,15,8,0.08))", flexGrow: 1 }}
+            />
           </motion.div>
-          <div className="overflow-hidden mb-4">
+
+          {/* Main heading */}
+          <div className="overflow-hidden mb-2">
             <motion.h2
               className="heading-bebas"
               style={{ fontSize: "clamp(52px, 8vw, 106px)", color: "hsl(22,20%,8%)", lineHeight: 0.92 }}
@@ -364,8 +387,15 @@ function ServicesPreview() {
               <span className="text-gold-gradient">Services</span>
             </motion.h2>
           </div>
-          <motion.p className="text-sm max-w-md leading-relaxed font-serif italic" style={{ color: "rgba(22,15,8,0.45)" }}
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+
+          {/* Subtitle — tight to heading */}
+          <motion.p
+            className="text-sm leading-relaxed font-serif italic"
+            style={{ color: "rgba(22,15,8,0.45)", maxWidth: 400 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.18 }}>
             Every service is a statement. Every result, a transformation.
           </motion.p>
         </div>
