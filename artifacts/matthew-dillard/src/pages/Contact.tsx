@@ -10,66 +10,105 @@ const HOURS = [
   { day: "Sunday", hours: "By Appointment", closed: false },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+};
+const itemUp = {
+  hidden: { opacity: 0, y: 28, filter: "blur(8px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] } },
+};
+
+function AmbientSparkles() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      {[...Array(8)].map((_, i) => (
+        <motion.div key={i} className="absolute"
+          style={{ left: `${10 + i * 11}%`, top: `${15 + (i % 3) * 28}%`, color: "rgba(201,168,76,0.08)", fontSize: 14 + (i % 3) * 4 }}
+          animate={{ opacity: [0.06, 0.2, 0.06], scale: [0.7, 1.3, 0.7], rotate: [0, 90, 180] }}
+          transition={{ duration: 5 + i * 0.7, delay: i * 0.6, repeat: Infinity, ease: "easeInOut" }}
+        >✦</motion.div>
+      ))}
+    </div>
+  );
+}
+
 function InfoCards() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
+
+  const cards = [
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      ),
+      label: "Address", value: "2281 E University Dr\nSuite 101\nProsper, TX 75078",
+      href: "https://maps.google.com/?q=2281+E+University+Dr+Suite+101+Prosper+TX+75078",
+      color: "rgba(201,168,76,0.8)",
+    },
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+        </svg>
+      ),
+      label: "Phone", value: "+1 (972) 571-7787", href: "tel:+19725717787",
+      color: "rgba(180,215,255,0.75)",
+    },
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        </svg>
+      ),
+      label: "Website", value: "matthewdillard.com", href: "https://matthewdillard.com",
+      color: "rgba(230,185,215,0.75)",
+    },
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      ),
+      label: "Booking", value: "Book online 24/7 at matthewdillard.com", href: "https://matthewdillard.com",
+      color: "rgba(180,220,190,0.75)",
+    },
+  ];
+
   return (
-    <section ref={ref} className="py-16 section-divider">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
-            {
-              icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
-              label: "Address",
-              value: "2281 E University Dr\nSuite 101\nProsper, TX 75078",
-              href: "https://maps.google.com/?q=2281+E+University+Dr+Suite+101+Prosper+TX+75078",
-            },
-            {
-              icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>,
-              label: "Phone",
-              value: "+1 (972) 571-7787",
-              href: "tel:+19725717787",
-            },
-            {
-              icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
-              label: "Website",
-              value: "matthewdillard.com",
-              href: "https://matthewdillard.com",
-            },
-            {
-              icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>,
-              label: "Booking",
-              value: "Book online 24/7 at matthewdillard.com",
-              href: "https://matthewdillard.com",
-            },
-          ].map((info, i) => (
-            <motion.a
-              key={info.label}
-              href={info.href}
+    <section ref={ref} className="py-16 section-divider relative overflow-hidden">
+      <AmbientSparkles />
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
+        <motion.div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          variants={containerVariants} initial="hidden" animate={inView ? "visible" : "hidden"}>
+          {cards.map((info) => (
+            <motion.a key={info.label} href={info.href}
               target={info.href.startsWith("http") ? "_blank" : undefined}
               rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="group p-7 flex flex-col gap-4 transition-all duration-300"
-              style={{
-                background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))",
-                border: "1px solid rgba(201,168,76,0.08)",
-              }}
+              variants={itemUp}
+              className="group p-7 flex flex-col gap-4 transition-all duration-300 relative overflow-hidden"
+              style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.08)" }}
+              whileHover={{ borderColor: "rgba(201,168,76,0.25)", y: -4, transition: { duration: 0.2 } }}
             >
-              <div
-                className="w-10 h-10 flex items-center justify-center text-yellow-500/50 group-hover:text-yellow-400 transition-colors"
-                style={{ border: "1px solid rgba(201,168,76,0.18)" }}
-              >
-                {info.icon}
-              </div>
-              <div>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: `radial-gradient(ellipse at 20% 10%, ${info.color.replace("0.8","0.07").replace("0.75","0.06")}, transparent 65%)` }} aria-hidden="true" />
+              <div className="absolute top-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+                style={{ background: `linear-gradient(90deg, ${info.color}, transparent)` }} aria-hidden="true" />
+              <div className="relative z-10">
+                <motion.div className="w-10 h-10 flex items-center justify-center mb-4 transition-colors"
+                  style={{ border: `1px solid ${info.color.replace("0.8","0.2").replace("0.75","0.2")}`, color: info.color.replace("0.8","0.5").replace("0.75","0.45") }}
+                  animate={{ boxShadow: [`0 0 0px ${info.color.replace("0.8","0")}`, `0 0 12px ${info.color.replace("0.8","0.3").replace("0.75","0.25")}`, `0 0 0px ${info.color.replace("0.8","0")}`] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >{info.icon}</motion.div>
                 <p className="text-[8px] tracking-[0.35em] uppercase text-white/30 mb-1">{info.label}</p>
-                <p className="text-sm text-white/55 group-hover:text-white/75 transition-colors leading-relaxed whitespace-pre-line">{info.value}</p>
+                <p className="text-sm text-white/55 group-hover:text-white/80 transition-colors leading-relaxed whitespace-pre-line">{info.value}</p>
               </div>
             </motion.a>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -84,24 +123,28 @@ function ContactMain() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    setTimeout(() => setSubmitted(false), 4500);
     setFormData({ name: "", email: "", service: "", message: "" });
   };
 
+  const fields = [
+    { key: "name", label: "Full Name", type: "text", placeholder: "Your name" },
+    { key: "email", label: "Email Address", type: "email", placeholder: "your@email.com" },
+  ];
+
   return (
-    <section ref={ref} className="py-24 md:py-32 section-divider">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
+    <section ref={ref} className="py-24 md:py-32 section-divider relative overflow-hidden">
+      <AmbientSparkles />
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+
           {/* Left: map + hours */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-6"
-          >
+          <motion.div initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }} className="space-y-6">
             <div>
               <div className="flex items-center gap-4 mb-5">
-                <span className="w-8 h-px" style={{ background: "hsl(43,65%,52%)" }} />
+                <motion.span className="h-px" initial={{ width: 0 }} animate={inView ? { width: 32 } : {}}
+                  transition={{ duration: 0.6 }} style={{ background: "hsl(43,65%,52%)" }} />
                 <span className="text-[9px] tracking-[0.4em] uppercase text-yellow-400/60">Find Us</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-serif text-white/88 mb-4">
@@ -112,133 +155,135 @@ function ContactMain() {
               </p>
             </div>
 
-            {/* Map */}
-            <div className="overflow-hidden h-52" style={{ border: "1px solid rgba(201,168,76,0.1)" }}>
+            {/* Map with animated border */}
+            <motion.div className="overflow-hidden relative"
+              initial={{ opacity: 0, scaleX: 0.85 }} animate={inView ? { opacity: 1, scaleX: 1 } : {}}
+              transition={{ duration: 0.9, delay: 0.2 }}
+              style={{ border: "1px solid rgba(201,168,76,0.12)", height: 200 }}>
+              <motion.div className="absolute inset-x-0 top-0 h-px pointer-events-none"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent)" }}
+                animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 3, repeat: Infinity }} aria-hidden="true" />
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3342.5!2d-96.8!3d33.24!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c3af8b3a48a7d%3A0x1!2s2281+E+University+Dr+Suite+101%2C+Prosper%2C+TX+75078!5e0!3m2!1sen!2sus!4v1"
-                width="100%"
-                height="100%"
+                width="100%" height="100%"
                 style={{ border: 0, filter: "invert(0.9) hue-rotate(180deg) saturate(0.8) brightness(0.75)" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
                 title="Matthew Dillard Hair Salons Location"
               />
-            </div>
+            </motion.div>
 
             {/* Hours */}
-            <div
-              className="p-7"
-              style={{
-                background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))",
-                border: "1px solid rgba(201,168,76,0.08)",
-              }}
-            >
+            <motion.div className="p-7 relative overflow-hidden"
+              initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.35 }}
+              style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.08)" }}>
+              <motion.div className="absolute inset-x-0 bottom-0 h-px pointer-events-none"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent)" }}
+                animate={{ opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 4, repeat: Infinity }} aria-hidden="true" />
               <p className="text-[9px] tracking-[0.35em] uppercase text-yellow-400/60 mb-5">Studio Hours</p>
               <div className="space-y-3">
-                {HOURS.map((h) => (
-                  <div key={h.day} className="flex items-center justify-between gap-4">
+                {HOURS.map((h, i) => (
+                  <motion.div key={h.day}
+                    initial={{ opacity: 0, x: -16 }} animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.5 + i * 0.07 }}
+                    className="flex items-center justify-between gap-4">
                     <span className="text-xs text-white/40">{h.day}</span>
-                    <span className="text-xs font-medium" style={{ color: h.closed ? "rgba(255,255,255,0.2)" : "hsl(43,65%,52%)" }}>
-                      {h.hours}
-                    </span>
-                  </div>
+                    <motion.span className="text-xs font-medium"
+                      style={{ color: h.closed ? "rgba(255,255,255,0.2)" : "hsl(43,65%,52%)" }}
+                      animate={!h.closed ? { opacity: [0.75, 1, 0.75] } : {}}
+                      transition={{ duration: 3 + i, repeat: Infinity, ease: "easeInOut" }}
+                    >{h.hours}</motion.span>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Right: form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          >
-            <div
-              className="p-9 md:p-11"
-              style={{
-                background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))",
-                border: "1px solid rgba(201,168,76,0.1)",
-              }}
-            >
+          <motion.div initial={{ opacity: 0, x: 30 }} animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}>
+            <div className="p-9 md:p-11 relative overflow-hidden"
+              style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.10)" }}>
+              {/* Corner accent */}
+              <div className="absolute top-0 right-0 pointer-events-none opacity-30" aria-hidden="true">
+                <div className="w-10 h-px" style={{ background: "hsl(43,65%,52%)" }} />
+                <div className="w-px h-10 ml-auto" style={{ background: "hsl(43,65%,52%)" }} />
+              </div>
+
               <div className="flex items-center gap-4 mb-6">
-                <span className="w-8 h-px" style={{ background: "hsl(43,65%,52%)" }} />
+                <motion.span className="h-px" initial={{ width: 0 }} animate={inView ? { width: 32 } : {}}
+                  transition={{ duration: 0.6, delay: 0.3 }} style={{ background: "hsl(43,65%,52%)" }} />
                 <span className="text-[9px] tracking-[0.4em] uppercase text-yellow-400/60">Get in Touch</span>
               </div>
               <h2 className="text-2xl font-serif text-white/88 mb-1">Send a Message</h2>
               <p className="text-xs text-white/30 mb-8 tracking-wide">We respond within 24 hours.</p>
 
               {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center gap-4 py-12 text-center"
-                >
-                  <div
-                    className="w-12 h-12 flex items-center justify-center text-yellow-400"
+                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col items-center gap-5 py-12 text-center">
+                  <motion.div className="w-14 h-14 flex items-center justify-center text-yellow-400"
                     style={{ border: "1px solid rgba(201,168,76,0.4)" }}
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    animate={{ scale: [1, 1.1, 1], boxShadow: ["0 0 0px rgba(201,168,76,0)", "0 0 20px rgba(201,168,76,0.4)", "0 0 0px rgba(201,168,76,0)"] }}
+                    transition={{ duration: 2, repeat: Infinity }}>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                  </div>
-                  <p className="text-sm text-white/50 font-serif italic">Message received. We'll be in touch.</p>
+                  </motion.div>
+                  <p className="text-sm text-white/55 font-serif italic">Message received. We'll be in touch soon.</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4" data-testid="contact-form">
-                  {[
-                    { key: "name", label: "Full Name", type: "text", placeholder: "Your name" },
-                    { key: "email", label: "Email Address", type: "email", placeholder: "your@email.com" },
-                  ].map((field) => (
-                    <div key={field.key} className="flex flex-col gap-1.5">
+                  {fields.map((field, fi) => (
+                    <motion.div key={field.key} className="flex flex-col gap-1.5"
+                      initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.5, delay: 0.5 + fi * 0.08 }}>
                       <label className="text-[9px] tracking-[0.3em] uppercase text-white/30">{field.label}</label>
-                      <input
-                        type={field.type}
-                        placeholder={field.placeholder}
+                      <motion.input type={field.type} placeholder={field.placeholder}
                         value={formData[field.key as keyof typeof formData]}
                         onChange={(e) => setFormData((f) => ({ ...f, [field.key]: e.target.value }))}
                         className="w-full px-4 py-3 text-sm text-white/70 placeholder:text-white/20 outline-none transition-all duration-300"
                         style={{ background: "hsl(22,16%,6%)", border: "1px solid rgba(201,168,76,0.08)" }}
-                        required
-                      />
-                    </div>
+                        whileFocus={{ borderColor: "rgba(201,168,76,0.35)", boxShadow: "0 0 0 3px rgba(201,168,76,0.06)" }}
+                        required />
+                    </motion.div>
                   ))}
-                  <div className="flex flex-col gap-1.5">
+
+                  <motion.div className="flex flex-col gap-1.5"
+                    initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.66 }}>
                     <label className="text-[9px] tracking-[0.3em] uppercase text-white/30">Service Interest</label>
-                    <select
-                      value={formData.service}
-                      onChange={(e) => setFormData((f) => ({ ...f, service: e.target.value }))}
+                    <select value={formData.service} onChange={(e) => setFormData((f) => ({ ...f, service: e.target.value }))}
                       className="w-full px-4 py-3 text-sm outline-none transition-all duration-300"
-                      style={{
-                        background: "hsl(22,16%,6%)",
-                        border: "1px solid rgba(201,168,76,0.08)",
-                        color: formData.service ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.2)",
-                      }}
-                    >
+                      style={{ background: "hsl(22,16%,6%)", border: "1px solid rgba(201,168,76,0.08)", color: formData.service ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.2)" }}>
                       <option value="" style={{ background: "hsl(22,16%,9%)" }}>Select a service</option>
                       {["Hair Coloring", "Balayage", "Blonde Specialist", "Luxury Haircuts", "Hair Styling", "Hair Treatments", "Bridal Styling", "Extensions"].map((s) => (
                         <option key={s} value={s} style={{ background: "hsl(22,16%,9%)" }}>{s}</option>
                       ))}
                     </select>
-                  </div>
-                  <div className="flex flex-col gap-1.5">
+                  </motion.div>
+
+                  <motion.div className="flex flex-col gap-1.5"
+                    initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.74 }}>
                     <label className="text-[9px] tracking-[0.3em] uppercase text-white/30">Message</label>
-                    <textarea
-                      placeholder="Tell us about your hair goals..."
+                    <motion.textarea placeholder="Tell us about your hair goals..."
                       value={formData.message}
                       onChange={(e) => setFormData((f) => ({ ...f, message: e.target.value }))}
                       rows={4}
                       className="w-full px-4 py-3 text-sm text-white/70 placeholder:text-white/20 outline-none resize-none"
                       style={{ background: "hsl(22,16%,6%)", border: "1px solid rgba(201,168,76,0.08)" }}
+                      whileFocus={{ borderColor: "rgba(201,168,76,0.35)", boxShadow: "0 0 0 3px rgba(201,168,76,0.06)" }}
                     />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full py-4 text-xs tracking-[0.28em] uppercase text-black font-medium transition-all duration-300 hover:opacity-90 hover:scale-[1.01] mt-2"
+                  </motion.div>
+
+                  <motion.button type="submit"
+                    className="w-full py-4 text-xs tracking-[0.28em] uppercase text-black font-medium mt-2 relative overflow-hidden"
                     style={{ background: "linear-gradient(135deg, hsl(43,72%,54%), hsl(35,78%,47%))", boxShadow: "0 4px 20px rgba(201,168,76,0.3)" }}
-                  >
-                    Send Message
-                  </button>
+                    initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.85 }}
+                    whileHover={{ scale: 1.02, boxShadow: "0 6px 28px rgba(201,168,76,0.48)" }}
+                    whileTap={{ scale: 0.98 }}
+                  >Send Message</motion.button>
                 </form>
               )}
             </div>
@@ -252,12 +297,7 @@ function ContactMain() {
 export default function ContactPage() {
   return (
     <Layout>
-      <PageHero
-        title="Visit &"
-        titleGold="Connect"
-        subtitle="Located in Prosper, TX — luxury hair artistry awaits."
-        breadcrumb="Contact"
-      />
+      <PageHero title="Visit &" titleGold="Connect" subtitle="Located in Prosper, TX — luxury hair artistry awaits." breadcrumb="Contact" />
       <InfoCards />
       <ContactMain />
     </Layout>
