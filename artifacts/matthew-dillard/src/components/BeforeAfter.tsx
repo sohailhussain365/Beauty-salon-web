@@ -35,8 +35,8 @@ export default function BeforeAfter() {
   };
   const onTouchEnd = () => setDragging(false);
 
-  const BEFORE_IMG = "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1200&q=80";
-  const AFTER_IMG  = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=80";
+  const BEFORE_IMG = "https://images.unsplash.com/photo-1523263685509-57c1d050d19b?w=1200&q=85";
+  const AFTER_IMG  = "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=1200&q=85";
 
   return (
     <section
@@ -96,15 +96,15 @@ export default function BeforeAfter() {
           <div className="absolute inset-0 overflow-hidden">
             <img
               src={AFTER_IMG}
-              alt="After transformation"
-              className="absolute inset-0 w-full h-full object-cover object-center"
+              alt="After transformation — gorgeous styled hair"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: "50% 30%" }}
               draggable={false}
             />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)" }} aria-hidden="true" />
-            <div className="absolute inset-0" style={{ background: "rgba(201,168,76,0.06)" }} aria-hidden="true" />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.08) 50%, transparent 100%)" }} aria-hidden="true" />
             <div className="absolute bottom-6 right-6 text-right">
-              <span className="block text-[9px] tracking-[0.35em] uppercase text-yellow-400/80 mb-1">After</span>
-              <span className="block text-lg font-serif text-white/90">Transformed</span>
+              <span className="block text-[9px] tracking-[0.38em] uppercase mb-1" style={{ color: "rgba(201,168,76,0.85)" }}>After</span>
+              <span className="block text-xl font-serif text-white/92 italic">Transformed</span>
             </div>
           </div>
 
@@ -119,16 +119,16 @@ export default function BeforeAfter() {
             >
               <img
                 src={BEFORE_IMG}
-                alt="Before transformation"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-                style={{ minWidth: `${100 * (100 / Math.max(position, 0.1))}%` }}
+                alt="Before transformation — natural unstyled hair"
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: "50% 20%", minWidth: `${100 * (100 / Math.max(position, 0.1))}%`, filter: "saturate(0.70) brightness(0.82)" }}
                 draggable={false}
               />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)" }} aria-hidden="true" />
-              <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.25)" }} aria-hidden="true" />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 50%, transparent 100%)" }} aria-hidden="true" />
+              <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.18)" }} aria-hidden="true" />
               <div className="absolute bottom-6 left-6">
-                <span className="block text-[9px] tracking-[0.35em] uppercase text-white/55 mb-1">Before</span>
-                <span className="block text-lg font-serif text-white/70">Natural</span>
+                <span className="block text-[9px] tracking-[0.38em] uppercase text-white/50 mb-1">Before</span>
+                <span className="block text-xl font-serif text-white/65">Natural</span>
               </div>
             </div>
           </div>

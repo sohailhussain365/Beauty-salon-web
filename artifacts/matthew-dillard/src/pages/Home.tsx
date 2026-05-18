@@ -67,32 +67,32 @@ function ParticleField() {
 // ─── Full-height editorial photo ──────────────────────────────────────────────
 function SalonElement() {
   return (
-    <div className="absolute inset-y-0 right-0 w-[44%] hidden lg:block overflow-hidden" aria-hidden="true">
+    <div className="absolute inset-y-0 right-0 w-[46%] hidden lg:block overflow-hidden" aria-hidden="true">
       <motion.img
-        src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1100&q=90"
+        src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1100&q=90"
         alt="Luxury hair artistry"
         className="w-full h-full object-cover"
-        style={{ objectPosition: "50% 18%", filter: "brightness(0.74) saturate(0.86) contrast(1.04)" }}
-        initial={{ scale: 1.08, opacity: 0 }}
+        style={{ objectPosition: "55% 15%", filter: "brightness(0.76) saturate(0.82) contrast(1.05)" }}
+        initial={{ scale: 1.07, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 2.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
       />
-      {/* Left gradient bleed — wide, soft */}
+      {/* Left gradient bleed */}
       <div className="absolute inset-y-0 left-0 w-56 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to right, hsl(22,18%,3%) 0%, hsl(22,18%,3%) 8%, rgba(5,3,2,0.6) 50%, transparent 100%)" }} />
+        style={{ background: "linear-gradient(to right, hsl(22,18%,3%) 0%, hsl(22,18%,3%) 6%, rgba(5,3,2,0.55) 45%, transparent 100%)" }} />
       {/* Top fade */}
-      <div className="absolute top-0 inset-x-0 h-32 pointer-events-none z-10"
+      <div className="absolute top-0 inset-x-0 h-36 pointer-events-none z-10"
         style={{ background: "linear-gradient(to bottom, hsl(22,18%,3%) 0%, transparent 100%)" }} />
       {/* Bottom fade */}
-      <div className="absolute bottom-0 inset-x-0 h-44 pointer-events-none z-10"
+      <div className="absolute bottom-0 inset-x-0 h-48 pointer-events-none z-10"
         style={{ background: "linear-gradient(to top, hsl(22,18%,3%) 0%, transparent 100%)" }} />
-      {/* Corner label — bottom right */}
+      {/* Corner label */}
       <motion.div className="absolute bottom-14 right-8 z-20"
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.0, duration: 1.0 }}>
-        <div className="flex flex-col items-end gap-1.5">
-          <div className="h-px w-12" style={{ background: "rgba(201,168,76,0.45)" }} />
-          <p style={{ fontSize: 8, letterSpacing: "0.44em", textTransform: "uppercase", color: "rgba(255,255,255,0.36)" }}>
+        <div className="flex flex-col items-end gap-2">
+          <div className="h-px w-10" style={{ background: "rgba(201,168,76,0.5)" }} />
+          <p style={{ fontSize: 8, letterSpacing: "0.44em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)" }}>
             Artistry · Precision
           </p>
         </div>
@@ -241,10 +241,10 @@ function Hero() {
           {/* Mobile photo */}
           <div className="lg:hidden mt-10 overflow-hidden relative" style={{ aspectRatio: "16/10" }}>
             <img
-              src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=82"
+              src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=82"
               alt="Luxury hair artistry"
               className="w-full h-full object-cover"
-              style={{ objectPosition: "50% 20%", filter: "brightness(0.72) saturate(0.86)" }}
+              style={{ objectPosition: "55% 15%", filter: "brightness(0.74) saturate(0.84)" }}
             />
             <div className="absolute inset-x-0 bottom-0 h-1/3"
               style={{ background: "linear-gradient(to top, rgba(5,3,2,0.90) 0%, transparent 100%)" }} />
