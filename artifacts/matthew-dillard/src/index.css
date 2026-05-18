@@ -188,52 +188,52 @@
   }
 
   .text-gold {
-    color: hsl(22, 15%, 20%);
+    color: hsl(43, 65%, 52%);
   }
 
   .text-gold-gradient {
-    background: linear-gradient(135deg, hsl(22, 15%, 10%), hsl(22, 10%, 30%), hsl(22, 15%, 10%));
+    background: linear-gradient(135deg, hsl(43,65%,48%), hsl(43,80%,66%), hsl(43,65%,48%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .bg-gold {
-    background-color: hsl(22, 15%, 12%);
+    background: linear-gradient(135deg, hsl(43,65%,38%), hsl(43,75%,48%));
   }
 
   .border-gold {
-    border-color: hsl(22, 15%, 12%);
+    border-color: rgba(201,168,76,0.45);
   }
 
   .glass {
-    background: rgba(248, 244, 238, 0.85);
+    background: rgba(12, 10, 8, 0.75);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(22, 15, 8, 0.10);
+    border: 1px solid rgba(201,168,76,0.18);
   }
 
   .glass-light {
-    background: rgba(255, 252, 248, 0.80);
+    background: rgba(22, 17, 10, 0.70);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(22, 15, 8, 0.08);
+    border: 1px solid rgba(201,168,76,0.15);
   }
 
   .glow-gold {
-    box-shadow: 0 4px 24px rgba(22,15,8,0.12), 0 1px 4px rgba(22,15,8,0.06);
+    box-shadow: 0 4px 24px rgba(201,168,76,0.25), 0 1px 4px rgba(201,168,76,0.12);
   }
 
   .glow-gold-sm {
-    box-shadow: 0 2px 12px rgba(22,15,8,0.08);
+    box-shadow: 0 2px 12px rgba(201,168,76,0.18);
   }
 
   .text-glow {
-    text-shadow: 0 2px 12px rgba(22,15,8,0.18);
+    text-shadow: 0 2px 16px rgba(201,168,76,0.40);
   }
 
   .section-divider {
-    border-top: 1px solid rgba(22, 15, 8, 0.07);
+    border-top: 1px solid rgba(201,168,76,0.08);
   }
 
   input[type="search"]::-webkit-search-cancel-button {
@@ -292,11 +292,11 @@
 
 .shimmer-text {
   background: linear-gradient(90deg,
-    hsl(22, 15%, 10%) 0%,
-    hsl(22, 8%, 32%) 30%,
-    hsl(22, 12%, 18%) 50%,
-    hsl(22, 8%, 32%) 70%,
-    hsl(22, 15%, 10%) 100%
+    hsl(43, 55%, 44%) 0%,
+    hsl(43, 80%, 66%) 30%,
+    hsl(43, 90%, 72%) 50%,
+    hsl(43, 80%, 66%) 70%,
+    hsl(43, 55%, 44%) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -626,11 +626,11 @@
 
 .shimmer-text-slow {
   background: linear-gradient(90deg,
-    hsl(22, 15%, 10%) 0%,
-    hsl(22, 8%, 35%) 25%,
-    hsl(22, 12%, 18%) 50%,
-    hsl(22, 8%, 35%) 75%,
-    hsl(22, 15%, 10%) 100%
+    hsl(43, 55%, 44%) 0%,
+    hsl(43, 80%, 66%) 25%,
+    hsl(43, 90%, 72%) 50%,
+    hsl(43, 80%, 66%) 75%,
+    hsl(43, 55%, 44%) 100%
   );
   background-size: 300% auto;
   -webkit-background-clip: text;
@@ -642,7 +642,7 @@
 .gold-divider {
   position: relative;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(22,15,8,0.18), transparent);
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.40), transparent);
 }
 .gold-divider::after {
   content: "✦";
@@ -650,8 +650,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  color: rgba(22,15,8,0.35);
+  color: rgba(201,168,76,0.55);
   font-size: 8px;
-  background: hsl(30,8%,93%);
+  background: hsl(22,18%,5%);
   padding: 0 8px;
 }

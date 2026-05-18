@@ -51,18 +51,22 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 right-0 z-50"
         style={{
-          background: glass ? "rgba(248,244,238,0.94)" : "transparent",
-          backdropFilter: glass ? "blur(28px) saturate(1.2)" : "none",
-          WebkitBackdropFilter: glass ? "blur(28px) saturate(1.2)" : "none",
-          boxShadow: glass ? "0 1px 0 rgba(22,15,8,0.07), 0 4px 24px rgba(22,15,8,0.05)" : "none",
+          background: glass
+            ? "linear-gradient(180deg, rgba(12,10,8,0.98) 0%, rgba(18,14,10,0.95) 100%)"
+            : "linear-gradient(180deg, rgba(12,10,8,0.65) 0%, transparent 100%)",
+          backdropFilter: glass ? "blur(28px) saturate(1.4)" : "blur(8px)",
+          WebkitBackdropFilter: glass ? "blur(28px) saturate(1.4)" : "blur(8px)",
+          boxShadow: glass
+            ? "0 1px 0 rgba(201,168,76,0.15), 0 4px 32px rgba(0,0,0,0.5)"
+            : "none",
           transition: "background 0.5s, box-shadow 0.5s",
         }}
       >
-        {/* Top accent line */}
+        {/* Gold accent line at top */}
         <div
           className="absolute inset-x-0 top-0 h-px transition-opacity duration-500"
           style={{
-            background: "linear-gradient(90deg, transparent 0%, rgba(22,15,8,0.22) 30%, rgba(22,15,8,0.40) 50%, rgba(22,15,8,0.22) 70%, transparent 100%)",
+            background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.5) 30%, rgba(201,168,76,0.9) 50%, rgba(201,168,76,0.5) 70%, transparent 100%)",
             opacity: glass ? 1 : 0,
           }}
           aria-hidden="true"
@@ -73,21 +77,21 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
           {/* ── Logo ── */}
           <Link href="/">
             <div className="flex items-center gap-3 cursor-pointer group select-none" data-testid="nav-logo">
-              <div className="w-8 h-8 shrink-0 flex items-center justify-center"
+              <div className="w-8 h-8 shrink-0 flex items-center justify-center transition-all duration-300 group-hover:scale-110"
                 style={{
-                  border: "1px solid rgba(22,15,8,0.22)",
-                  color: "rgba(22,15,8,0.60)",
-                  transition: "border-color 0.3s, color 0.3s",
+                  border: "1px solid rgba(201,168,76,0.45)",
+                  color: "rgba(201,168,76,0.85)",
+                  boxShadow: "0 0 12px rgba(201,168,76,0.12)",
                 }}>
                 <ScissorsIcon />
               </div>
               <div className="flex flex-col leading-none">
                 <span className="font-serif transition-colors duration-300"
-                  style={{ fontSize: 18, color: "hsl(22,20%,8%)", fontWeight: 600, letterSpacing: "0.04em" }}>
+                  style={{ fontSize: 18, color: "#f5ecd5", fontWeight: 600, letterSpacing: "0.04em" }}>
                   Matthew Dillard
                 </span>
                 <span className="uppercase tracking-widest"
-                  style={{ fontSize: 7, color: "rgba(22,15,8,0.35)", marginTop: 3, letterSpacing: "0.42em" }}>
+                  style={{ fontSize: 7, color: "rgba(201,168,76,0.55)", marginTop: 3, letterSpacing: "0.42em" }}>
                   Hair Salons · Prosper TX
                 </span>
               </div>
@@ -96,7 +100,7 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
 
           {/* ── Desktop nav — absolutely centered ── */}
           <nav className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2" data-testid="desktop-nav">
-            <div className="w-px h-5 mr-6" style={{ background: "rgba(22,15,8,0.08)" }} aria-hidden="true" />
+            <div className="w-px h-5 mr-6" style={{ background: "rgba(201,168,76,0.18)" }} aria-hidden="true" />
             {LINKS.map((l) => {
               const active = location === l.href || (l.href !== "/" && location.startsWith(l.href));
               return (
@@ -112,16 +116,17 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
                       letterSpacing: "0.16em",
                       textTransform: "uppercase",
                       fontWeight: 500,
-                      color: active ? "hsl(22,20%,8%)" : "rgba(22,15,8,0.45)",
+                      color: active ? "hsl(43,65%,60%)" : "rgba(245,236,213,0.50)",
                     }}>
                       {l.label}
                     </span>
-                    {/* Active underline — short charcoal dash */}
+                    {/* Active underline — gold dash */}
                     <div
                       className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-px transition-all duration-300"
                       style={{
                         width: active ? 18 : 0,
-                        background: "hsl(22,15%,12%)",
+                        background: "hsl(43,65%,52%)",
+                        boxShadow: active ? "0 0 6px rgba(201,168,76,0.6)" : "none",
                       }}
                       aria-hidden="true"
                     />
@@ -135,8 +140,8 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
           <div className="flex items-center gap-5">
             <a
               href="tel:+19725717787"
-              className="hidden lg:flex items-center gap-2 transition-colors duration-300 hover:opacity-70"
-              style={{ fontSize: 10, letterSpacing: "0.14em", color: "rgba(22,15,8,0.38)" }}
+              className="hidden lg:flex items-center gap-2 transition-colors duration-300 hover:opacity-80"
+              style={{ fontSize: 10, letterSpacing: "0.14em", color: "rgba(201,168,76,0.55)" }}
               data-testid="nav-phone"
             >
               <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,20 +150,22 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
               972·571·7787
             </a>
 
-            <div className="hidden lg:block w-px h-5" style={{ background: "rgba(22,15,8,0.08)" }} aria-hidden="true" />
+            <div className="hidden lg:block w-px h-5" style={{ background: "rgba(201,168,76,0.18)" }} aria-hidden="true" />
 
             <Link href="/booking">
               <motion.div
                 className="hidden lg:flex group relative overflow-hidden px-6 py-2.5 cursor-pointer"
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ scale: 1.04 }}
                 transition={{ duration: 0.2 }}
                 style={{
-                  background: "hsl(22,15%,12%)",
-                  boxShadow: "0 2px 12px rgba(22,15,8,0.14)",
+                  background: "linear-gradient(135deg, hsl(43,65%,38%) 0%, hsl(43,75%,48%) 50%, hsl(43,65%,38%) 100%)",
+                  boxShadow: "0 2px 16px rgba(201,168,76,0.35), 0 0 0 1px rgba(201,168,76,0.3)",
                 }}
                 data-testid="nav-book"
               >
-                <span className="relative z-10 font-medium transition-opacity group-hover:opacity-80" style={{ fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: "#ffffff" }}>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: "linear-gradient(135deg, hsl(43,75%,44%) 0%, hsl(43,80%,55%) 50%, hsl(43,75%,44%) 100%)" }} />
+                <span className="relative z-10 font-semibold transition-opacity" style={{ fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: "hsl(22,20%,8%)" }}>
                   Book Now
                 </span>
               </motion.div>
@@ -180,7 +187,7 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
                     : { rotate: 0, y: 0, opacity: 1 }
                   }
                   transition={{ duration: 0.25 }}
-                  style={{ width: i === 1 ? "60%" : "100%", background: "rgba(22,15,8,0.65)" }}
+                  style={{ width: i === 1 ? "60%" : "100%", background: "rgba(201,168,76,0.75)" }}
                 />
               ))}
             </button>
@@ -197,25 +204,31 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 lg:hidden"
-            style={{ background: "hsl(30,8%,93%)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)" }}
+            style={{
+              background: "linear-gradient(160deg, hsl(22,18%,6%) 0%, hsl(22,15%,4%) 100%)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+            }}
           >
             {/* Top bar */}
-            <div className="flex items-center justify-between px-6 h-[76px]" style={{ borderBottom: "1px solid rgba(22,15,8,0.07)" }}>
+            <div className="flex items-center justify-between px-6 h-[76px]"
+              style={{ borderBottom: "1px solid rgba(201,168,76,0.12)" }}>
               <div className="flex items-center gap-3">
-                <div className="w-7 h-7 flex items-center justify-center" style={{ border: "1px solid rgba(22,15,8,0.20)", color: "rgba(22,15,8,0.55)" }}>
+                <div className="w-7 h-7 flex items-center justify-center"
+                  style={{ border: "1px solid rgba(201,168,76,0.40)", color: "rgba(201,168,76,0.80)" }}>
                   <ScissorsIcon />
                 </div>
                 <div className="flex flex-col leading-none">
-                  <span className="font-serif" style={{ fontSize: 16, color: "hsl(22,20%,8%)", fontWeight: 600, letterSpacing: "0.04em" }}>
+                  <span className="font-serif" style={{ fontSize: 16, color: "#f5ecd5", fontWeight: 600, letterSpacing: "0.04em" }}>
                     Matthew Dillard
                   </span>
-                  <span style={{ fontSize: 7, color: "rgba(22,15,8,0.32)", marginTop: 2, letterSpacing: "0.38em", textTransform: "uppercase" }}>
+                  <span style={{ fontSize: 7, color: "rgba(201,168,76,0.50)", marginTop: 2, letterSpacing: "0.38em", textTransform: "uppercase" }}>
                     Hair Salons
                   </span>
                 </div>
               </div>
               <button onClick={() => setOpen(false)} className="w-9 h-9 flex items-center justify-center transition-colors"
-                style={{ color: "rgba(22,15,8,0.40)", border: "1px solid rgba(22,15,8,0.10)" }}>
+                style={{ color: "rgba(201,168,76,0.60)", border: "1px solid rgba(201,168,76,0.20)" }}>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -234,21 +247,21 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
                       exit={{ opacity: 0, x: -16 }}
                       transition={{ delay: i * 0.05 + 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                       className="flex items-center justify-between py-4 cursor-pointer group"
-                      style={{ borderBottom: "1px solid rgba(22,15,8,0.06)" }}
+                      style={{ borderBottom: "1px solid rgba(201,168,76,0.08)" }}
                       data-testid={`mobile-nav-${l.label.toLowerCase()}`}
                     >
                       <div className="flex items-center gap-4">
-                        <span style={{ fontSize: 9, letterSpacing: "0.3em", color: "rgba(22,15,8,0.22)", minWidth: 20 }}>
+                        <span style={{ fontSize: 9, letterSpacing: "0.3em", color: "rgba(201,168,76,0.35)", minWidth: 20 }}>
                           0{i + 1}
                         </span>
                         <span className="font-serif transition-colors duration-200"
-                          style={{ fontSize: 26, color: active ? "hsl(22,20%,8%)" : "rgba(22,15,8,0.55)", fontWeight: 500 }}>
+                          style={{ fontSize: 26, color: active ? "hsl(43,65%,58%)" : "rgba(245,236,213,0.60)", fontWeight: 500 }}>
                           {l.label}
                         </span>
                       </div>
-                      <svg className="w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity"
+                      <svg className="w-4 h-4 opacity-0 group-hover:opacity-50 transition-opacity"
                         fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        style={{ color: "rgba(22,15,8,0.5)" }}>
+                        style={{ color: "rgba(201,168,76,0.7)" }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                       </svg>
                     </motion.div>
@@ -257,7 +270,7 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
               })}
             </div>
 
-            <div className="mx-6 h-px" style={{ background: "rgba(22,15,8,0.07)" }} />
+            <div className="mx-6 h-px" style={{ background: "rgba(201,168,76,0.10)" }} />
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -267,18 +280,18 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
               className="px-6 pt-6 pb-4 flex flex-col gap-4"
             >
               <Link href="/booking">
-                <div className="w-full py-4 text-center font-medium transition-opacity hover:opacity-80 cursor-pointer"
+                <div className="w-full py-4 text-center font-semibold transition-opacity hover:opacity-80 cursor-pointer"
                   style={{
-                    background: "hsl(22,15%,12%)",
-                    fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: "#ffffff", fontWeight: 600,
-                    boxShadow: "0 4px 16px rgba(22,15,8,0.14)",
+                    background: "linear-gradient(135deg, hsl(43,65%,38%) 0%, hsl(43,75%,48%) 100%)",
+                    fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: "hsl(22,20%,8%)",
+                    boxShadow: "0 4px 20px rgba(201,168,76,0.30)",
                   }}>
                   Book Appointment
                 </div>
               </Link>
               <a href="tel:+19725717787"
                 className="w-full py-3.5 text-center transition-colors"
-                style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(22,15,8,0.40)", border: "1px solid rgba(22,15,8,0.10)" }}>
+                style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,168,76,0.55)", border: "1px solid rgba(201,168,76,0.20)" }}>
                 (972) 571-7787
               </a>
             </motion.div>
@@ -288,10 +301,10 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
               animate={{ opacity: 1 }}
               transition={{ delay: 0.55 }}
               className="absolute bottom-0 inset-x-0 px-6 pb-8 pt-4"
-              style={{ borderTop: "1px solid rgba(22,15,8,0.06)" }}
+              style={{ borderTop: "1px solid rgba(201,168,76,0.08)" }}
             >
               <div className="flex items-center justify-between">
-                <p style={{ fontSize: 9, letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(22,15,8,0.30)" }}>
+                <p style={{ fontSize: 9, letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(201,168,76,0.35)" }}>
                   Prosper, TX · Veteran Owned
                 </p>
                 <div className="flex items-center gap-3">
@@ -300,8 +313,8 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
                     { label: "Facebook", path: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" },
                   ].map(s => (
                     <a key={s.label} href="#" aria-label={s.label}
-                      className="w-7 h-7 flex items-center justify-center transition-opacity hover:opacity-60"
-                      style={{ color: "rgba(22,15,8,0.30)" }}>
+                      className="w-7 h-7 flex items-center justify-center transition-opacity hover:opacity-80"
+                      style={{ color: "rgba(201,168,76,0.45)" }}>
                       <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d={s.path} /></svg>
                     </a>
                   ))}
