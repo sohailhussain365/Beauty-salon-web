@@ -58,7 +58,7 @@ export default function Cursor() {
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-multiply"
         animate={{
           x: mousePos.x - (isHovering ? 20 : 4),
           y: mousePos.y - (isHovering ? 20 : 4),
@@ -70,9 +70,13 @@ export default function Cursor() {
         <div
           className={`rounded-full transition-all duration-300 ${
             isHovering
-              ? "w-10 h-10 bg-transparent border-2 border-yellow-400"
-              : "w-2 h-2 bg-yellow-400"
+              ? "w-10 h-10 bg-transparent border-2"
+              : "w-2 h-2"
           }`}
+          style={{
+            background: isHovering ? "transparent" : "hsl(22,15%,12%)",
+            borderColor: isHovering ? "hsl(22,15%,12%)" : "transparent",
+          }}
         />
       </motion.div>
 
@@ -81,12 +85,15 @@ export default function Cursor() {
         animate={{
           x: mousePos.x - 20,
           y: mousePos.y - 20,
-          opacity: isVisible ? 0.25 : 0,
+          opacity: isVisible ? 0.20 : 0,
           scale: isHovering ? 1.8 : 1,
         }}
         transition={{ type: "spring", stiffness: 150, damping: 20, mass: 1 }}
       >
-        <div className="w-10 h-10 rounded-full border border-yellow-400/40" />
+        <div
+          className="w-10 h-10 rounded-full"
+          style={{ border: "1px solid rgba(22,15,8,0.30)" }}
+        />
       </motion.div>
     </>
   );

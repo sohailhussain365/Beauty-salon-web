@@ -50,12 +50,13 @@ export default function TestimonialsSlider() {
     <section
       ref={ref}
       className="relative py-24 md:py-32 section-divider overflow-hidden"
+      style={{ background: "hsl(30,10%,96%)" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Background glow */}
+      {/* Background ambient */}
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201,168,76,0.04), transparent 68%)" }}
+        style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(22,15,8,0.025), transparent 68%)" }}
         aria-hidden="true" />
 
       <div className="max-w-[1380px] mx-auto px-5 sm:px-8 lg:px-10">
@@ -68,19 +69,19 @@ export default function TestimonialsSlider() {
         >
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-px" style={{ background: "hsl(43,65%,52%)" }} />
-              <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(201,168,76,0.62)" }}>Client Voices</span>
+              <span className="w-8 h-px" style={{ background: "hsl(22,15%,20%)" }} />
+              <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(22,15,8,0.42)" }}>Client Voices</span>
             </div>
-            <h2 className="font-serif" style={{ fontSize: "clamp(28px, 4vw, 48px)", color: "rgba(255,255,255,0.88)" }}>
+            <h2 className="font-serif" style={{ fontSize: "clamp(28px, 4vw, 48px)", color: "hsl(22,20%,8%)" }}>
               What They <span className="text-gold-gradient italic">Say</span>
             </h2>
           </div>
           {/* Review counter */}
           <div className="flex items-center gap-2">
             <div className="flex gap-0.5">
-              {[1,2,3,4,5].map(i => <span key={i} style={{ color: "hsl(43,65%,52%)", fontSize: 12 }}>★</span>)}
+              {[1,2,3,4,5].map(i => <span key={i} style={{ color: "hsl(22,15%,22%)", fontSize: 12 }}>★</span>)}
             </div>
-            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginLeft: 4 }}>4.8 · 28 Reviews</span>
+            <span style={{ fontSize: 11, color: "rgba(22,15,8,0.38)", marginLeft: 4 }}>4.8 · 28 Reviews</span>
           </div>
         </motion.div>
 
@@ -94,14 +95,15 @@ export default function TestimonialsSlider() {
               className="absolute top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group"
               style={{
                 [dir === "prev" ? "left" : "right"]: "-0.5rem",
-                background: "rgba(10,7,4,0.9)",
-                border: "1px solid rgba(201,168,76,0.22)",
+                background: "#ffffff",
+                border: "1px solid rgba(22,15,8,0.12)",
                 backdropFilter: "blur(12px)",
+                boxShadow: "0 2px 12px rgba(22,15,8,0.08)",
               }}
               aria-label={dir === "prev" ? "Previous" : "Next"}
             >
-              <svg className="w-4 h-4 transition-colors duration-200 group-hover:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                style={{ color: "rgba(255,255,255,0.45)" }}>
+              <svg className="w-4 h-4 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                style={{ color: "rgba(22,15,8,0.45)" }}>
                 {dir === "prev"
                   ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -133,21 +135,18 @@ export default function TestimonialsSlider() {
                 <div
                   className="relative p-7 sm:p-10 md:p-14"
                   style={{
-                    background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))",
-                    border: "1px solid rgba(201,168,76,0.13)",
+                    background: "#ffffff",
+                    border: "1px solid rgba(22,15,8,0.08)",
+                    boxShadow: "0 4px 24px rgba(22,15,8,0.06)",
                   }}
                 >
                   {/* Top border accent */}
                   <div className="absolute top-0 inset-x-0 h-px"
-                    style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent)" }}
-                    aria-hidden="true" />
-                  {/* Glow */}
-                  <div className="absolute inset-0 pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.04), transparent 70%)" }}
+                    style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.18), transparent)" }}
                     aria-hidden="true" />
                   {/* Large quote */}
                   <div className="absolute top-4 left-8 select-none pointer-events-none font-serif"
-                    style={{ fontSize: 100, color: "rgba(201,168,76,0.05)", lineHeight: 1 }} aria-hidden="true">&ldquo;</div>
+                    style={{ fontSize: 100, color: "rgba(22,15,8,0.04)", lineHeight: 1 }} aria-hidden="true">&ldquo;</div>
 
                   <div className="relative z-10">
                     {/* Stars */}
@@ -158,27 +157,27 @@ export default function TestimonialsSlider() {
                           initial={{ opacity: 0, scale: 0.5 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: i * 0.06, duration: 0.3 }}
-                          style={{ color: "hsl(43,65%,52%)", fontSize: 14 }}
+                          style={{ color: "hsl(22,15%,22%)", fontSize: 14 }}
                         >★</motion.span>
                       ))}
                     </div>
                     {/* Text */}
                     <p className="font-serif italic leading-relaxed mb-8"
-                      style={{ fontSize: "clamp(14px, 1.8vw, 18px)", color: "rgba(255,255,255,0.6)" }}>
+                      style={{ fontSize: "clamp(14px, 1.8vw, 18px)", color: "rgba(22,15,8,0.58)" }}>
                       &ldquo;{REVIEWS[current].text}&rdquo;
                     </p>
                     {/* Author */}
                     <div className="flex items-center gap-5 flex-wrap">
                       <div className="w-10 h-10 rounded-full flex items-center justify-center font-serif font-bold"
-                        style={{ background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.25)", fontSize: 13, color: "rgba(201,168,76,0.7)" }}>
+                        style={{ background: "rgba(22,15,8,0.06)", border: "1px solid rgba(22,15,8,0.12)", fontSize: 13, color: "rgba(22,15,8,0.55)" }}>
                         {REVIEWS[current].author[0]}
                       </div>
                       <div>
-                        <p className="font-serif font-medium" style={{ fontSize: 14, color: "rgba(255,255,255,0.75)" }}>{REVIEWS[current].author}</p>
-                        <p style={{ fontSize: 9, letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(255,255,255,0.28)", marginTop: 2 }}>{REVIEWS[current].location}</p>
+                        <p className="font-serif font-medium" style={{ fontSize: 14, color: "hsl(22,20%,12%)" }}>{REVIEWS[current].author}</p>
+                        <p style={{ fontSize: 9, letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(22,15,8,0.32)", marginTop: 2 }}>{REVIEWS[current].location}</p>
                       </div>
                       <div className="ml-auto">
-                        <span className="px-3 py-1.5" style={{ fontSize: 8.5, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(201,168,76,0.6)", border: "1px solid rgba(201,168,76,0.18)" }}>
+                        <span className="px-3 py-1.5" style={{ fontSize: 8.5, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(22,15,8,0.45)", border: "1px solid rgba(22,15,8,0.12)" }}>
                           {REVIEWS[current].service}
                         </span>
                       </div>
@@ -199,7 +198,7 @@ export default function TestimonialsSlider() {
                 style={{
                   width: i === current ? 28 : 8,
                   height: 3,
-                  background: i === current ? "hsl(43,65%,52%)" : "rgba(255,255,255,0.15)",
+                  background: i === current ? "hsl(22,15%,12%)" : "rgba(22,15,8,0.15)",
                   borderRadius: 2,
                 }}
                 aria-label={`Go to review ${i + 1}`}
@@ -208,14 +207,14 @@ export default function TestimonialsSlider() {
           </div>
 
           {/* Progress bar */}
-          <div className="mt-5 max-w-xs mx-auto h-px relative overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+          <div className="mt-5 max-w-xs mx-auto h-px relative overflow-hidden" style={{ background: "rgba(22,15,8,0.08)" }}>
             <motion.div
               className="absolute inset-y-0 left-0"
               key={current}
               initial={{ width: "0%" }}
               animate={{ width: paused ? undefined : "100%" }}
               transition={{ duration: 5.5, ease: "linear" }}
-              style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), hsl(35,72%,42%))" }}
+              style={{ background: "linear-gradient(90deg, hsl(22,15%,12%), hsl(22,10%,25%))" }}
             />
           </div>
         </div>
@@ -232,11 +231,12 @@ export default function TestimonialsSlider() {
               className="inline-flex items-center gap-3 cursor-pointer group"
               whileHover={{ x: 5 }}
             >
-              <span style={{ fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(201,168,76,0.6)" }}
-                className="group-hover:text-yellow-400 transition-colors">
+              <span style={{ fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(22,15,8,0.45)" }}
+                className="group-hover:opacity-70 transition-opacity">
                 Read All 28 Reviews
               </span>
-              <svg className="w-3.5 h-3.5 text-yellow-500/60 group-hover:text-yellow-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 transition-opacity group-hover:opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                style={{ color: "rgba(22,15,8,0.45)" }}>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </motion.div>

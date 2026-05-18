@@ -35,7 +35,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.6, ease: "easeInOut" } }}
           style={{
-            background: "radial-gradient(ellipse at center, hsl(22,18%,7%) 0%, hsl(22,18%,4%) 100%)",
+            background: "hsl(30,8%,93%)",
           }}
         >
           <div
@@ -45,7 +45,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             <div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full animate-pulse-glow"
               style={{
-                background: "radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%)",
+                background: "radial-gradient(ellipse, rgba(22,15,8,0.04) 0%, transparent 70%)",
               }}
             />
           </div>
@@ -61,38 +61,40 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="w-16 h-px bg-gradient-to-r from-transparent via-yellow-500 to-transparent"
+                className="w-16 h-px"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.30), transparent)" }}
               />
               <h1
-                className="text-5xl md:text-6xl font-serif tracking-[0.12em] text-white/90"
-                style={{ fontWeight: 400 }}
+                className="text-5xl md:text-6xl font-serif tracking-[0.12em]"
+                style={{ fontWeight: 400, color: "hsl(22,20%,8%)" }}
               >
                 Matthew <span className="text-gold-gradient font-semibold">Dillard</span>
               </h1>
-              <p className="text-xs tracking-[0.4em] uppercase text-white/40 mt-1">
+              <p className="text-xs tracking-[0.4em] uppercase mt-1" style={{ color: "rgba(22,15,8,0.40)" }}>
                 Hair Salons · Prosper, Texas
               </p>
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="w-16 h-px bg-gradient-to-r from-transparent via-yellow-500 to-transparent"
+                className="w-16 h-px"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.30), transparent)" }}
               />
             </div>
 
             <div className="flex flex-col items-center gap-3 w-48">
-              <div className="w-full h-px bg-white/10 relative overflow-hidden rounded-full">
+              <div className="w-full h-px relative overflow-hidden rounded-full" style={{ background: "rgba(22,15,8,0.10)" }}>
                 <motion.div
                   className="absolute top-0 left-0 h-full"
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   style={{
-                    background: "linear-gradient(90deg, hsl(43,65%,42%), hsl(43,75%,58%))",
-                    boxShadow: "0 0 8px rgba(201,168,76,0.5)",
+                    background: "linear-gradient(90deg, hsl(22,15%,20%), hsl(22,12%,12%))",
+                    boxShadow: "0 0 6px rgba(22,15,8,0.18)",
                   }}
                 />
               </div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-white/30">
+              <span className="text-[10px] tracking-[0.3em] uppercase" style={{ color: "rgba(22,15,8,0.38)" }}>
                 {progress < 100 ? "Loading Experience" : "Welcome"}
               </span>
             </div>

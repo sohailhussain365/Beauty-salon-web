@@ -37,7 +37,7 @@ export default function ParticleBackground() {
         vx: (Math.random() - 0.5) * 0.15,
         vy: (Math.random() - 0.5) * 0.15,
         size: Math.random() * 1.5 + 0.3,
-        opacity: Math.random() * 0.25 + 0.05,
+        opacity: Math.random() * 0.18 + 0.03,
         opacityDir: Math.random() > 0.5 ? 1 : -1,
       });
     }
@@ -49,7 +49,7 @@ export default function ParticleBackground() {
         p.x += p.vx;
         p.y += p.vy;
         p.opacity += p.opacityDir * 0.0008;
-        if (p.opacity > 0.3) p.opacityDir = -1;
+        if (p.opacity > 0.22) p.opacityDir = -1;
         if (p.opacity < 0.02) p.opacityDir = 1;
 
         if (p.x < 0) p.x = canvas.width;
@@ -59,7 +59,7 @@ export default function ParticleBackground() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(201, 168, 76, ${p.opacity})`;
+        ctx.fillStyle = `rgba(22, 15, 8, ${p.opacity})`;
         ctx.fill();
       }
 

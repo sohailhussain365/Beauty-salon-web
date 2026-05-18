@@ -47,14 +47,14 @@ export default function Footer() {
     <footer
       className="relative pt-20 pb-12 md:pt-24 overflow-hidden"
       style={{
-        background: "hsl(22,20%,4%)",
-        borderTop: "1px solid rgba(201,168,76,0.12)",
+        background: "hsl(30,8%,90%)",
+        borderTop: "1px solid rgba(22,15,8,0.08)",
       }}
       data-testid="footer"
     >
-      {/* Top gold glow */}
+      {/* Top subtle rule */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.22), transparent)" }}
+        style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.14), transparent)" }}
         aria-hidden="true" />
 
       {/* Large brand name above grid */}
@@ -63,16 +63,16 @@ export default function Footer() {
           <div className="overflow-hidden">
             <motion.div
               className="heading-bebas"
-              style={{ fontSize: "clamp(52px, 8vw, 108px)", color: "rgba(255,255,255,0.07)", letterSpacing: "0.01em", lineHeight: 1, userSelect: "none" }}
+              style={{ fontSize: "clamp(52px, 8vw, 108px)", color: "rgba(22,15,8,0.06)", letterSpacing: "0.01em", lineHeight: 1, userSelect: "none" }}
               initial={{ y: "105%", opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
               Matthew{" "}
-              <span style={{ color: "rgba(201,168,76,0.18)" }}>Dillard</span>
+              <span style={{ color: "rgba(22,15,8,0.12)" }}>Dillard</span>
             </motion.div>
           </div>
-          <div className="h-px mt-2 mb-0" style={{ background: "linear-gradient(90deg, rgba(201,168,76,0.18), transparent)" }} />
+          <div className="h-px mt-2 mb-0" style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.14), transparent)" }} />
         </button>
       </div>
 
@@ -84,14 +84,14 @@ export default function Footer() {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="text-left group"
             >
-              <span className="block text-lg font-serif tracking-[0.08em] text-white/75 group-hover:text-yellow-400 transition-colors duration-300">
+              <span className="block text-lg font-serif tracking-[0.08em] transition-opacity group-hover:opacity-70" style={{ color: "hsl(22,20%,10%)" }}>
                 Matthew <span className="text-gold-gradient">Dillard</span>
               </span>
-              <span className="block text-[9px] tracking-[0.35em] uppercase text-white/28 mt-1">
+              <span className="block text-[9px] tracking-[0.35em] uppercase mt-1" style={{ color: "rgba(22,15,8,0.32)" }}>
                 Hair Salons · Prosper, Texas
               </span>
             </button>
-            <p className="text-xs text-white/30 leading-relaxed max-w-xs">
+            <p className="text-xs leading-relaxed max-w-xs" style={{ color: "rgba(22,15,8,0.40)" }}>
               Luxury hair artistry in the heart of Prosper, Texas. Veteran-owned.
               LGBTQ+ friendly. Where craft meets confidence.
             </p>
@@ -102,8 +102,8 @@ export default function Footer() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 flex items-center justify-center text-white/30 hover:text-yellow-400 transition-all duration-300 hover:scale-110"
-                  style={{ border: "1px solid rgba(201,168,76,0.12)" }}
+                  className="w-8 h-8 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:opacity-70"
+                  style={{ color: "rgba(22,15,8,0.38)", border: "1px solid rgba(22,15,8,0.10)" }}
                   aria-label={s.label}
                   data-testid={`footer-social-${s.label.toLowerCase()}`}
                 >
@@ -115,12 +115,13 @@ export default function Footer() {
 
           {/* Navigation */}
           <div className="flex flex-col gap-3">
-            <p className="text-[9px] tracking-[0.35em] uppercase text-yellow-400/50 mb-2">Navigate</p>
+            <p className="text-[9px] tracking-[0.35em] uppercase mb-2" style={{ color: "rgba(22,15,8,0.38)" }}>Navigate</p>
             {NAV.map((link) => (
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
-                className="text-left text-xs text-white/35 hover:text-yellow-400/80 transition-colors duration-300 tracking-wide"
+                className="text-left text-xs tracking-wide transition-opacity hover:opacity-60"
+                style={{ color: "rgba(22,15,8,0.45)" }}
                 data-testid={`footer-nav-${link.label.toLowerCase()}`}
               >
                 {link.label}
@@ -130,12 +131,13 @@ export default function Footer() {
 
           {/* Contact info */}
           <div className="flex flex-col gap-3">
-            <p className="text-[9px] tracking-[0.35em] uppercase text-yellow-400/50 mb-2">Contact</p>
+            <p className="text-[9px] tracking-[0.35em] uppercase mb-2" style={{ color: "rgba(22,15,8,0.38)" }}>Contact</p>
             <a
               href="https://maps.google.com/?q=2281+E+University+Dr+Suite+101+Prosper+TX+75078"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-white/35 hover:text-yellow-400/70 transition-colors leading-relaxed"
+              className="text-xs leading-relaxed transition-opacity hover:opacity-60"
+              style={{ color: "rgba(22,15,8,0.45)" }}
               data-testid="footer-address"
             >
               2281 E University Dr Suite 101<br />
@@ -143,7 +145,8 @@ export default function Footer() {
             </a>
             <a
               href="tel:+19725717787"
-              className="text-xs text-white/35 hover:text-yellow-400/70 transition-colors"
+              className="text-xs transition-opacity hover:opacity-60"
+              style={{ color: "rgba(22,15,8,0.45)" }}
               data-testid="footer-phone"
             >
               +1 (972) 571-7787
@@ -152,7 +155,8 @@ export default function Footer() {
               href="https://matthewdillard.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-white/35 hover:text-yellow-400/70 transition-colors"
+              className="text-xs transition-opacity hover:opacity-60"
+              style={{ color: "rgba(22,15,8,0.45)" }}
               data-testid="footer-website"
             >
               matthewdillard.com
@@ -161,7 +165,8 @@ export default function Footer() {
               href="https://matthewdillard.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 text-[9px] tracking-[0.25em] uppercase text-yellow-400/70 border border-yellow-500/25 hover:border-yellow-400/50 hover:text-yellow-300 transition-all duration-300 w-fit"
+              className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 text-[9px] tracking-[0.25em] uppercase transition-all duration-300 w-fit hover:opacity-70"
+              style={{ color: "rgba(22,15,8,0.60)", border: "1px solid rgba(22,15,8,0.18)" }}
               data-testid="footer-book-btn"
             >
               Book Appointment
@@ -172,26 +177,19 @@ export default function Footer() {
         {/* Bottom bar */}
         <div
           className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ borderTop: "1px solid rgba(201,168,76,0.07)" }}
+          style={{ borderTop: "1px solid rgba(22,15,8,0.07)" }}
         >
-          <p className="text-[10px] tracking-[0.2em] text-white/20">
+          <p className="text-[10px] tracking-[0.2em]" style={{ color: "rgba(22,15,8,0.28)" }}>
             &copy; {new Date().getFullYear()} Matthew Dillard Hair Salons. All rights reserved.
           </p>
           <div className="flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full" style={{ background: "hsl(43,65%,52%)" }} />
-            <p className="text-[10px] tracking-[0.2em] text-white/20">
+            <span className="w-1 h-1 rounded-full" style={{ background: "rgba(22,15,8,0.28)" }} />
+            <p className="text-[10px] tracking-[0.2em]" style={{ color: "rgba(22,15,8,0.28)" }}>
               Veteran Owned · LGBTQ+ Friendly · Prosper, TX
             </p>
           </div>
         </div>
       </div>
-
-      {/* Top glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.15), transparent)" }}
-        aria-hidden="true"
-      />
     </footer>
   );
 }

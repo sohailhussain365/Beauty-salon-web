@@ -22,7 +22,7 @@ function ScissorsIcon() {
   );
 }
 
-export default function Navbar({ transparentTop = false, lightTop = false }: { transparentTop?: boolean; lightTop?: boolean }) {
+export default function Navbar({ transparentTop = false }: { transparentTop?: boolean; lightTop?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [location] = useLocation();
@@ -42,7 +42,6 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
   }, [open]);
 
   const glass = !transparentTop || scrolled;
-  const isLight = lightTop && !scrolled;
 
   return (
     <>
@@ -52,18 +51,18 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 right-0 z-50"
         style={{
-          background: glass ? "rgba(5,3,2,0.92)" : "transparent",
-          backdropFilter: glass ? "blur(28px) saturate(1.4)" : "none",
-          WebkitBackdropFilter: glass ? "blur(28px) saturate(1.4)" : "none",
-          boxShadow: glass ? "0 1px 0 rgba(255,255,255,0.05), 0 8px 40px rgba(0,0,0,0.5)" : "none",
-          transition: "background 0.5s, box-shadow 0.5s, color 0.5s",
+          background: glass ? "rgba(248,244,238,0.94)" : "transparent",
+          backdropFilter: glass ? "blur(28px) saturate(1.2)" : "none",
+          WebkitBackdropFilter: glass ? "blur(28px) saturate(1.2)" : "none",
+          boxShadow: glass ? "0 1px 0 rgba(22,15,8,0.07), 0 4px 24px rgba(22,15,8,0.05)" : "none",
+          transition: "background 0.5s, box-shadow 0.5s",
         }}
       >
-        {/* Top accent line — very subtle */}
+        {/* Top accent line */}
         <div
           className="absolute inset-x-0 top-0 h-px transition-opacity duration-500"
           style={{
-            background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.55) 30%, rgba(201,168,76,0.8) 50%, rgba(201,168,76,0.55) 70%, transparent 100%)",
+            background: "linear-gradient(90deg, transparent 0%, rgba(22,15,8,0.22) 30%, rgba(22,15,8,0.40) 50%, rgba(22,15,8,0.22) 70%, transparent 100%)",
             opacity: glass ? 1 : 0,
           }}
           aria-hidden="true"
@@ -76,19 +75,19 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
             <div className="flex items-center gap-3 cursor-pointer group select-none" data-testid="nav-logo">
               <div className="w-8 h-8 shrink-0 flex items-center justify-center"
                 style={{
-                  border: "1px solid rgba(201,168,76,0.35)",
-                  color: "rgba(201,168,76,0.75)",
+                  border: "1px solid rgba(22,15,8,0.22)",
+                  color: "rgba(22,15,8,0.60)",
                   transition: "border-color 0.3s, color 0.3s",
                 }}>
                 <ScissorsIcon />
               </div>
               <div className="flex flex-col leading-none">
                 <span className="font-serif transition-colors duration-300"
-                  style={{ fontSize: 18, color: isLight ? "#111" : "rgba(255,255,255,0.90)", fontWeight: 600, letterSpacing: "0.04em", transition: "color 0.5s" }}>
+                  style={{ fontSize: 18, color: "hsl(22,20%,8%)", fontWeight: 600, letterSpacing: "0.04em" }}>
                   Matthew Dillard
                 </span>
                 <span className="uppercase tracking-widest"
-                  style={{ fontSize: 7, color: isLight ? "#999" : "rgba(255,255,255,0.22)", marginTop: 3, letterSpacing: "0.42em", transition: "color 0.5s" }}>
+                  style={{ fontSize: 7, color: "rgba(22,15,8,0.35)", marginTop: 3, letterSpacing: "0.42em" }}>
                   Hair Salons · Prosper TX
                 </span>
               </div>
@@ -97,8 +96,7 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
 
           {/* ── Desktop nav — absolutely centered ── */}
           <nav className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2" data-testid="desktop-nav">
-            {/* Thin left separator */}
-            <div className="w-px h-5 mr-6" style={{ background: "rgba(255,255,255,0.08)" }} aria-hidden="true" />
+            <div className="w-px h-5 mr-6" style={{ background: "rgba(22,15,8,0.08)" }} aria-hidden="true" />
             {LINKS.map((l) => {
               const active = location === l.href || (l.href !== "/" && location.startsWith(l.href));
               return (
@@ -114,19 +112,16 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
                       letterSpacing: "0.16em",
                       textTransform: "uppercase",
                       fontWeight: 500,
-                      color: isLight
-                        ? (active ? "#111" : "#777")
-                        : (active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.50)"),
-                      transition: "color 0.5s",
+                      color: active ? "hsl(22,20%,8%)" : "rgba(22,15,8,0.45)",
                     }}>
                       {l.label}
                     </span>
-                    {/* Active underline — short gold dash */}
+                    {/* Active underline — short charcoal dash */}
                     <div
                       className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-px transition-all duration-300"
                       style={{
                         width: active ? 18 : 0,
-                        background: "rgba(201,168,76,0.8)",
+                        background: "hsl(22,15%,12%)",
                       }}
                       aria-hidden="true"
                     />
@@ -140,8 +135,8 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
           <div className="flex items-center gap-5">
             <a
               href="tel:+19725717787"
-              className="hidden lg:flex items-center gap-2 transition-colors duration-300"
-              style={{ fontSize: 10, letterSpacing: "0.14em", color: isLight ? "#888" : "rgba(255,255,255,0.26)", transition: "color 0.5s" }}
+              className="hidden lg:flex items-center gap-2 transition-colors duration-300 hover:opacity-70"
+              style={{ fontSize: 10, letterSpacing: "0.14em", color: "rgba(22,15,8,0.38)" }}
               data-testid="nav-phone"
             >
               <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,8 +145,7 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
               972·571·7787
             </a>
 
-            {/* Thin separator */}
-            <div className="hidden lg:block w-px h-5" style={{ background: "rgba(255,255,255,0.08)" }} aria-hidden="true" />
+            <div className="hidden lg:block w-px h-5" style={{ background: "rgba(22,15,8,0.08)" }} aria-hidden="true" />
 
             <Link href="/booking">
               <motion.div
@@ -159,16 +153,14 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.2 }}
                 style={{
-                  background: "linear-gradient(135deg, hsl(43,68%,50%) 0%, hsl(35,72%,42%) 100%)",
-                  boxShadow: "0 2px 16px rgba(201,168,76,0.22)",
+                  background: "hsl(22,15%,12%)",
+                  boxShadow: "0 2px 12px rgba(22,15,8,0.14)",
                 }}
                 data-testid="nav-book"
               >
-                <span className="relative z-10 font-medium" style={{ fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: "#000" }}>
+                <span className="relative z-10 font-medium transition-opacity group-hover:opacity-80" style={{ fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: "#ffffff" }}>
                   Book Now
                 </span>
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: "linear-gradient(135deg, hsl(43,78%,58%) 0%, hsl(35,80%,50%) 100%)" }} />
               </motion.div>
             </Link>
 
@@ -188,7 +180,7 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
                     : { rotate: 0, y: 0, opacity: 1 }
                   }
                   transition={{ duration: 0.25 }}
-                  style={{ width: i === 1 ? "60%" : "100%", background: "rgba(255,255,255,0.65)" }}
+                  style={{ width: i === 1 ? "60%" : "100%", background: "rgba(22,15,8,0.65)" }}
                 />
               ))}
             </button>
@@ -205,30 +197,25 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 lg:hidden"
-            style={{ background: "rgba(4,3,2,0.97)", backdropFilter: "blur(40px)", WebkitBackdropFilter: "blur(40px)" }}
+            style={{ background: "hsl(30,8%,93%)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)" }}
           >
-            {/* Ambient */}
-            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-              style={{ background: "radial-gradient(ellipse, rgba(255,255,255,0.02) 0%, transparent 65%)" }}
-              aria-hidden="true" />
-
             {/* Top bar */}
-            <div className="flex items-center justify-between px-6 h-[76px]" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+            <div className="flex items-center justify-between px-6 h-[76px]" style={{ borderBottom: "1px solid rgba(22,15,8,0.07)" }}>
               <div className="flex items-center gap-3">
-                <div className="w-7 h-7 flex items-center justify-center" style={{ border: "1px solid rgba(201,168,76,0.3)", color: "rgba(201,168,76,0.65)" }}>
+                <div className="w-7 h-7 flex items-center justify-center" style={{ border: "1px solid rgba(22,15,8,0.20)", color: "rgba(22,15,8,0.55)" }}>
                   <ScissorsIcon />
                 </div>
                 <div className="flex flex-col leading-none">
-                  <span className="font-serif" style={{ fontSize: 16, color: "rgba(255,255,255,0.88)", fontWeight: 600, letterSpacing: "0.04em" }}>
+                  <span className="font-serif" style={{ fontSize: 16, color: "hsl(22,20%,8%)", fontWeight: 600, letterSpacing: "0.04em" }}>
                     Matthew Dillard
                   </span>
-                  <span style={{ fontSize: 7, color: "rgba(255,255,255,0.22)", marginTop: 2, letterSpacing: "0.38em", textTransform: "uppercase" }}>
+                  <span style={{ fontSize: 7, color: "rgba(22,15,8,0.32)", marginTop: 2, letterSpacing: "0.38em", textTransform: "uppercase" }}>
                     Hair Salons
                   </span>
                 </div>
               </div>
-              <button onClick={() => setOpen(false)} className="w-9 h-9 flex items-center justify-center transition-colors hover:text-white/70"
-                style={{ color: "rgba(255,255,255,0.35)", border: "1px solid rgba(255,255,255,0.08)" }}>
+              <button onClick={() => setOpen(false)} className="w-9 h-9 flex items-center justify-center transition-colors"
+                style={{ color: "rgba(22,15,8,0.40)", border: "1px solid rgba(22,15,8,0.10)" }}>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -247,21 +234,21 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
                       exit={{ opacity: 0, x: -16 }}
                       transition={{ delay: i * 0.05 + 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                       className="flex items-center justify-between py-4 cursor-pointer group"
-                      style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+                      style={{ borderBottom: "1px solid rgba(22,15,8,0.06)" }}
                       data-testid={`mobile-nav-${l.label.toLowerCase()}`}
                     >
                       <div className="flex items-center gap-4">
-                        <span style={{ fontSize: 9, letterSpacing: "0.3em", color: "rgba(255,255,255,0.18)", minWidth: 20 }}>
+                        <span style={{ fontSize: 9, letterSpacing: "0.3em", color: "rgba(22,15,8,0.22)", minWidth: 20 }}>
                           0{i + 1}
                         </span>
                         <span className="font-serif transition-colors duration-200"
-                          style={{ fontSize: 26, color: active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.65)", fontWeight: 500 }}>
+                          style={{ fontSize: 26, color: active ? "hsl(22,20%,8%)" : "rgba(22,15,8,0.55)", fontWeight: 500 }}>
                           {l.label}
                         </span>
                       </div>
-                      <svg className="w-4 h-4 opacity-0 group-hover:opacity-60 transition-opacity"
+                      <svg className="w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity"
                         fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        style={{ color: "rgba(255,255,255,0.5)" }}>
+                        style={{ color: "rgba(22,15,8,0.5)" }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                       </svg>
                     </motion.div>
@@ -270,10 +257,8 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
               })}
             </div>
 
-            {/* Divider */}
-            <div className="mx-6 h-px" style={{ background: "rgba(255,255,255,0.06)" }} />
+            <div className="mx-6 h-px" style={{ background: "rgba(22,15,8,0.07)" }} />
 
-            {/* CTA + Info */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -282,32 +267,31 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
               className="px-6 pt-6 pb-4 flex flex-col gap-4"
             >
               <Link href="/booking">
-                <div className="w-full py-4 text-center font-medium transition-opacity hover:opacity-90 cursor-pointer"
+                <div className="w-full py-4 text-center font-medium transition-opacity hover:opacity-80 cursor-pointer"
                   style={{
-                    background: "linear-gradient(135deg, hsl(43,68%,50%), hsl(35,72%,42%))",
-                    fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: "#000", fontWeight: 600,
-                    boxShadow: "0 4px 20px rgba(201,168,76,0.22)",
+                    background: "hsl(22,15%,12%)",
+                    fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: "#ffffff", fontWeight: 600,
+                    boxShadow: "0 4px 16px rgba(22,15,8,0.14)",
                   }}>
                   Book Appointment
                 </div>
               </Link>
               <a href="tel:+19725717787"
-                className="w-full py-3.5 text-center transition-colors hover:text-white/50"
-                style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.28)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                className="w-full py-3.5 text-center transition-colors"
+                style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(22,15,8,0.40)", border: "1px solid rgba(22,15,8,0.10)" }}>
                 (972) 571-7787
               </a>
             </motion.div>
 
-            {/* Footer */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.55 }}
               className="absolute bottom-0 inset-x-0 px-6 pb-8 pt-4"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}
+              style={{ borderTop: "1px solid rgba(22,15,8,0.06)" }}
             >
               <div className="flex items-center justify-between">
-                <p style={{ fontSize: 9, letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.18)" }}>
+                <p style={{ fontSize: 9, letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(22,15,8,0.30)" }}>
                   Prosper, TX · Veteran Owned
                 </p>
                 <div className="flex items-center gap-3">
@@ -316,8 +300,8 @@ export default function Navbar({ transparentTop = false, lightTop = false }: { t
                     { label: "Facebook", path: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" },
                   ].map(s => (
                     <a key={s.label} href="#" aria-label={s.label}
-                      className="w-7 h-7 flex items-center justify-center transition-colors hover:text-white/50"
-                      style={{ color: "rgba(255,255,255,0.22)" }}>
+                      className="w-7 h-7 flex items-center justify-center transition-opacity hover:opacity-60"
+                      style={{ color: "rgba(22,15,8,0.30)" }}>
                       <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d={s.path} /></svg>
                     </a>
                   ))}

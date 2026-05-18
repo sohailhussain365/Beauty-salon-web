@@ -15,7 +15,6 @@ const SERVICES = [
     title: "Hair Coloring", badge: "Most Popular",
     desc: "From single-process to complex multi-dimensional color — executed with precision and creative vision. Professional-grade color lines chosen for their depth, longevity, and hair integrity.",
     features: ["Single process", "Double process", "Root touch-up", "Toning & glazing"],
-    color: "rgba(201,168,76,0.85)",
   },
   {
     icon: (
@@ -27,7 +26,6 @@ const SERVICES = [
     title: "Balayage", badge: null,
     desc: "The art of hand-painted color, crafted to look sun-kissed and grow out naturally. Seamless transitions that read as effortlessly beautiful in every light.",
     features: ["Classic balayage", "Baby lights", "Money piece", "Color melt"],
-    color: "rgba(230,195,100,0.85)",
   },
   {
     icon: (
@@ -38,7 +36,6 @@ const SERVICES = [
     title: "Blonde Specialist", badge: "Specialty",
     desc: "Platinum, honey, ash, or golden — every shade of blonde deserves a specialist. Trained in corrective blonde work and bond-building to keep your hair luminous.",
     features: ["Platinum blonde", "Highlights", "Corrective blonde", "Toning"],
-    color: "rgba(240,220,160,0.85)",
   },
   {
     icon: (
@@ -50,7 +47,6 @@ const SERVICES = [
     title: "Luxury Haircuts", badge: null,
     desc: "A haircut is architecture. Cuts engineered to complement your face shape, lifestyle, and texture — delivering a shape that moves beautifully and is easy to maintain.",
     features: ["Precision cut", "Texture cut", "Dry cut", "Men's cut"],
-    color: "rgba(160,200,230,0.75)",
   },
   {
     icon: (
@@ -64,7 +60,6 @@ const SERVICES = [
     title: "Hair Styling", badge: null,
     desc: "Blowouts, waves, and editorial looks for any occasion. Whether it's a Tuesday morning or a black-tie gala, you leave polished and confident.",
     features: ["Blowout", "Curling & waving", "Braiding", "Editorial"],
-    color: "rgba(180,140,220,0.75)",
   },
   {
     icon: (
@@ -78,7 +73,6 @@ const SERVICES = [
     title: "Hair Treatments", badge: "Recommended",
     desc: "Repair, restore, and protect. Olaplex bond-building, deep conditioning, scalp treatments, and keratin smoothing — tailored to your hair's specific needs.",
     features: ["Olaplex", "Deep conditioning", "Scalp treatment", "Keratin smoothing"],
-    color: "rgba(100,210,180,0.75)",
   },
   {
     icon: (
@@ -93,7 +87,6 @@ const SERVICES = [
     title: "Bridal Styling", badge: "Book Early",
     desc: "Your wedding day hair should be as extraordinary as the moment. Full bridal consultations, trials, and day-of styling for the bride and entire bridal party.",
     features: ["Bridal consultation", "Hair trial", "Day-of styling", "Bridal party"],
-    color: "rgba(220,170,210,0.75)",
   },
   {
     icon: (
@@ -106,7 +99,6 @@ const SERVICES = [
     title: "Extensions", badge: null,
     desc: "Length, volume, and fullness — transformed in a single session. Hand-tied and tape-in methods using premium human hair, matched and blended to perfection.",
     features: ["Hand-tied", "Tape-in", "Volume extensions", "Maintenance"],
-    color: "rgba(201,168,76,0.7)",
   },
 ];
 
@@ -119,35 +111,27 @@ function ServiceCard({ svc, index }: { svc: typeof SERVICES[0]; index: number })
       viewport={{ once: true, amount: 0.06 }}
       transition={{ duration: 0.9, delay: (index % 4) * 0.1, ease: [0.16, 1, 0.3, 1] }}
       className="group relative p-9 overflow-hidden"
-      style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.08)" }}
-      whileHover={{ borderColor: "rgba(201,168,76,0.3)", y: -6, transition: { duration: 0.25 } }}
+      style={{ background: "#ffffff", border: "1px solid rgba(22,15,8,0.07)", boxShadow: "0 2px 16px rgba(22,15,8,0.04)" }}
+      whileHover={{ borderColor: "rgba(22,15,8,0.18)", y: -6, transition: { duration: 0.25 } }}
       data-testid={`service-card-${index}`}
     >
-      {/* Ambient glow on hover */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: `radial-gradient(ellipse at 20% 10%, ${svc.color.replace("0.85","0.09").replace("0.75","0.07")}, transparent 65%)` }} aria-hidden="true" />
-      {/* Top line sweep */}
+        style={{ background: "radial-gradient(ellipse at 20% 10%, rgba(22,15,8,0.03), transparent 65%)" }} aria-hidden="true" />
       <div className="absolute top-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-        style={{ background: `linear-gradient(90deg, ${svc.color}, rgba(201,168,76,0.3), transparent)` }} aria-hidden="true" />
-      {/* Glow bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-        style={{ background: `linear-gradient(90deg, transparent, ${svc.color.replace("0.85","0.25").replace("0.75","0.18")}, transparent)` }} aria-hidden="true" />
+        style={{ background: "linear-gradient(90deg, hsl(22,15%,12%), transparent)" }} aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.10), transparent)" }} aria-hidden="true" />
 
       <div className="relative z-10">
         <div className="flex items-start justify-between mb-6">
           <div className="flex items-center gap-5">
-            <motion.div className="flex-shrink-0" style={{ width: 40, height: 40, color: svc.color }}
-              animate={{
-                filter: [
-                  `drop-shadow(0 0 4px ${svc.color.replace("0.85","0.25").replace("0.75","0.2")})`,
-                  `drop-shadow(0 0 14px ${svc.color.replace("0.85","0.9").replace("0.75","0.8")})`,
-                  `drop-shadow(0 0 4px ${svc.color.replace("0.85","0.25").replace("0.75","0.2")})`,
-                ],
-              }}
+            <motion.div className="flex-shrink-0" style={{ width: 40, height: 40, color: "rgba(22,15,8,0.45)" }}
+              animate={{ opacity: [0.45, 0.72, 0.45] }}
               transition={{ duration: 3 + index * 0.3, repeat: Infinity, ease: "easeInOut" }}
             >{svc.icon}</motion.div>
             <div className="overflow-hidden">
-              <motion.h3 className="text-lg font-serif font-semibold text-white/85 group-hover:text-white transition-colors duration-300"
+              <motion.h3 className="text-lg font-serif font-semibold transition-colors duration-300"
+                style={{ color: "hsl(22,20%,10%)" }}
                 initial={{ y: "110%" }}
                 whileInView={{ y: 0 }}
                 viewport={{ once: true }}
@@ -157,14 +141,13 @@ function ServiceCard({ svc, index }: { svc: typeof SERVICES[0]; index: number })
           </div>
           {svc.badge && (
             <motion.span className="text-[8px] tracking-[0.3em] uppercase px-3 py-1 flex-shrink-0"
-              style={{ color: svc.color, border: `1px solid ${svc.color.replace("0.85","0.3").replace("0.75","0.25")}`, background: svc.color.replace("0.85","0.05").replace("0.75","0.04") }}
-              animate={{ boxShadow: [`0 0 0px rgba(0,0,0,0)`, `0 0 8px ${svc.color.replace("0.85","0.3").replace("0.75","0.22")}`, `0 0 0px rgba(0,0,0,0)`] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              style={{ color: "rgba(22,15,8,0.50)", border: "1px solid rgba(22,15,8,0.15)", background: "rgba(22,15,8,0.03)" }}
             >{svc.badge}</motion.span>
           )}
         </div>
 
-        <motion.p className="text-sm text-white/40 leading-relaxed mb-6"
+        <motion.p className="text-sm leading-relaxed mb-6"
+          style={{ color: "rgba(22,15,8,0.48)" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -178,15 +161,14 @@ function ServiceCard({ svc, index }: { svc: typeof SERVICES[0]; index: number })
               whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: (index % 4) * 0.1 + 0.35 + fi * 0.07 }}
-              className="text-[9px] tracking-[0.18em] text-white/35 px-3 py-1 transition-all duration-300 group-hover:text-white/55"
-              style={{ background: "rgba(201,168,76,0.04)", border: "1px solid rgba(201,168,76,0.08)" }}
-              whileHover={{ background: svc.color.replace("0.85","0.08").replace("0.75","0.06"), borderColor: svc.color.replace("0.85","0.28").replace("0.75","0.22"), color: "rgba(255,255,255,0.7)" }}
+              className="text-[9px] tracking-[0.18em] px-3 py-1 transition-all duration-300"
+              style={{ color: "rgba(22,15,8,0.42)", background: "rgba(22,15,8,0.03)", border: "1px solid rgba(22,15,8,0.09)" }}
+              whileHover={{ background: "rgba(22,15,8,0.07)", borderColor: "rgba(22,15,8,0.20)", color: "rgba(22,15,8,0.60)" }}
             >{f}</motion.span>
           ))}
         </div>
 
-        {/* Animated bottom line */}
-        <div className="mt-6 h-px w-0 group-hover:w-12 transition-all duration-500" style={{ background: svc.color }} />
+        <div className="mt-6 h-px w-0 group-hover:w-12 transition-all duration-500" style={{ background: "hsl(22,15%,20%)" }} />
       </div>
     </motion.div>
   );
@@ -198,40 +180,38 @@ export default function ServicesPage() {
       <PageHero title="Our" titleGold="Services" subtitle="Eight ways we transform your hair — every one a statement in luxury craft." breadcrumb="What We Offer" />
 
       <section className="py-24 md:py-32 relative overflow-hidden">
-        {/* Ambient background sparkles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
           {[...Array(14)].map((_, i) => (
             <motion.div key={i} className="absolute"
-              style={{ left: `${(i * 7.3) % 100}%`, top: `${8 + (i % 5) * 18}%`, color: "rgba(201,168,76,0.08)", fontSize: 14 + (i % 3) * 5 }}
-              animate={{ opacity: [0.05, 0.22, 0.05], scale: [0.7, 1.4, 0.7], rotate: [0, 90, 180] }}
+              style={{ left: `${(i * 7.3) % 100}%`, top: `${8 + (i % 5) * 18}%`, color: "rgba(22,15,8,0.05)", fontSize: 14 + (i % 3) * 5 }}
+              animate={{ opacity: [0.03, 0.12, 0.03], scale: [0.7, 1.4, 0.7], rotate: [0, 90, 180] }}
               transition={{ duration: 5 + i * 0.6, delay: i * 0.45, repeat: Infinity, ease: "easeInOut" }}
             >✦</motion.div>
           ))}
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
-          {/* Section header */}
           <div className="mb-16">
             <motion.div className="flex items-center gap-3 mb-5"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7 }}>
-              <div className="h-px w-7" style={{ background: "hsl(43,65%,52%)" }} />
-              <span className="text-[9px] tracking-[0.42em] uppercase text-yellow-400/65">Specialties</span>
+              <div className="h-px w-7" style={{ background: "hsl(22,15%,20%)" }} />
+              <span className="text-[9px] tracking-[0.42em] uppercase" style={{ color: "rgba(22,15,8,0.42)" }}>Specialties</span>
             </motion.div>
             <div className="overflow-hidden mb-4">
               <motion.h2
                 className="heading-bebas"
-                style={{ fontSize: "clamp(52px, 8vw, 106px)", color: "rgba(255,255,255,0.90)", lineHeight: 0.92 }}
+                style={{ fontSize: "clamp(52px, 8vw, 106px)", color: "hsl(22,20%,8%)", lineHeight: 0.92 }}
                 initial={{ y: "108%", opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}>
-                All <span style={{ color: "hsl(43,65%,52%)" }}>Services</span>
+                All <span className="text-gold-gradient">Services</span>
               </motion.h2>
             </div>
-            <motion.p className="text-sm text-white/38 max-w-md leading-relaxed font-serif italic"
+            <motion.p className="text-sm max-w-md leading-relaxed font-serif italic" style={{ color: "rgba(22,15,8,0.42)" }}
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
               Every service is a statement. Every result, a transformation.
             </motion.p>
@@ -242,7 +222,7 @@ export default function ServicesPage() {
           </div>
 
           <motion.div className="text-center mt-16 pt-16"
-            style={{ borderTop: "1px solid rgba(201,168,76,0.08)" }}
+            style={{ borderTop: "1px solid rgba(22,15,8,0.07)" }}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -251,21 +231,21 @@ export default function ServicesPage() {
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.15 }}>
               <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 64 }} viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.4))" }} />
-              <span className="text-[9px] tracking-[0.4em] uppercase text-yellow-400/50">Begin Your Journey</span>
+                style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.20))" }} />
+              <span className="text-[9px] tracking-[0.4em] uppercase" style={{ color: "rgba(22,15,8,0.40)" }}>Begin Your Journey</span>
               <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 64 }} viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                style={{ background: "linear-gradient(90deg, rgba(201,168,76,0.4), transparent)" }} />
+                style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.20), transparent)" }} />
             </motion.div>
-            <motion.p className="text-sm text-white/38 mb-8 max-w-sm mx-auto leading-relaxed"
+            <motion.p className="text-sm mb-8 max-w-sm mx-auto leading-relaxed" style={{ color: "rgba(22,15,8,0.40)" }}
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
               Not sure which service is right for you? We always begin with a complimentary consultation.
             </motion.p>
             <motion.a href="https://matthewdillard.com" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-10 py-4 text-xs tracking-[0.28em] uppercase text-black font-medium relative overflow-hidden"
-              style={{ background: "linear-gradient(135deg, hsl(43,72%,54%), hsl(35,78%,47%))", boxShadow: "0 6px 28px rgba(201,168,76,0.38)" }}
+              className="inline-flex items-center gap-3 px-10 py-4 text-xs tracking-[0.28em] uppercase text-white font-medium relative overflow-hidden transition-opacity hover:opacity-80"
+              style={{ background: "hsl(22,15%,12%)", boxShadow: "0 6px 28px rgba(22,15,8,0.18)" }}
               initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 8px 36px rgba(201,168,76,0.55)" }}
+              whileHover={{ scale: 1.05 }}
               data-testid="services-book-btn">
               Book a Consultation
               <motion.svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"

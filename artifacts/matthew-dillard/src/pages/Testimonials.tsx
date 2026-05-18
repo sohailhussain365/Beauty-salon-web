@@ -35,7 +35,8 @@ function AnimatedStars({ count = 5, size = "text-sm", delay = 0 }: { count?: num
   return (
     <div className="flex gap-0.5">
       {[...Array(count)].map((_, i) => (
-        <motion.span key={i} className={`${size} text-yellow-400`}
+        <motion.span key={i} className={`${size}`}
+          style={{ color: "hsl(22,15%,22%)" }}
           initial={{ opacity: 0, scale: 0, rotate: -45 }}
           whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
           viewport={{ once: true }}
@@ -61,8 +62,9 @@ function ReviewCard({ review, index }: { review: typeof REVIEWS[0]; index: numbe
       transition={{ duration: 0.9, delay: (index % 3) * 0.13, ease: [0.16, 1, 0.3, 1] }}
       className="group relative p-8 overflow-hidden flex flex-col gap-5 cursor-default"
       style={{
-        background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))",
-        border: "1px solid rgba(201,168,76,0.10)",
+        background: "#ffffff",
+        border: "1px solid rgba(22,15,8,0.07)",
+        boxShadow: "0 2px 16px rgba(22,15,8,0.04)",
         transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
         transition: "transform 0.15s ease",
       }}
@@ -75,13 +77,12 @@ function ReviewCard({ review, index }: { review: typeof REVIEWS[0]; index: numbe
       data-testid={`review-card-${index}`}
     >
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.07), transparent 65%)" }} aria-hidden="true" />
+        style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(22,15,8,0.03), transparent 65%)" }} aria-hidden="true" />
       <div className="absolute top-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-        style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} aria-hidden="true" />
+        style={{ background: "linear-gradient(90deg, hsl(22,15%,12%), transparent)" }} aria-hidden="true" />
 
-      {/* Large decorative quote */}
       <motion.div className="absolute top-3 right-5 font-serif pointer-events-none select-none"
-        style={{ fontSize: 80, color: "rgba(201,168,76,0.07)", lineHeight: 1 }}
+        style={{ fontSize: 80, color: "rgba(22,15,8,0.04)", lineHeight: 1 }}
         initial={{ opacity: 0, scale: 0.6, rotate: -10 }}
         whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
         viewport={{ once: true }}
@@ -91,35 +92,33 @@ function ReviewCard({ review, index }: { review: typeof REVIEWS[0]; index: numbe
       <div className="relative z-10 flex items-start justify-between gap-4">
         <AnimatedStars count={review.stars} delay={(index % 3) * 0.12} />
         <motion.span className="text-[8px] tracking-[0.25em] uppercase px-2.5 py-1 flex-shrink-0"
-          style={{ border: "1px solid rgba(201,168,76,0.22)", color: "rgba(201,168,76,0.55)" }}
-          animate={{ boxShadow: ["0 0 0px rgba(201,168,76,0)", "0 0 8px rgba(201,168,76,0.22)", "0 0 0px rgba(201,168,76,0)"] }}
-          transition={{ duration: 3, repeat: Infinity, delay: index * 0.3 }}
+          style={{ border: "1px solid rgba(22,15,8,0.12)", color: "rgba(22,15,8,0.45)" }}
         >{review.service}</motion.span>
       </div>
 
       <div className="relative z-10 flex-1">
         <AnimatePresence mode="wait">
-          <motion.p key={String(expanded)} className="text-sm leading-relaxed text-white/50 font-serif italic"
+          <motion.p key={String(expanded)} className="text-sm leading-relaxed font-serif italic"
+            style={{ color: "rgba(22,15,8,0.55)" }}
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
             &ldquo;{displayText}&rdquo;
           </motion.p>
         </AnimatePresence>
         {isLong && (
           <motion.button onClick={() => setExpanded(v => !v)}
-            className="mt-2 text-[9px] tracking-[0.2em] uppercase text-yellow-400/50 hover:text-yellow-400/80 transition-colors"
+            className="mt-2 text-[9px] tracking-[0.2em] uppercase transition-opacity hover:opacity-60"
+            style={{ color: "rgba(22,15,8,0.45)" }}
             whileHover={{ x: 2 }}>{expanded ? "Show less" : "Read more"}</motion.button>
         )}
       </div>
 
       <div className="relative z-10 flex items-center gap-3 mt-auto">
-        <motion.div className="w-8 h-8 flex items-center justify-center text-xs font-serif text-black font-bold flex-shrink-0"
-          style={{ background: "linear-gradient(135deg, hsl(43,65%,52%), hsl(35,70%,45%))" }}
-          animate={{ boxShadow: ["0 0 0px rgba(201,168,76,0)", "0 0 12px rgba(201,168,76,0.45)", "0 0 0px rgba(201,168,76,0)"] }}
-          transition={{ duration: 3.5, repeat: Infinity, delay: index * 0.2 }}
+        <motion.div className="w-8 h-8 flex items-center justify-center text-xs font-serif font-bold flex-shrink-0"
+          style={{ background: "hsl(22,15%,12%)", color: "#ffffff" }}
           aria-hidden="true">{review.author[0]}</motion.div>
         <div>
-          <p className="text-xs font-medium text-white/70">{review.author}</p>
-          <p className="text-[9px] tracking-[0.2em] uppercase text-white/30">{review.location}</p>
+          <p className="text-xs font-medium" style={{ color: "hsl(22,20%,12%)" }}>{review.author}</p>
+          <p className="text-[9px] tracking-[0.2em] uppercase" style={{ color: "rgba(22,15,8,0.32)" }}>{review.location}</p>
         </div>
       </div>
     </motion.div>
@@ -130,17 +129,12 @@ function OverallRating() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <section className="py-16 section-divider relative overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 70%)" }}
-        aria-hidden="true"
-      />
+    <section className="py-16 section-divider relative overflow-hidden" style={{ background: "hsl(30,10%,96%)" }}>
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
         <motion.div className="flex items-center gap-3 mb-10"
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
-          <div className="h-px w-7" style={{ background: "hsl(43,65%,52%)" }} />
-          <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(201,168,76,0.65)" }}>At a Glance</span>
+          <div className="h-px w-7" style={{ background: "hsl(22,15%,20%)" }} />
+          <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(22,15,8,0.42)" }}>At a Glance</span>
         </motion.div>
         <div ref={ref} className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           {[
@@ -150,21 +144,21 @@ function OverallRating() {
           ].map((s, i) => (
             <motion.div key={i}
               className="group flex flex-col items-center text-center gap-3 p-8 relative overflow-hidden"
-              style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.08)" }}
+              style={{ background: "#ffffff", border: "1px solid rgba(22,15,8,0.07)", boxShadow: "0 2px 16px rgba(22,15,8,0.04)" }}
               initial={{ opacity: 0, y: 50, scale: 0.92 }}
               animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{ duration: 0.8, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -5, borderColor: "rgba(201,168,76,0.22)", transition: { duration: 0.2 } }}>
+              whileHover={{ y: -5, borderColor: "rgba(22,15,8,0.16)", transition: { duration: 0.2 } }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.07), transparent 70%)" }} aria-hidden="true" />
+                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(22,15,8,0.03), transparent 70%)" }} aria-hidden="true" />
               <div className="absolute top-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} aria-hidden="true" />
+                style={{ background: "linear-gradient(90deg, hsl(22,15%,12%), transparent)" }} aria-hidden="true" />
               <span className="heading-bebas block shimmer-text" style={{ fontSize: "clamp(48px, 6vw, 72px)", lineHeight: 1 }}>
                 {inView ? <CountUp end={s.end} suffix={s.suffix} decimals={s.decimals} duration={2} /> : `0${s.suffix}`}
               </span>
               {i === 0 && <AnimatedStars count={5} size="text-base" delay={0.8} />}
-              <p style={{ fontSize: 9, letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(255,255,255,0.42)", marginTop: 2 }}>{s.label}</p>
-              <p style={{ fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>{s.sub}</p>
+              <p style={{ fontSize: 9, letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(22,15,8,0.42)", marginTop: 2 }}>{s.label}</p>
+              <p style={{ fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(22,15,8,0.28)" }}>{s.sub}</p>
             </motion.div>
           ))}
         </div>
@@ -182,8 +176,8 @@ export default function TestimonialsPage() {
         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
           {[...Array(8)].map((_, i) => (
             <motion.div key={i} className="absolute"
-              style={{ left: `${10 + i * 11}%`, top: `${20 + (i % 3) * 28}%`, color: "rgba(201,168,76,0.09)", fontSize: 18 }}
-              animate={{ opacity: [0.05, 0.22, 0.05], scale: [0.7, 1.3, 0.7], rotate: [0, 180, 360] }}
+              style={{ left: `${10 + i * 11}%`, top: `${20 + (i % 3) * 28}%`, color: "rgba(22,15,8,0.05)", fontSize: 18 }}
+              animate={{ opacity: [0.03, 0.14, 0.03], scale: [0.7, 1.3, 0.7], rotate: [0, 180, 360] }}
               transition={{ duration: 5 + i * 0.8, repeat: Infinity, delay: i * 0.7, ease: "easeInOut" }}
             >✦</motion.div>
           ))}
@@ -195,20 +189,20 @@ export default function TestimonialsPage() {
           </div>
 
           <motion.div className="text-center mt-16 pt-12"
-            style={{ borderTop: "1px solid rgba(201,168,76,0.06)" }}
+            style={{ borderTop: "1px solid rgba(22,15,8,0.07)" }}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8 }}>
-            <motion.p className="text-sm text-white/35 mb-6"
+            <motion.p className="text-sm mb-6" style={{ color: "rgba(22,15,8,0.40)" }}
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.15 }}>
               Ready to write your own story?
             </motion.p>
             <motion.a href="https://matthewdillard.com" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-9 py-4 text-xs tracking-[0.28em] uppercase text-black font-medium"
-              style={{ background: "linear-gradient(135deg, hsl(43,72%,54%), hsl(35,78%,47%))", boxShadow: "0 6px 28px rgba(201,168,76,0.38)" }}
+              className="inline-flex items-center gap-3 px-9 py-4 text-xs tracking-[0.28em] uppercase font-medium transition-opacity hover:opacity-80"
+              style={{ background: "hsl(22,15%,12%)", color: "#ffffff", boxShadow: "0 6px 24px rgba(22,15,8,0.18)" }}
               initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.25 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 8px 36px rgba(201,168,76,0.55)" }}>
+              whileHover={{ scale: 1.05 }}>
               Book Your Appointment
               <motion.svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 animate={{ x: [0, 3, 0] }} transition={{ duration: 2, repeat: Infinity }}>

@@ -24,19 +24,20 @@ export default function FloatingBooking() {
         >
           <Link href="/booking">
             <div
-              className="flex items-center gap-2.5 px-5 py-3.5 text-xs tracking-[0.2em] uppercase font-medium text-black transition-all duration-300 hover:scale-105 cursor-pointer group"
+              className="flex items-center gap-2.5 px-5 py-3.5 text-xs tracking-[0.2em] uppercase font-medium transition-all duration-300 hover:scale-105 cursor-pointer group"
               style={{
-                background: "linear-gradient(135deg, hsl(43,75%,56%), hsl(35,80%,50%))",
-                boxShadow: "0 4px 20px rgba(201,168,76,0.45), 0 0 0 1px rgba(201,168,76,0.2)",
+                background: "hsl(22,15%,12%)",
+                color: "#ffffff",
+                boxShadow: "0 4px 20px rgba(22,15,8,0.22), 0 0 0 1px rgba(22,15,8,0.10)",
               }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-black/30 group-hover:bg-black/50 transition-colors" />
+              <span className="w-1.5 h-1.5 rounded-full bg-white/40 group-hover:bg-white/60 transition-colors" />
               Book Appointment
             </div>
           </Link>
           <div
-            className="absolute inset-0 -z-10 blur-xl opacity-40"
-            style={{ background: "linear-gradient(135deg, hsl(43,75%,56%), hsl(35,80%,50%))" }}
+            className="absolute inset-0 -z-10 blur-xl opacity-25"
+            style={{ background: "hsl(22,15%,12%)" }}
           />
         </motion.div>
       )}

@@ -11,14 +11,14 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
   return (
     <section
       className="relative min-h-[72vh] flex flex-col justify-end overflow-hidden"
-      style={{ background: "hsl(22,18%,4%)" }}
+      style={{ background: "hsl(30,8%,93%)" }}
     >
       {/* Subtle grid texture */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.022]"
+        className="absolute inset-0 pointer-events-none opacity-[0.018]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(201,168,76,1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,1) 1px, transparent 1px)",
+            "linear-gradient(rgba(22,15,8,1) 1px, transparent 1px), linear-gradient(90deg, rgba(22,15,8,1) 1px, transparent 1px)",
           backgroundSize: "72px 72px",
         }}
         aria-hidden="true"
@@ -32,7 +32,7 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
         transition={{ duration: 1.4, ease: "easeOut" }}
         style={{
           background:
-            "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.4) 20%, rgba(201,168,76,0.85) 50%, rgba(201,168,76,0.4) 80%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, rgba(22,15,8,0.20) 20%, rgba(22,15,8,0.45) 50%, rgba(22,15,8,0.20) 80%, transparent 100%)",
           transformOrigin: "left",
         }}
         aria-hidden="true"
@@ -46,7 +46,7 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
         transition={{ duration: 1, delay: 0.4 }}
         style={{
           height: 120,
-          background: "linear-gradient(to bottom, rgba(201,168,76,0.5), transparent)",
+          background: "linear-gradient(to bottom, rgba(22,15,8,0.22), transparent)",
           transformOrigin: "top",
         }}
         aria-hidden="true"
@@ -70,9 +70,9 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
             width: "clamp(160px, 18vw, 240px)",
             height: "clamp(260px, 58vh, 420px)",
             borderRadius: "9999px 9999px 10px 10px",
-            border: "1px solid rgba(201,168,76,0.10)",
+            border: "1px solid rgba(22,15,8,0.08)",
             background:
-              "linear-gradient(to bottom, rgba(201,168,76,0.05) 0%, rgba(201,168,76,0.02) 50%, transparent 100%)",
+              "linear-gradient(to bottom, rgba(22,15,8,0.03) 0%, rgba(22,15,8,0.01) 50%, transparent 100%)",
           }}
         />
         {/* Smaller inner arch */}
@@ -85,7 +85,7 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
             width: "clamp(90px, 10vw, 130px)",
             height: "clamp(160px, 36vh, 260px)",
             borderRadius: "9999px 9999px 8px 8px",
-            border: "1px solid rgba(201,168,76,0.07)",
+            border: "1px solid rgba(22,15,8,0.05)",
           }}
         />
         {/* Floating ✦ sparkles */}
@@ -98,8 +98,8 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
           <motion.div
             key={i}
             className="absolute"
-            style={{ right: s.right, top: s.top, color: "rgba(201,168,76,0.22)", fontSize: 10 + i * 2 }}
-            animate={{ opacity: [0.1, 0.5, 0.1], scale: [0.7, 1.2, 0.7], rotate: [0, 90, 180] }}
+            style={{ right: s.right, top: s.top, color: "rgba(22,15,8,0.18)", fontSize: 10 + i * 2 }}
+            animate={{ opacity: [0.08, 0.38, 0.08], scale: [0.7, 1.2, 0.7], rotate: [0, 90, 180] }}
             transition={{ duration: s.dur, delay: s.d, repeat: Infinity, ease: "easeInOut" }}
           >
             ✦
@@ -112,10 +112,10 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
             className="absolute"
             style={{ right: 0, top: `${top}%`, height: 1 }}
             initial={{ width: 0, opacity: 0 }}
-            animate={{ width: `${50 - i * 10}%`, opacity: 0.07 + i * 0.02 }}
+            animate={{ width: `${50 - i * 10}%`, opacity: 0.05 + i * 0.02 }}
             transition={{ duration: 1.2, delay: 0.5 + i * 0.15 }}
           >
-            <div className="w-full h-full" style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.5))" }} />
+            <div className="w-full h-full" style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.30))" }} />
           </motion.div>
         ))}
       </motion.div>
@@ -136,9 +136,9 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
               initial={{ width: 0 }}
               animate={{ width: 28 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              style={{ background: "hsl(43,65%,52%)" }}
+              style={{ background: "hsl(22,15%,20%)" }}
             />
-            <span style={{ fontSize: 9, letterSpacing: "0.45em", textTransform: "uppercase", color: "rgba(201,168,76,0.7)" }}>
+            <span style={{ fontSize: 9, letterSpacing: "0.45em", textTransform: "uppercase", color: "rgba(22,15,8,0.45)" }}>
               {breadcrumb}
             </span>
           </motion.div>
@@ -153,7 +153,7 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
               fontSize: "clamp(60px, 10.5vw, 148px)",
               letterSpacing: "0.01em",
               lineHeight: 0.9,
-              color: "rgba(255,255,255,0.88)",
+              color: "hsl(22,20%,8%)",
             }}
             initial={{ y: "108%", opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -161,14 +161,14 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
           >
             {title}{" "}
             {titleGold && (
-              <span style={{ color: "hsl(43,65%,52%)" }}>
+              <span className="text-gold-gradient">
                 {titleGold}
               </span>
             )}
           </motion.h1>
         </div>
 
-        {/* Gold rule + sparkle */}
+        {/* Rule + sparkle */}
         <motion.div
           className="flex items-center gap-3 mb-6"
           initial={{ opacity: 0 }}
@@ -180,10 +180,10 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
             initial={{ width: 0 }}
             animate={{ width: "min(280px, 38vw)" }}
             transition={{ duration: 1, delay: 0.5 }}
-            style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), rgba(201,168,76,0.15))" }}
+            style={{ background: "linear-gradient(90deg, hsl(22,15%,20%), rgba(22,15,8,0.08))" }}
           />
           <motion.span
-            style={{ color: "rgba(201,168,76,0.45)", fontSize: 8 }}
+            style={{ color: "rgba(22,15,8,0.30)", fontSize: 8 }}
             animate={{ rotate: [0, 180, 360] }}
             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           >
@@ -195,7 +195,7 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
         {subtitle && (
           <motion.p
             className="font-serif italic"
-            style={{ fontSize: "clamp(14px, 1.35vw, 18px)", color: "rgba(255,255,255,0.38)", maxWidth: 480, lineHeight: 1.7 }}
+            style={{ fontSize: "clamp(14px, 1.35vw, 18px)", color: "rgba(22,15,8,0.45)", maxWidth: 480, lineHeight: 1.7 }}
             initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.9, delay: 0.5 }}
@@ -208,7 +208,7 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
       {/* Bottom fade to site content */}
       <div
         className="absolute bottom-0 inset-x-0 h-20 pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, transparent, hsl(22,18%,5%))" }}
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(30,8%,93%))" }}
         aria-hidden="true"
       />
     </section>

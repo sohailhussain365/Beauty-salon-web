@@ -44,11 +44,12 @@ export default function BeforeAfter() {
       ref={sectionRef}
       className="relative py-28 md:py-36 overflow-hidden section-divider"
       data-testid="before-after-section"
+      style={{ background: "hsl(30,10%,96%)" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.03) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse at 50% 50%, rgba(22,15,8,0.02) 0%, transparent 65%)",
         }}
         aria-hidden="true"
       />
@@ -61,14 +62,14 @@ export default function BeforeAfter() {
           className="text-center mb-14"
         >
           <div className="flex items-center justify-center gap-4 mb-6">
-            <span className="block w-12 h-px" style={{ background: "linear-gradient(90deg, transparent, hsl(43,65%,52%))" }} />
-            <span className="text-[9px] tracking-[0.4em] uppercase text-yellow-400/60">Transformation</span>
-            <span className="block w-12 h-px" style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} />
+            <span className="block w-12 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.22))" }} />
+            <span className="text-[9px] tracking-[0.4em] uppercase" style={{ color: "rgba(22,15,8,0.42)" }}>Transformation</span>
+            <span className="block w-12 h-px" style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.22), transparent)" }} />
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white/90">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif" style={{ color: "hsl(22,20%,8%)" }}>
             Before <span className="text-gold-gradient italic">&amp;</span> After
           </h2>
-          <p className="mt-4 text-sm text-white/40 tracking-wide max-w-md mx-auto">
+          <p className="mt-4 text-sm tracking-wide max-w-md mx-auto" style={{ color: "rgba(22,15,8,0.42)" }}>
             Drag the slider to witness the transformation firsthand.
           </p>
         </motion.div>
@@ -81,7 +82,7 @@ export default function BeforeAfter() {
           className="relative h-[300px] sm:h-[380px] md:h-[480px] overflow-hidden select-none"
           style={{
             cursor: dragging ? "ew-resize" : "col-resize",
-            border: "1px solid rgba(201,168,76,0.1)",
+            border: "1px solid rgba(22,15,8,0.10)",
           }}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
@@ -103,7 +104,7 @@ export default function BeforeAfter() {
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.08) 50%, transparent 100%)" }} aria-hidden="true" />
             <div className="absolute bottom-6 right-6 text-right">
-              <span className="block text-[9px] tracking-[0.38em] uppercase mb-1" style={{ color: "rgba(201,168,76,0.85)" }}>After</span>
+              <span className="block text-[9px] tracking-[0.38em] uppercase mb-1" style={{ color: "rgba(255,255,255,0.80)" }}>After</span>
               <span className="block text-xl font-serif text-white/92 italic">Transformed</span>
             </div>
           </div>
@@ -138,8 +139,8 @@ export default function BeforeAfter() {
             className="absolute top-0 bottom-0 w-px z-20 pointer-events-none"
             style={{
               left: `${position}%`,
-              background: "linear-gradient(to bottom, transparent, hsl(43,65%,52%) 20%, hsl(43,65%,52%) 80%, transparent)",
-              boxShadow: "0 0 12px rgba(201,168,76,0.5)",
+              background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.90) 20%, rgba(255,255,255,0.90) 80%, transparent)",
+              boxShadow: "0 0 10px rgba(255,255,255,0.40)",
             }}
             aria-hidden="true"
           />
@@ -153,11 +154,11 @@ export default function BeforeAfter() {
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center"
               style={{
-                background: "linear-gradient(135deg, hsl(43,72%,54%), hsl(35,78%,47%))",
-                boxShadow: "0 4px 20px rgba(201,168,76,0.5)",
+                background: "hsl(22,15%,12%)",
+                boxShadow: "0 4px 20px rgba(22,15,8,0.30)",
               }}
             >
-              <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 9l-3 3 3 3m8-6l3 3-3 3" />
               </svg>
             </div>
@@ -168,7 +169,8 @@ export default function BeforeAfter() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.5 }}
-          className="text-center mt-6 text-xs text-white/25 tracking-[0.2em]"
+          className="text-center mt-6 text-xs tracking-[0.2em]"
+          style={{ color: "rgba(22,15,8,0.32)" }}
         >
           Drag to compare · Every transformation begins with a consultation
         </motion.p>
