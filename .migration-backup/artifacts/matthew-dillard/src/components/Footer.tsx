@@ -52,7 +52,7 @@ export default function Footer() {
       }}
       data-testid="footer"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="grid md:grid-cols-3 gap-12 md:gap-8 mb-12">
           {/* Brand */}
           <div className="flex flex-col gap-4">

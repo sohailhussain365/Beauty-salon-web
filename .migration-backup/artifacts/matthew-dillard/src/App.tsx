@@ -7,6 +7,7 @@ import GalleryPage from "@/pages/Gallery";
 import TestimonialsPage from "@/pages/Testimonials";
 import ContactPage from "@/pages/Contact";
 import BookingPage from "@/pages/Booking";
+import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/testimonials" component={TestimonialsPage} />
           <Route path="/contact" component={ContactPage} />
           <Route path="/booking" component={BookingPage} />
+          <Route component={NotFound} />
         </Switch>
       </WouterRouter>
     </QueryClientProvider>

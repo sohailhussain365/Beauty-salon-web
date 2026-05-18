@@ -58,7 +58,7 @@ export default function TestimonialsSlider() {
         style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201,168,76,0.04), transparent 68%)" }}
         aria-hidden="true" />
 
-      <div className="max-w-[1380px] mx-auto px-6 lg:px-10">
+      <div className="max-w-[1380px] mx-auto px-5 sm:px-8 lg:px-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -91,11 +91,11 @@ export default function TestimonialsSlider() {
             <button
               key={dir}
               onClick={dir === "prev" ? prev : next}
-              className="absolute top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+              className="absolute top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group"
               style={{
-                [dir === "prev" ? "left" : "right"]: "-1rem",
-                background: "rgba(10,7,4,0.85)",
-                border: "1px solid rgba(201,168,76,0.2)",
+                [dir === "prev" ? "left" : "right"]: "-0.5rem",
+                background: "rgba(10,7,4,0.9)",
+                border: "1px solid rgba(201,168,76,0.22)",
                 backdropFilter: "blur(12px)",
               }}
               aria-label={dir === "prev" ? "Previous" : "Next"}
@@ -131,7 +131,7 @@ export default function TestimonialsSlider() {
                 className="mx-auto max-w-3xl"
               >
                 <div
-                  className="relative p-10 md:p-14"
+                  className="relative p-7 sm:p-10 md:p-14"
                   style={{
                     background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))",
                     border: "1px solid rgba(201,168,76,0.13)",

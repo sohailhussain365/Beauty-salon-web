@@ -35,8 +35,8 @@ export default function BeforeAfter() {
   };
   const onTouchEnd = () => setDragging(false);
 
-  const BEFORE_GRADIENT = "linear-gradient(145deg, hsl(22,18%,13%) 0%, hsl(22,14%,9%) 100%)";
-  const AFTER_GRADIENT = "linear-gradient(145deg, hsl(35,45%,16%) 0%, hsl(30,30%,10%) 100%)";
+  const BEFORE_IMG = "https://images.unsplash.com/photo-1523263685509-57c1d050d19b?w=1200&q=85";
+  const AFTER_IMG  = "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=1200&q=85";
 
   return (
     <section
@@ -53,7 +53,7 @@ export default function BeforeAfter() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8">
+      <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -78,7 +78,7 @@ export default function BeforeAfter() {
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           ref={containerRef}
-          className="relative h-[380px] md:h-[480px] overflow-hidden select-none"
+          className="relative h-[300px] sm:h-[380px] md:h-[480px] overflow-hidden select-none"
           style={{
             cursor: dragging ? "ew-resize" : "col-resize",
             border: "1px solid rgba(201,168,76,0.1)",
@@ -92,64 +92,43 @@ export default function BeforeAfter() {
           onTouchEnd={onTouchEnd}
           data-testid="before-after-slider"
         >
-          {/* After (full) */}
-          <div className="absolute inset-0" style={{ background: AFTER_GRADIENT }}>
-            {/* After visual */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-full h-full overflow-hidden">
-                {/* Stylized strands */}
-                {[...Array(8)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute top-0 bottom-0 w-px opacity-15"
-                    style={{
-                      left: `${10 + i * 10}%`,
-                      background: `linear-gradient(to bottom, transparent, rgba(201,168,76,${0.3 + i * 0.05}) 40%, rgba(201,168,76,${0.1 + i * 0.03}) 70%, transparent)`,
-                      transform: `skewX(${-3 + i * 1}deg)`,
-                    }}
-                    aria-hidden="true"
-                  />
-                ))}
-                <div
-                  className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full"
-                  style={{ background: "radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%)" }}
-                  aria-hidden="true"
-                />
-              </div>
-            </div>
+          {/* After (full — photo) */}
+          <div className="absolute inset-0 overflow-hidden">
+            <img
+              src={AFTER_IMG}
+              alt="After transformation — gorgeous styled hair"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: "50% 30%" }}
+              draggable={false}
+            />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.08) 50%, transparent 100%)" }} aria-hidden="true" />
             <div className="absolute bottom-6 right-6 text-right">
-              <span className="block text-[9px] tracking-[0.35em] uppercase text-yellow-400/70 mb-1">After</span>
-              <span className="block text-lg font-serif text-white/80">Transformed</span>
+              <span className="block text-[9px] tracking-[0.38em] uppercase mb-1" style={{ color: "rgba(201,168,76,0.85)" }}>After</span>
+              <span className="block text-xl font-serif text-white/92 italic">Transformed</span>
             </div>
           </div>
 
-          {/* Before (clipped) */}
+          {/* Before (clipped — photo) */}
           <div
             className="absolute inset-0 overflow-hidden"
             style={{ width: `${position}%` }}
           >
             <div
               className="absolute inset-0"
-              style={{ background: BEFORE_GRADIENT, width: `${100 * (100 / position)}%`, maxWidth: "none" }}
+              style={{ width: `${100 * (100 / Math.max(position, 0.1))}%`, maxWidth: "none" }}
             >
-              {/* Before visual */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute top-0 bottom-0 w-px opacity-8"
-                    style={{
-                      left: `${10 + i * 13}%`,
-                      background: "linear-gradient(to bottom, transparent, rgba(180,160,130,0.2) 50%, transparent)",
-                      transform: `skewX(${-2 + i * 1}deg)`,
-                    }}
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
+              <img
+                src={BEFORE_IMG}
+                alt="Before transformation — natural unstyled hair"
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: "50% 20%", minWidth: `${100 * (100 / Math.max(position, 0.1))}%`, filter: "saturate(0.70) brightness(0.82)" }}
+                draggable={false}
+              />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 50%, transparent 100%)" }} aria-hidden="true" />
+              <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.18)" }} aria-hidden="true" />
               <div className="absolute bottom-6 left-6">
-                <span className="block text-[9px] tracking-[0.35em] uppercase text-white/40 mb-1">Before</span>
-                <span className="block text-lg font-serif text-white/60">Original</span>
+                <span className="block text-[9px] tracking-[0.38em] uppercase text-white/50 mb-1">Before</span>
+                <span className="block text-xl font-serif text-white/65">Natural</span>
               </div>
             </div>
           </div>
