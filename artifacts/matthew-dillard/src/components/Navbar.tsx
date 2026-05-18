@@ -76,7 +76,7 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
 
           {/* ── Logo ── */}
           <Link href="/">
-            <div className="flex items-center gap-3 cursor-pointer group select-none" data-testid="nav-logo">
+            <div className={`flex items-center gap-3 cursor-pointer group select-none transition-opacity duration-200 ${open ? "opacity-0 pointer-events-none" : "opacity-100"}`} data-testid="nav-logo">
               <div
                 className="w-8 h-8 shrink-0 flex items-center justify-center transition-all duration-300 group-hover:scale-105"
                 style={{
