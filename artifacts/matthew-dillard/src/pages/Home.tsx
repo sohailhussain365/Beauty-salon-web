@@ -337,64 +337,30 @@ const SERVICES_PREVIEW = [
 ];
 
 function ServicesPreview() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(sectionRef, { once: true, margin: "-100px" });
+
   return (
-    <section className="py-20 md:py-32 section-divider relative overflow-hidden">
+    <section ref={sectionRef} className="py-20 md:py-32 section-divider relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="mb-12 md:mb-16 text-center">
-          {/* Centered label with flanking lines */}
-          <motion.div
-            className="flex items-center justify-center gap-4 mb-5"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7 }}>
-            <motion.span
-              className="h-px"
-              initial={{ width: 0 }}
-              whileInView={{ width: 44 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.15 }}
-              style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.25))" }}
-            />
-            <span
-              className="uppercase font-semibold shrink-0"
-              style={{ fontSize: 11, letterSpacing: "0.38em", color: "hsl(22,20%,14%)" }}>
-              Specialties
-            </span>
-            <motion.span
-              className="h-px"
-              initial={{ width: 0 }}
-              whileInView={{ width: 44 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.15 }}
-              style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.25), transparent)" }}
-            />
-          </motion.div>
-
-          {/* Main heading — elegant serif, matching Before & After style */}
-          <div className="overflow-hidden mb-3">
-            <motion.h2
-              className="font-serif"
-              style={{ fontSize: "clamp(36px, 5vw, 64px)", color: "hsl(22,20%,8%)", lineHeight: 1.1 }}
-              initial={{ y: "110%", opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
-              Crafted <span className="text-gold-gradient italic">&</span> Perfected
-            </motion.h2>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-14"
+        >
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <span className="block w-12 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.22))" }} />
+            <span className="text-[13px] tracking-[0.28em] uppercase font-semibold" style={{ color: "hsl(22,20%,12%)" }}>Specialties</span>
+            <span className="block w-12 h-px" style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.22), transparent)" }} />
           </div>
-
-          {/* Subtitle */}
-          <motion.p
-            className="text-sm leading-relaxed font-serif italic mx-auto"
-            style={{ color: "rgba(22,15,8,0.45)", maxWidth: 380 }}
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif" style={{ color: "hsl(22,20%,8%)" }}>
+            Crafted <span className="text-gold-gradient italic">&amp;</span> Perfected
+          </h2>
+          <p className="mt-4 text-sm tracking-wide max-w-md mx-auto font-serif italic" style={{ color: "rgba(22,15,8,0.42)" }}>
             Every service is a statement. Every result, a transformation.
-          </motion.p>
-        </div>
+          </p>
+        </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px"
           style={{ background: "rgba(22,15,8,0.08)" }}>
