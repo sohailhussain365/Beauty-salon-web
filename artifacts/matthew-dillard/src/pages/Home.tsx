@@ -371,17 +371,16 @@ function ServicesPreview() {
             />
           </motion.div>
 
-          {/* Main heading */}
+          {/* Main heading — elegant serif, matching Before & After style */}
           <div className="overflow-hidden mb-3">
             <motion.h2
-              className="heading-bebas"
-              style={{ fontSize: "clamp(52px, 8vw, 106px)", color: "hsl(22,20%,8%)", lineHeight: 0.92 }}
-              initial={{ y: "108%", opacity: 0 }}
+              className="font-serif"
+              style={{ fontSize: "clamp(36px, 5vw, 64px)", color: "hsl(22,20%,8%)", lineHeight: 1.1 }}
+              initial={{ y: "110%", opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}>
-              Crafted{" "}
-              <span className="text-gold-gradient">Services</span>
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
+              Crafted <span className="text-gold-gradient italic">&</span> Perfected
             </motion.h2>
           </div>
 
@@ -389,10 +388,10 @@ function ServicesPreview() {
           <motion.p
             className="text-sm leading-relaxed font-serif italic mx-auto"
             style={{ color: "rgba(22,15,8,0.45)", maxWidth: 380 }}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.18 }}>
+            transition={{ duration: 0.6, delay: 0.2 }}>
             Every service is a statement. Every result, a transformation.
           </motion.p>
         </div>
