@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import Layout from "@/components/Layout";
 import LoadingScreen from "@/components/LoadingScreen";
 import BeautyElements from "@/components/BeautyElements";
@@ -8,187 +8,325 @@ import CtaSection from "@/components/CtaSection";
 import BeforeAfter from "@/components/BeforeAfter";
 import TestimonialsSlider from "@/components/TestimonialsSlider";
 
-// ─── Salon Centerpiece ────────────────────────────────────────────────────────
-function SalonElement() {
+// ─── Floating Sparkles ───────────────────────────────────────────────────────
+function FloatingSparkles({ count = 18 }: { count?: number }) {
+  const sparkles = Array.from({ length: count }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    delay: Math.random() * 8,
+    duration: 6 + Math.random() * 8,
+    size: 2 + Math.random() * 3,
+    opacity: 0.2 + Math.random() * 0.5,
+  }));
   return (
-    <div className="relative select-none" style={{ width: 340, height: 340 }} aria-hidden="true">
-      {/* Large ambient halo */}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      {sparkles.map((s) => (
+        <motion.div
+          key={s.id}
+          className="absolute rounded-full"
+          style={{
+            left: `${s.x}%`,
+            bottom: "-10px",
+            width: s.size,
+            height: s.size,
+            background: "hsl(43,80%,65%)",
+            boxShadow: `0 0 ${s.size * 3}px ${s.size}px rgba(201,168,76,0.6)`,
+          }}
+          animate={{
+            y: [0, -(400 + Math.random() * 300)],
+            x: [0, (Math.random() - 0.5) * 80],
+            opacity: [0, s.opacity, s.opacity, 0],
+            scale: [0, 1, 0.8, 0],
+          }}
+          transition={{
+            duration: s.duration,
+            delay: s.delay,
+            repeat: Infinity,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// ─── Diamond SVG ─────────────────────────────────────────────────────────────
+function Diamond({ size = 12, color = "rgba(201,168,76,0.85)" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill={color}>
+      <polygon points="10,1 19,8 10,19 1,8" />
+    </svg>
+  );
+}
+
+// ─── 3D Gyroscope Salon Element ───────────────────────────────────────────────
+function SalonElement() {
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      setMouse({
+        x: ((e.clientX - cx) / rect.width) * 16,
+        y: ((e.clientY - cy) / rect.height) * 16,
+      });
+    };
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative select-none"
+      style={{ width: 380, height: 380 }}
+      aria-hidden="true"
+    >
+      {/* Outer ambient glow */}
       <div
         className="absolute rounded-full pointer-events-none"
         style={{
-          inset: -70,
-          background: "radial-gradient(ellipse, rgba(201,168,76,0.18) 0%, rgba(180,130,50,0.06) 50%, transparent 70%)",
-          animation: "orb-halo-drift 6s ease-in-out infinite",
+          inset: -90,
+          background:
+            "radial-gradient(ellipse, rgba(201,168,76,0.14) 0%, rgba(180,130,50,0.05) 50%, transparent 70%)",
+          animation: "orb-halo-drift 7s ease-in-out infinite",
         }}
       />
 
-      {/* Outer precision ring — clockwise with graduation marks */}
+      {/* Mouse-parallax wrapper with perspective */}
       <motion.div
-        className="absolute inset-0 rounded-full"
-        style={{ border: "1.5px solid rgba(201,168,76,0.55)", boxShadow: "0 0 24px rgba(201,168,76,0.14)" }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 flex items-center justify-center"
+        animate={{ rotateX: -mouse.y * 0.25, rotateY: mouse.x * 0.25 }}
+        transition={{ type: "spring", stiffness: 80, damping: 25 }}
+        style={{ perspective: "700px", transformStyle: "preserve-3d" }}
       >
-        {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
-          <div
-            key={deg}
-            style={{
-              position: "absolute", top: "50%", left: "50%",
-              transformOrigin: "0 0", transform: `rotate(${deg}deg)`,
-            }}
-          >
-            <div style={{
-              position: "absolute",
-              top: -170, left: deg % 90 === 0 ? -1.5 : -0.75,
-              width: deg % 90 === 0 ? 3 : 1.5,
-              height: deg % 90 === 0 ? 13 : 6,
-              background: `rgba(201,168,76,${deg % 90 === 0 ? 0.9 : 0.45})`,
-            }} />
-          </div>
-        ))}
+        {/* ── Ring 1: outer, tilted on X, clockwise ── */}
+        <div
+          style={{
+            position: "absolute",
+            width: 350,
+            height: 350,
+            borderRadius: "50%",
+            border: "1.5px solid rgba(201,168,76,0.65)",
+            boxShadow: "0 0 28px rgba(201,168,76,0.12), inset 0 0 28px rgba(201,168,76,0.04)",
+            animation: "ring-spin-1 18s linear infinite",
+          }}
+        >
+          {/* Gem nodes on ring 1 */}
+          {[0, 90, 180, 270].map((deg) => (
+            <div
+              key={deg}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transformOrigin: "0 0",
+                transform: `rotate(${deg}deg)`,
+              }}
+            >
+              <div style={{ position: "absolute", top: -177, left: -5, filter: "drop-shadow(0 0 6px rgba(201,168,76,0.9))" }}>
+                <Diamond size={10} color="hsl(43,80%,65%)" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Ring 2: mid, different axis, counter ── */}
+        <div
+          style={{
+            position: "absolute",
+            width: 290,
+            height: 290,
+            borderRadius: "50%",
+            border: "1px solid rgba(201,168,76,0.42)",
+            animation: "ring-spin-2 26s linear infinite",
+          }}
+        >
+          {[45, 225].map((deg) => (
+            <div
+              key={deg}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transformOrigin: "0 0",
+                transform: `rotate(${deg}deg)`,
+              }}
+            >
+              <div style={{
+                position: "absolute", top: -148, left: -4,
+                width: 8, height: 8, borderRadius: "50%",
+                background: "rgba(255,230,160,0.95)",
+                boxShadow: "0 0 12px 4px rgba(201,168,76,0.75)",
+              }} />
+            </div>
+          ))}
+        </div>
+
+        {/* ── Ring 3: inner, reverse ── */}
+        <div
+          style={{
+            position: "absolute",
+            width: 230,
+            height: 230,
+            borderRadius: "50%",
+            border: "1px solid rgba(201,168,76,0.28)",
+            animation: "ring-spin-3 34s linear infinite",
+          }}
+        >
+          {[135, 315].map((deg) => (
+            <div
+              key={deg}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transformOrigin: "0 0",
+                transform: `rotate(${deg}deg)`,
+              }}
+            >
+              <div style={{ position: "absolute", top: -118, left: -4, filter: "drop-shadow(0 0 5px rgba(201,168,76,0.8))" }}>
+                <Diamond size={8} color="rgba(201,168,76,0.7)" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Innermost decorative ring ── */}
+        <div
+          style={{
+            position: "absolute",
+            width: 170,
+            height: 170,
+            borderRadius: "50%",
+            border: "1px solid rgba(201,168,76,0.20)",
+            boxShadow: "inset 0 0 40px rgba(201,168,76,0.06)",
+          }}
+        />
       </motion.div>
 
-      {/* Middle ring — counter-clockwise */}
-      <motion.div
-        className="absolute rounded-full"
-        style={{ inset: 26, border: "1px solid rgba(201,168,76,0.38)" }}
-        animate={{ rotate: -360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-      >
-        {[45, 135, 225, 315].map((deg) => (
-          <div
-            key={deg}
-            style={{
-              position: "absolute", top: "50%", left: "50%",
-              transformOrigin: "0 0", transform: `rotate(${deg}deg)`,
-            }}
-          >
-            <div style={{
-              position: "absolute",
-              top: -144, left: -2,
-              width: 4, height: 4, borderRadius: "50%",
-              background: "rgba(201,168,76,0.55)",
-            }} />
-          </div>
-        ))}
-      </motion.div>
-
-      {/* Inner decorative ring */}
-      <div
-        className="absolute rounded-full"
-        style={{ inset: 54, border: "1px solid rgba(201,168,76,0.22)", boxShadow: "inset 0 0 30px rgba(201,168,76,0.06)" }}
-      />
-
-      {/* Golden core glow */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div style={{
-          width: 140, height: 140, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(201,168,76,0.32) 0%, rgba(201,168,76,0.1) 45%, transparent 72%)",
-          boxShadow: "0 0 80px rgba(201,168,76,0.35), 0 0 160px rgba(201,168,76,0.1)",
-          animation: "orb-core-pulse 4s ease-in-out infinite",
-        }} />
+      {/* ── Central golden core ── */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div
+          style={{
+            width: 150,
+            height: 150,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(201,168,76,0.28) 0%, rgba(201,168,76,0.08) 45%, transparent 72%)",
+            boxShadow: "0 0 80px rgba(201,168,76,0.4), 0 0 160px rgba(201,168,76,0.12)",
+            animation: "orb-core-pulse 4s ease-in-out infinite",
+          }}
+        />
       </div>
 
-      {/* ✦ SCISSORS — golden centerpiece */}
+      {/* ── Scissors SVG centerpiece ── */}
       <div className="absolute inset-0 flex items-center justify-center">
         <motion.div
-          style={{ color: "hsl(43,80%,65%)", width: 96, height: 96 }}
+          style={{ color: "hsl(43,80%,65%)", width: 100, height: 100 }}
           animate={{
-            scale: [1, 1.07, 1],
+            scale: [1, 1.06, 1],
             filter: [
-              "drop-shadow(0 0 10px rgba(201,168,76,0.55))",
-              "drop-shadow(0 0 28px rgba(201,168,76,0.95))",
-              "drop-shadow(0 0 10px rgba(201,168,76,0.55))",
+              "drop-shadow(0 0 8px rgba(201,168,76,0.5))",
+              "drop-shadow(0 0 28px rgba(201,168,76,1)) drop-shadow(0 0 50px rgba(201,168,76,0.5))",
+              "drop-shadow(0 0 8px rgba(201,168,76,0.5))",
             ],
           }}
           transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
         >
           <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
-            {/* Upper blade */}
             <motion.g
-              animate={{ rotate: [0, 12, 0] }}
-              transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+              animate={{ rotate: [0, 14, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               style={{ transformOrigin: "50px 50px" }}
             >
               <circle cx="20" cy="20" r="13" strokeWidth="2.5" />
+              <circle cx="20" cy="20" r="5" fill="hsl(43,80%,65%)" stroke="none" />
               <line x1="31" y1="25" x2="50" y2="50" strokeWidth="2.5" />
-              <path d="M 50 50 L 86 18" strokeWidth="2.5" />
+              <path d="M 50 50 L 88 16" strokeWidth="2.5" />
             </motion.g>
-            {/* Lower blade */}
             <motion.g
-              animate={{ rotate: [0, -12, 0] }}
-              transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+              animate={{ rotate: [0, -14, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               style={{ transformOrigin: "50px 50px" }}
             >
               <circle cx="20" cy="80" r="13" strokeWidth="2.5" />
+              <circle cx="20" cy="80" r="5" fill="hsl(43,80%,65%)" stroke="none" />
               <line x1="31" y1="75" x2="50" y2="50" strokeWidth="2.5" />
-              <path d="M 50 50 L 86 82" strokeWidth="2.5" />
+              <path d="M 50 50 L 88 84" strokeWidth="2.5" />
             </motion.g>
-            {/* Pivot */}
-            <circle cx="50" cy="50" r="5" fill="hsl(43,80%,65%)" stroke="none" />
+            <circle cx="50" cy="50" r="5.5" fill="hsl(43,80%,65%)" stroke="none" />
           </svg>
         </motion.div>
       </div>
 
-      {/* Orbiting golden dot — outer ring */}
+      {/* ── Fast orbiting bright dot on ring 1 ── */}
       <motion.div
         className="absolute"
-        style={{ top: "calc(50% - 6px)", left: "calc(50% - 6px)" }}
+        style={{ top: "calc(50% - 7px)", left: "calc(50% - 7px)" }}
         animate={{ rotate: 360 }}
-        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
       >
         <div style={{
-          position: "absolute", top: -170, left: -6,
-          width: 12, height: 12, borderRadius: "50%",
-          background: "hsl(43,80%,62%)",
-          boxShadow: "0 0 20px 6px rgba(201,168,76,0.9)",
+          position: "absolute", top: -177, left: -7,
+          width: 14, height: 14, borderRadius: "50%",
+          background: "hsl(43,90%,70%)",
+          boxShadow: "0 0 20px 8px rgba(201,168,76,0.95), 0 0 40px 12px rgba(201,168,76,0.4)",
         }} />
       </motion.div>
 
-      {/* Orbiting champagne dot — middle ring */}
+      {/* ── Slower orbiting champagne dot on ring 2 ── */}
       <motion.div
         className="absolute"
         style={{ top: "calc(50% - 5px)", left: "calc(50% - 5px)" }}
         animate={{ rotate: -360 }}
-        transition={{ duration: 8.5, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
       >
         <div style={{
-          position: "absolute", top: -131, left: -5,
+          position: "absolute", top: -148, left: -5,
           width: 10, height: 10, borderRadius: "50%",
-          background: "rgba(255,230,150,0.95)",
-          boxShadow: "0 0 16px 4px rgba(201,168,76,0.72)",
+          background: "rgba(255,240,180,0.95)",
+          boxShadow: "0 0 16px 5px rgba(201,168,76,0.75)",
         }} />
       </motion.div>
 
-      {/* Orbiting hair-dye droplet */}
-      <motion.div
-        className="absolute"
-        style={{ top: "50%", left: "50%" }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 13, repeat: Infinity, ease: "linear" }}
-      >
-        <motion.div
-          style={{ position: "absolute", top: -152, left: -8, color: "rgba(201,168,76,0.72)", width: 16 }}
-          animate={{ rotate: -360 }}
-          transition={{ duration: 13, repeat: Infinity, ease: "linear" }}
-        >
-          <svg viewBox="0 0 30 40" fill="currentColor">
-            <path d="M15 2 C15 2,2 18,2 26 A13 13 0 0 0 28 26 C28 18 15 2 15 2 Z" />
-          </svg>
-        </motion.div>
-      </motion.div>
-
-      {/* Golden sparkle at top */}
-      <motion.div
-        className="absolute"
-        style={{ top: -8, left: "50%", translateX: "-50%", color: "rgba(201,168,76,0.85)", width: 18 }}
-        animate={{ opacity: [0.4, 1, 0.4], scale: [0.8, 1.3, 0.8], rotate: [0, 45, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <svg viewBox="0 0 40 40" fill="currentColor">
-          <path d="M20 2 L21.5 17 L36 18 L21.5 20 L20 38 L18.5 20 L4 18 L18.5 17 Z" />
-        </svg>
-      </motion.div>
+      {/* ── Sparkle bursts ── */}
+      {[0, 72, 144, 216, 288].map((deg, i) => {
+        const rad = (deg * Math.PI) / 180;
+        const r = 190;
+        return (
+          <motion.div
+            key={i}
+            className="absolute"
+            style={{
+              left: "50%",
+              top: "50%",
+              x: Math.cos(rad) * r - 8,
+              y: Math.sin(rad) * r - 8,
+              color: "rgba(201,168,76,0.7)",
+              width: 16,
+            }}
+            animate={{
+              opacity: [0.2, 1, 0.2],
+              scale: [0.6, 1.4, 0.6],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 3 + i * 0.4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.6,
+            }}
+          >
+            <svg viewBox="0 0 40 40" fill="currentColor">
+              <path d="M20 2 L21.5 17 L36 18 L21.5 20 L20 38 L18.5 20 L4 18 L18.5 17 Z" />
+            </svg>
+          </motion.div>
+        );
+      })}
     </div>
   );
 }
@@ -221,8 +359,19 @@ function Hero() {
             translateX: "-50%", translateY: "-50%",
             background: "radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 62%)",
           }}
-          animate={{ scale: [1, 1.08, 1], opacity: [0.6, 1, 0.6] }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Second ambient orb on right */}
+        <motion.div
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            width: 500, height: 500,
+            top: "60%", right: "10%",
+            background: "radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 62%)",
+          }}
+          animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.8, 0.4] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
         {/* Film grain */}
         <div
@@ -236,6 +385,7 @@ function Hero() {
       </motion.div>
 
       <BeautyElements />
+      <FloatingSparkles count={20} />
 
       {/* Grid lines */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.035]" aria-hidden="true">
@@ -247,7 +397,6 @@ function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center min-h-[85vh]">
           {/* ── Left: text ── */}
           <div className="flex flex-col justify-center order-2 lg:order-1">
-            {/* Sub-label */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -257,16 +406,15 @@ function Hero() {
               <motion.div
                 className="h-px"
                 initial={{ width: 0 }}
-                animate={{ width: 40 }}
+                animate={{ width: 48 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
                 style={{ background: "linear-gradient(90deg, transparent, hsl(43,65%,52%))" }}
               />
               <span style={{ fontSize: 9, letterSpacing: "0.45em", textTransform: "uppercase", color: "rgba(201,168,76,0.65)" }}>
-                Luxury Hair Artistry
+                Luxury Hair Artistry · Prosper TX
               </span>
             </motion.div>
 
-            {/* Main headline */}
             <h1 className="font-serif leading-[1.0] mb-7">
               {["Elevate", "Your Hair."].map((line, li) => (
                 <div key={li} className="overflow-hidden">
@@ -276,7 +424,7 @@ function Hero() {
                     animate={{ y: 0 }}
                     transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.35 + li * 0.16 }}
                     style={{
-                      fontSize: "clamp(44px, 6vw, 80px)",
+                      fontSize: "clamp(44px, 6vw, 82px)",
                       color: li === 0 ? "rgba(255,255,255,0.88)" : undefined,
                       fontWeight: li === 0 ? 500 : 700,
                     }}
@@ -287,7 +435,6 @@ function Hero() {
               ))}
             </h1>
 
-            {/* Sub-copy */}
             <div className="mb-10 max-w-md">
               <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,0.38)", letterSpacing: "0.03em" }}>
                 {words.map((w, i) => (
@@ -316,7 +463,6 @@ function Hero() {
               </p>
             </div>
 
-            {/* CTAs */}
             <motion.div
               className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
               initial={{ opacity: 0, y: 16 }}
@@ -324,31 +470,39 @@ function Hero() {
               transition={{ duration: 0.8, delay: 1.8 }}
             >
               <Link href="/booking">
-              <motion.div
-                className="group relative overflow-hidden px-9 py-4 transition-all duration-300 hover:scale-[1.03] cursor-pointer"
-                style={{
-                  background: "linear-gradient(135deg, hsl(43,68%,50%), hsl(35,72%,42%))",
-                  boxShadow: "0 6px 32px rgba(201,168,76,0.38), 0 0 0 1px rgba(201,168,76,0.18)",
-                }}
-                data-testid="hero-book"
-              >
-                <span className="relative z-10 flex items-center gap-3 font-medium"
-                  style={{ fontSize: 11, letterSpacing: "0.26em", textTransform: "uppercase", color: "#000" }}>
-                  Book Appointment
-                  <motion.svg
-                    className="w-3.5 h-3.5"
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    animate={{ x: [0, 3, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </motion.svg>
-                </span>
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: "linear-gradient(135deg, hsl(43,78%,58%), hsl(35,80%,50%))" }}
-                />
-              </motion.div>
+                <motion.div
+                  className="group relative overflow-hidden px-9 py-4 transition-all duration-300 hover:scale-[1.04] cursor-pointer"
+                  style={{
+                    background: "linear-gradient(135deg, hsl(43,68%,50%), hsl(35,72%,42%))",
+                    boxShadow: "0 6px 32px rgba(201,168,76,0.38), 0 0 0 1px rgba(201,168,76,0.18)",
+                  }}
+                  whileHover={{ boxShadow: "0 8px 40px rgba(201,168,76,0.55), 0 0 0 1px rgba(201,168,76,0.3)" }}
+                  data-testid="hero-book"
+                >
+                  <span className="relative z-10 flex items-center gap-3 font-medium"
+                    style={{ fontSize: 11, letterSpacing: "0.26em", textTransform: "uppercase", color: "#000" }}>
+                    Book Appointment
+                    <motion.svg
+                      className="w-3.5 h-3.5"
+                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                      animate={{ x: [0, 3, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </motion.svg>
+                  </span>
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: "linear-gradient(135deg, hsl(43,78%,58%), hsl(35,80%,50%))" }}
+                  />
+                  {/* Shine sweep */}
+                  <motion.div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                    style={{ background: "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%)" }}
+                    animate={{ x: ["-100%", "200%"] }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  />
+                </motion.div>
               </Link>
               <Link href="/services">
                 <motion.div
@@ -370,7 +524,7 @@ function Hero() {
 
             {/* Trust badges */}
             <motion.div
-              className="flex flex-wrap gap-4 mt-10 pt-8"
+              className="flex flex-wrap gap-6 mt-10 pt-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.1 }}
@@ -381,62 +535,68 @@ function Hero() {
                 { v: "28+", l: "Reviews" },
                 { v: "10+", l: "Years" },
                 { v: "Veteran", l: "Owned" },
-              ].map((b) => (
-                <div key={b.l} className="flex flex-col gap-0.5">
-                  <span className="font-serif font-semibold" style={{ fontSize: 16, color: "hsl(43,65%,52%)" }}>{b.v}</span>
+              ].map((b, i) => (
+                <motion.div
+                  key={b.l}
+                  className="flex flex-col gap-0.5"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 2.2 + i * 0.1 }}
+                >
+                  <span className="font-serif font-semibold" style={{ fontSize: 17, color: "hsl(43,65%,52%)" }}>{b.v}</span>
                   <span style={{ fontSize: 8, letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>{b.l}</span>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           </div>
 
-          {/* ── Right: 3D Orb ── */}
+          {/* ── Right: 3D Gyroscope Orb ── */}
           <motion.div
             className="flex items-center justify-center order-1 lg:order-2 relative"
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.75 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
           >
-            {/* Outer glow ring */}
             <div
               className="absolute rounded-full pointer-events-none"
               style={{
-                width: 420, height: 420,
-                background: "radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 65%)",
+                width: 460, height: 460,
+                background: "radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 65%)",
               }}
               aria-hidden="true"
             />
             <SalonElement />
-            {/* Floating mini-badges around orb */}
+            {/* Floating badges */}
             {[
-              { label: "Master Colorist", angle: -40, r: 200 },
-              { label: "Balayage Expert", angle: 160, r: 190 },
-              { label: "Prosper, TX", angle: 85, r: 210 },
+              { label: "Master Colorist", angle: -40, r: 215 },
+              { label: "Balayage Expert", angle: 160, r: 205 },
+              { label: "Prosper, TX", angle: 88, r: 225 },
             ].map((badge) => {
               const rad = (badge.angle * Math.PI) / 180;
               const x = Math.cos(rad) * badge.r;
-              const y = Math.sin(rad) * badge.r;
+              const bY = Math.sin(rad) * badge.r;
               return (
                 <motion.div
                   key={badge.label}
                   className="absolute"
-                  style={{ left: "50%", top: "50%", translateX: `calc(-50% + ${x}px)`, translateY: `calc(-50% + ${y}px)` }}
+                  style={{ left: "50%", top: "50%", translateX: `calc(-50% + ${x}px)`, translateY: `calc(-50% + ${bY}px)` }}
                   initial={{ opacity: 0, scale: 0.7 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.7, delay: 1.4 }}
+                  transition={{ duration: 0.7, delay: 1.6 }}
                 >
                   <motion.div
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, ease: "easeInOut" }}
+                    animate={{ y: [0, -6, 0] }}
+                    transition={{ duration: 3.5 + Math.random() * 2, repeat: Infinity, ease: "easeInOut" }}
                     className="px-3 py-1.5 whitespace-nowrap"
                     style={{
-                      background: "rgba(10,7,4,0.85)",
-                      border: "1px solid rgba(201,168,76,0.22)",
-                      backdropFilter: "blur(12px)",
+                      background: "rgba(8,5,2,0.88)",
+                      border: "1px solid rgba(201,168,76,0.28)",
+                      backdropFilter: "blur(14px)",
                       fontSize: 8,
                       letterSpacing: "0.28em",
                       textTransform: "uppercase",
-                      color: "rgba(201,168,76,0.7)",
+                      color: "rgba(201,168,76,0.75)",
+                      boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
                     }}
                   >
                     {badge.label}
@@ -452,7 +612,7 @@ function Hero() {
           className="flex flex-col items-center gap-2 mt-4 lg:-mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.4 }}
+          transition={{ delay: 2.5 }}
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
@@ -509,41 +669,36 @@ function Stats() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const stats = [
     { value: "4.8", suffix: "★", label: "Average Rating", sub: "Google Reviews" },
-    { value: "28", suffix: "+", label: "Verified Reviews", sub: "Real Clients" },
-    { value: "10", suffix: "+", label: "Years of Artistry", sub: "Master-Level Craft" },
-    { value: "5K", suffix: "+", label: "Clients Transformed", sub: "& Counting" },
+    { value: "28", suffix: "+", label: "Verified Reviews", sub: "Satisfied Clients" },
+    { value: "10", suffix: "+", label: "Years Experience", sub: "Master Colorist" },
+    { value: "100", suffix: "%", label: "Veteran Owned", sub: "Community Proud" },
   ];
   return (
-    <section ref={ref} className="py-20 section-divider">
-      <div className="max-w-[1380px] mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <section ref={ref} className="py-20 md:py-24 section-divider" style={{ background: "hsl(22,16%,5%)" }}>
+      <div className="max-w-6xl mx-auto px-6 md:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative overflow-hidden p-7 text-center"
-              style={{
-                background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))",
-                border: "1px solid rgba(201,168,76,0.09)",
-              }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="group flex flex-col items-center text-center gap-2 p-6 relative overflow-hidden"
+              style={{ border: "1px solid rgba(201,168,76,0.08)" }}
+              whileHover={{ borderColor: "rgba(201,168,76,0.22)" }}
             >
-              <div
+              <motion.div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.07), transparent 70%)" }}
-                aria-hidden="true"
+                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06), transparent 70%)" }}
               />
-              <div
-                className="absolute top-0 inset-x-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }}
-                aria-hidden="true"
-              />
-              <p className="font-serif font-bold shimmer-text mb-1" style={{ fontSize: 38 }}>
-                {s.value}<span style={{ fontSize: 22 }}>{s.suffix}</span>
-              </p>
-              <p className="font-medium mb-0.5" style={{ fontSize: 11, letterSpacing: "0.08em", color: "rgba(255,255,255,0.6)" }}>{s.label}</p>
-              <p style={{ fontSize: 8.5, letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.22)" }}>{s.sub}</p>
+              <div className="relative z-10">
+                <span className="font-serif font-bold text-4xl md:text-5xl" style={{ color: "hsl(43,65%,55%)" }}>
+                  {s.value}
+                  <span className="text-2xl">{s.suffix}</span>
+                </span>
+                <p className="text-[11px] tracking-[0.2em] uppercase text-white/55 mt-2">{s.label}</p>
+                <p className="text-[9px] tracking-[0.15em] uppercase text-white/25 mt-0.5">{s.sub}</p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -552,316 +707,131 @@ function Stats() {
   );
 }
 
-// ─── About Teaser ─────────────────────────────────────────────────────────────
-function AboutTeaser() {
+// ─── Services Preview ─────────────────────────────────────────────────────────
+function ServicesPreview() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  return (
-    <section ref={ref} className="py-24 md:py-32 section-divider overflow-hidden">
-      <div
-        className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(201,168,76,0.04) 0%, transparent 65%)" }}
-        aria-hidden="true"
-      />
-      <div className="max-w-[1380px] mx-auto px-6 lg:px-10">
-        <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="flex items-center gap-3 mb-7">
-              <span className="w-8 h-px" style={{ background: "hsl(43,65%,52%)" }} />
-              <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(201,168,76,0.62)" }}>Our Story</span>
-            </div>
-            <h2 className="font-serif leading-[1.1] mb-7" style={{ fontSize: "clamp(32px, 4vw, 52px)", color: "rgba(255,255,255,0.88)" }}>
-              More Than a Salon —<br />
-              <span className="text-gold-gradient italic">A Philosophy</span>
-            </h2>
-            <p style={{ fontSize: 14, lineHeight: 1.8, color: "rgba(255,255,255,0.42)", maxWidth: 480, marginBottom: 28 }}>
-              Veteran-owned and LGBTQ+ friendly, Matthew Dillard Hair Salons was built on the
-              belief that extraordinary hair requires extraordinary care. Each appointment is
-              treated as a creative commission — collaborative, intentional, and uniquely yours.
-            </p>
-            <div className="flex flex-wrap gap-2.5 mb-9">
-              {["Veteran Owned", "LGBTQ+ Friendly", "Master Colorist", "Blade Specialist"].map((badge) => (
-                <span key={badge} className="px-4 py-1.5"
-                  style={{ fontSize: 8.5, letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(201,168,76,0.7)", border: "1px solid rgba(201,168,76,0.2)" }}>
-                  {badge}
-                </span>
-              ))}
-            </div>
-            <Link href="/about">
-              <motion.div
-                className="inline-flex items-center gap-3 cursor-pointer group"
-                whileHover={{ x: 5 }}
-                transition={{ duration: 0.2 }}
-                data-testid="about-link"
-              >
-                <span style={{ fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(201,168,76,0.65)" }}
-                  className="group-hover:text-yellow-400 transition-colors">
-                  Read Our Story
-                </span>
-                <svg className="w-3.5 h-3.5 text-yellow-500/60 group-hover:text-yellow-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </motion.div>
-            </Link>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="space-y-4"
-          >
-            {[
-              { n: "01", title: "Artistry First", desc: "Hair is sculpted, not just cut. Every appointment begins with a deep creative vision." },
-              { n: "02", title: "Personalized Experience", desc: "No two clients are the same. Your lifestyle, texture, and vision shape every decision." },
-              { n: "03", title: "Elevated Environment", desc: "A calm, private studio designed to feel exclusive without ever feeling intimidating." },
-            ].map((item) => (
-              <div key={item.n} className="flex gap-5 p-6 group"
-                style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.08)" }}>
-                <span className="font-serif text-sm flex-shrink-0 mt-0.5 group-hover:text-yellow-400 transition-colors"
-                  style={{ color: "rgba(201,168,76,0.35)" }}>
-                  {item.n}
-                </span>
-                <div>
-                  <h3 className="font-serif font-semibold mb-1.5 group-hover:text-white transition-colors" style={{ fontSize: 14, color: "rgba(255,255,255,0.78)" }}>{item.title}</h3>
-                  <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "rgba(255,255,255,0.35)" }}>{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Process ──────────────────────────────────────────────────────────────────
-function Process() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const steps = [
-    { n: "01", title: "The Consultation", desc: "We begin by listening. Understanding your hair history, lifestyle, and aspirations before a single decision is made.", icon: "◇" },
-    { n: "02", title: "The Vision", desc: "Together we craft a plan — color theory, shape, texture — a bespoke roadmap for your transformation.", icon: "◈" },
-    { n: "03", title: "The Transformation", desc: "Hours of focused artistry. Precision technique combined with premium products for flawless execution.", icon: "◉" },
-    { n: "04", title: "The Reveal", desc: "You leave feeling seen, celebrated, and utterly transformed — ready to face the world with renewed confidence.", icon: "✦" },
+  const services = [
+    { icon: "✦", title: "Balayage", desc: "Hand-painted sun-kissed color that grows out naturally.", color: "rgba(201,168,76,0.8)" },
+    { icon: "◈", title: "Blonde Specialist", desc: "Every shade of blonde — platinum to honey, perfected.", color: "rgba(220,200,150,0.8)" },
+    { icon: "❋", title: "Hair Treatments", desc: "Olaplex, keratin, and deep conditioning therapies.", color: "rgba(180,220,200,0.7)" },
+    { icon: "❃", title: "Bridal Styling", desc: "Your wedding day hair — from trial to the aisle.", color: "rgba(220,180,200,0.7)" },
+    { icon: "◉", title: "Hair Coloring", desc: "Dimensional color executed with precision and vision.", color: "rgba(201,168,76,0.7)" },
+    { icon: "⬡", title: "Extensions", desc: "Length and volume using premium human hair.", color: "rgba(160,200,230,0.7)" },
   ];
   return (
-    <section ref={ref} className="py-24 md:py-32 section-divider relative overflow-hidden"
-      style={{ background: "linear-gradient(180deg, transparent 0%, hsl(22,18%,5%) 30%, hsl(22,18%,5%) 70%, transparent 100%)" }}>
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.04), transparent 70%)" }}
-        aria-hidden="true"
-      />
-      <div className="max-w-[1380px] mx-auto px-6 lg:px-10">
+    <section ref={ref} className="py-28 md:py-36 section-divider relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <FloatingSparkles count={10} />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <div className="flex items-center justify-center gap-4 mb-5">
-            <span className="w-10 h-px" style={{ background: "linear-gradient(90deg, transparent, hsl(43,65%,52%))" }} />
-            <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(201,168,76,0.62)" }}>Your Journey</span>
-            <span className="w-10 h-px" style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} />
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <span className="block w-12 h-px" style={{ background: "linear-gradient(90deg, transparent, hsl(43,65%,52%))" }} />
+            <span className="text-[9px] tracking-[0.4em] uppercase text-yellow-400/60">Specialties</span>
+            <span className="block w-12 h-px" style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} />
           </div>
-          <h2 className="font-serif" style={{ fontSize: "clamp(30px, 4vw, 52px)", color: "rgba(255,255,255,0.88)" }}>
-            The <span className="text-gold-gradient italic">Experience</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white/90">
+            Crafted <span className="text-gold-gradient italic">Services</span>
           </h2>
+          <p className="mt-4 text-sm text-white/38 tracking-wide max-w-md mx-auto">
+            Every service is a statement. Every result, a transformation.
+          </p>
         </motion.div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 relative">
-          {/* Connector line */}
-          <div className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px"
-            style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.2), rgba(201,168,76,0.2), transparent)" }}
-            aria-hidden="true" />
-          {steps.map((step, i) => (
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {services.map((svc, i) => (
             <motion.div
-              key={step.n}
+              key={svc.title}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative p-8 text-center overflow-hidden"
-              style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.08)" }}
+              transition={{ duration: 0.7, delay: 0.08 * i, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative p-8 overflow-hidden cursor-pointer"
+              style={{
+                background: "linear-gradient(145deg, hsl(22,16%,8%), hsl(22,14%,6%))",
+                border: "1px solid rgba(201,168,76,0.08)",
+              }}
+              whileHover={{
+                borderColor: "rgba(201,168,76,0.25)",
+                y: -4,
+                transition: { duration: 0.2 },
+              }}
             >
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.07), transparent 70%)" }}
+                style={{ background: `radial-gradient(ellipse at 20% 10%, ${svc.color.replace("0.8", "0.08").replace("0.7", "0.06")}, transparent 65%)` }}
                 aria-hidden="true"
               />
               <div
-                className="absolute top-0 inset-x-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }}
+                className="absolute top-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-600 origin-left"
+                style={{ background: `linear-gradient(90deg, ${svc.color}, transparent)` }}
                 aria-hidden="true"
               />
-              {/* Step number + connector dot */}
-              <div className="relative z-10 flex flex-col items-center gap-4 mb-6">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center"
-                  style={{ background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.22)" }}>
-                  <span className="font-serif text-xs font-bold" style={{ color: "rgba(201,168,76,0.7)" }}>{step.n}</span>
-                </div>
-                <span style={{ fontSize: 22, color: "rgba(201,168,76,0.35)" }} className="group-hover:text-yellow-400/60 transition-colors">{step.icon}</span>
+
+              <div className="relative z-10">
+                <motion.div
+                  className="mb-5 text-3xl"
+                  style={{ color: svc.color }}
+                  animate={{ rotate: [0, 5, 0, -5, 0] }}
+                  transition={{ duration: 5 + i * 0.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  {svc.icon}
+                </motion.div>
+                <h3 className="text-base font-serif font-semibold text-white/85 group-hover:text-white transition-colors mb-3">
+                  {svc.title}
+                </h3>
+                <p className="text-xs text-white/38 leading-relaxed">{svc.desc}</p>
+                <motion.div
+                  className="h-px mt-5 w-0 group-hover:w-10 transition-all duration-500"
+                  style={{ background: svc.color }}
+                />
               </div>
-              <h3 className="font-serif font-semibold mb-3 group-hover:text-white transition-colors" style={{ fontSize: 15, color: "rgba(255,255,255,0.8)" }}>{step.title}</h3>
-              <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "rgba(255,255,255,0.35)" }}>{step.desc}</p>
             </motion.div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
 
-// ─── Philosophy ───────────────────────────────────────────────────────────────
-function Philosophy() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  return (
-    <section ref={ref} className="relative py-28 md:py-40 overflow-hidden section-divider">
-      {/* Background */}
-      <div className="absolute inset-0"
-        style={{ background: "radial-gradient(ellipse 100% 80% at 50% 50%, hsl(28,18%,8%) 0%, hsl(22,18%,4%) 70%)" }}
-        aria-hidden="true" />
-      <motion.div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
-        style={{ width: 800, height: 400, background: "radial-gradient(ellipse, rgba(201,168,76,0.05), transparent 65%)" }}
-        animate={{ scale: [1, 1.05, 1], opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      />
-      {/* Decorative lines */}
-      <div className="absolute top-1/3 inset-x-0 h-px opacity-8" style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent)" }} aria-hidden="true" />
-      <div className="absolute bottom-1/3 inset-x-0 h-px opacity-5" style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent)" }} aria-hidden="true" />
-      <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.6 }}
+          className="text-center mt-12"
         >
-          {/* Large quote mark */}
-          <div className="absolute -top-6 left-1/2 -translate-x-1/2 font-serif select-none pointer-events-none"
-            style={{ fontSize: 120, color: "rgba(201,168,76,0.05)", lineHeight: 1 }} aria-hidden="true">
-            &ldquo;
-          </div>
-          <div className="flex items-center justify-center gap-4 mb-10">
-            <span className="w-12 h-px" style={{ background: "linear-gradient(90deg, transparent, hsl(43,65%,52%))" }} />
-            <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(201,168,76,0.62)" }}>Our Belief</span>
-            <span className="w-12 h-px" style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} />
-          </div>
-          <blockquote className="font-serif italic leading-[1.25] mb-10"
-            style={{ fontSize: "clamp(22px, 3.5vw, 38px)", color: "rgba(255,255,255,0.72)" }}>
-            Every person who sits in this chair deserves to leave feeling extraordinary. Hair is not just aesthetics — it is identity, confidence, and joy.
-          </blockquote>
-          <div className="flex flex-col items-center gap-2">
-            <div className="w-8 h-px mb-2" style={{ background: "hsl(43,65%,52%)" }} />
-            <span style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", fontFamily: "Playfair Display, serif", fontWeight: 500 }}>Matthew Dillard</span>
-            <span style={{ fontSize: 8.5, letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(201,168,76,0.5)" }}>Founder & Master Stylist</span>
-          </div>
+          <Link href="/services">
+            <motion.span
+              className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase cursor-pointer"
+              style={{ color: "rgba(201,168,76,0.6)" }}
+              whileHover={{ color: "rgba(201,168,76,1)", x: 2 }}
+            >
+              View All Services
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </motion.span>
+          </Link>
         </motion.div>
       </div>
     </section>
   );
 }
 
-// ─── Featured Services ────────────────────────────────────────────────────────
-const FEATURED_SVCS = [
-  { icon: "◈", title: "Balayage", desc: "Hand-painted, sun-kissed color that grows out beautifully and looks effortless in every light.", tag: "Most Popular" },
-  { icon: "✦", title: "Blonde Specialist", desc: "Every shade from platinum to honey — executed with bond-building precision and toning mastery.", tag: "Specialty" },
-  { icon: "❋", title: "Luxury Treatments", desc: "Olaplex, deep conditioning, and keratin smoothing — restore, repair, and protect from within.", tag: "Recommended" },
-  { icon: "❃", title: "Bridal Styling", desc: "Full consultation, trial, and day-of styling for the bride and entire bridal party.", tag: "Book Early" },
-];
-
-function FeaturedServices() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  return (
-    <section ref={ref} className="py-24 md:py-32 section-divider overflow-hidden">
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(201,168,76,0.04), transparent 65%)" }} aria-hidden="true" />
-      <div className="max-w-[1380px] mx-auto px-6 lg:px-10">
-        <div className="flex items-end justify-between flex-wrap gap-5 mb-12">
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-8 h-px" style={{ background: "hsl(43,65%,52%)" }} />
-              <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(201,168,76,0.62)" }}>What We Do</span>
-            </div>
-            <h2 className="font-serif" style={{ fontSize: "clamp(30px, 4vw, 52px)", color: "rgba(255,255,255,0.88)" }}>
-              Signature <span className="text-gold-gradient italic">Services</span>
-            </h2>
-          </div>
-          <Link href="/services">
-            <motion.div
-              className="inline-flex items-center gap-2.5 cursor-pointer group"
-              whileHover={{ x: 5 }}
-              data-testid="all-services"
-            >
-              <span style={{ fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(201,168,76,0.6)" }}
-                className="group-hover:text-yellow-400 transition-colors">
-                All Services
-              </span>
-              <svg className="w-3.5 h-3.5 text-yellow-500/60 group-hover:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </motion.div>
-          </Link>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {FEATURED_SVCS.map((svc, i) => (
-            <motion.div
-              key={svc.title}
-              initial={{ opacity: 0, y: 28 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative overflow-hidden p-8"
-              style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.08)" }}
-            >
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.08), transparent 65%)" }} aria-hidden="true" />
-              <div className="absolute top-0 inset-x-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} aria-hidden="true" />
-              <div className="relative z-10">
-                <div className="flex items-start justify-between mb-5">
-                  <span style={{ fontSize: 24, color: "rgba(201,168,76,0.38)" }} className="group-hover:text-yellow-400/65 transition-colors">{svc.icon}</span>
-                  <span className="px-2.5 py-1" style={{ fontSize: 7.5, letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(201,168,76,0.65)", border: "1px solid rgba(201,168,76,0.2)" }}>
-                    {svc.tag}
-                  </span>
-                </div>
-                <h3 className="font-serif font-semibold mb-2.5 group-hover:text-white transition-colors" style={{ fontSize: 15, color: "rgba(255,255,255,0.8)" }}>{svc.title}</h3>
-                <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "rgba(255,255,255,0.35)" }}>{svc.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Main ─────────────────────────────────────────────────────────────────────
+// ─── Home Page ─────────────────────────────────────────────────────────────────
 export default function Home() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    if (sessionStorage.getItem("md_loaded")) setLoaded(true);
-  }, []);
-  const handleLoadComplete = () => {
-    sessionStorage.setItem("md_loaded", "1");
-    setLoaded(true);
-  };
+  const [loading, setLoading] = useState(true);
 
   return (
     <>
-      <AnimatePresence>{!loaded && <LoadingScreen onComplete={handleLoadComplete} />}</AnimatePresence>
-      {loaded && (
-        <Layout transparentNav>
+      {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
+      {!loading && (
+        <Layout>
           <Hero />
           <Marquee />
           <Stats />
-          <AboutTeaser />
-          <Process />
-          <Philosophy />
-          <FeaturedServices />
+          <ServicesPreview />
           <BeforeAfter />
           <TestimonialsSlider />
           <CtaSection />
