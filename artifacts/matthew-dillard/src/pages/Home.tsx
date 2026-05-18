@@ -28,55 +28,46 @@ function CountUp({ end, suffix = "", duration = 2 }: { end: number; suffix?: str
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-// ─── Lightweight CSS 3D Crystal Orb ───────────────────────────────────────────
+// ─── Hero Photo Element ────────────────────────────────────────────────────────
 function SalonElement() {
   return (
-    <div className="gem-scene" aria-hidden="true">
-      {/* Halo glow */}
-      <div className="gem-halo" />
+    <div className="relative w-full max-w-[360px] mx-auto select-none" aria-hidden="true">
+      {/* Ambient glow */}
+      <div className="absolute -inset-10 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 70%)" }} />
 
-      {/* 3D ring container */}
-      <div className="gem-stage">
-        {/* Ring 1 — wide gold */}
-        <div className="gem-ring r1">
-          <span className="gem-dot gd-a" />
-          <span className="gem-dot gd-b" />
-          <span className="gem-dot gd-c" />
-          <span className="gem-dot gd-d" />
-        </div>
+      {/* Corner bracket accents */}
+      <div className="absolute -top-3 -left-3 w-8 h-8 border-t border-l" style={{ borderColor: "rgba(201,168,76,0.5)" }} />
+      <div className="absolute -top-3 -right-3 w-8 h-8 border-t border-r" style={{ borderColor: "rgba(201,168,76,0.5)" }} />
+      <div className="absolute -bottom-3 -left-3 w-8 h-8 border-b border-l" style={{ borderColor: "rgba(201,168,76,0.5)" }} />
+      <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b border-r" style={{ borderColor: "rgba(201,168,76,0.5)" }} />
 
-        {/* Ring 2 — blush */}
-        <div className="gem-ring r2">
-          <span className="gem-dot gd-e" />
-          <span className="gem-dot gd-f" />
-        </div>
-
-        {/* Ring 3 — silver thin */}
-        <div className="gem-ring r3">
-          <span className="gem-dot gd-g" />
-          <span className="gem-dot gd-h" />
+      {/* Photo */}
+      <div className="relative overflow-hidden" style={{ aspectRatio: "3/4" }}>
+        <motion.img
+          src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=900&q=85"
+          alt="Luxury hair artistry"
+          className="w-full h-full object-cover object-top"
+          style={{ filter: "brightness(0.78) saturate(0.88)" }}
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+        />
+        {/* Bottom gradient */}
+        <div className="absolute inset-x-0 bottom-0 h-2/5 pointer-events-none"
+          style={{ background: "linear-gradient(to top, rgba(5,3,2,0.82) 0%, transparent 100%)" }} />
+        {/* Bottom label */}
+        <div className="absolute bottom-5 inset-x-0 px-6">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="h-px flex-1" style={{ background: "rgba(255,255,255,0.12)" }} />
+            <span style={{ fontSize: 7, letterSpacing: "0.48em", textTransform: "uppercase", color: "rgba(255,255,255,0.28)" }}>ARTISTRY</span>
+            <div className="h-px flex-1" style={{ background: "rgba(255,255,255,0.12)" }} />
+          </div>
+          <p className="text-center" style={{ fontSize: 8.5, letterSpacing: "0.32em", textTransform: "uppercase", color: "rgba(255,255,255,0.42)" }}>
+            Matthew Dillard · Prosper TX
+          </p>
         </div>
       </div>
-
-      {/* Central orb */}
-      <div className="gem-core-wrap">
-        <div className="gem-core" />
-        {/* Scissors icon inside core */}
-        <svg className="gem-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="18" cy="18" r="11" strokeWidth="2" />
-          <circle cx="18" cy="62" r="11" strokeWidth="2" />
-          <line x1="27" y1="22" x2="62" y2="55" strokeWidth="2" />
-          <line x1="27" y1="58" x2="62" y2="25" strokeWidth="2" />
-          <circle cx="43" cy="40" r="4" fill="currentColor" strokeWidth="0" />
-        </svg>
-      </div>
-
-      {/* Sparkle stars floating around */}
-      <span className="gem-sparkle gs-1">✦</span>
-      <span className="gem-sparkle gs-2">✦</span>
-      <span className="gem-sparkle gs-3">✦</span>
-      <span className="gem-sparkle gs-4">✦</span>
-      <span className="gem-sparkle gs-5">✦</span>
     </div>
   );
 }
@@ -113,9 +104,9 @@ function Hero() {
           <div className="flex flex-col justify-center order-2 lg:order-1">
             <motion.div className="flex items-center gap-3 mb-7"
               initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
-              <motion.div className="h-px shrink-0" initial={{ width: 0 }} animate={{ width: 40 }}
-                transition={{ duration: 0.8, delay: 0.5 }} style={{ background: "linear-gradient(90deg, transparent, hsl(43,65%,52%))" }} />
-              <span style={{ fontSize: "clamp(8px,1.5vw,9px)", letterSpacing: "0.45em", textTransform: "uppercase", color: "rgba(201,168,76,0.65)" }}>
+              <motion.div className="h-px shrink-0" initial={{ width: 0 }} animate={{ width: 32 }}
+                transition={{ duration: 0.8, delay: 0.5 }} style={{ background: "rgba(255,255,255,0.18)" }} />
+              <span style={{ fontSize: "clamp(8px,1.5vw,9px)", letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(255,255,255,0.32)" }}>
                 Luxury Hair Artistry · Prosper TX
               </span>
             </motion.div>
@@ -168,11 +159,11 @@ function Hero() {
               </Link>
               <Link href="/services">
                 <motion.div className="flex items-center gap-2.5 cursor-pointer group py-4 sm:py-0" whileHover={{ x: 4 }} data-testid="hero-services">
-                  <span className="group-hover:text-yellow-400 transition-colors"
-                    style={{ fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(201,168,76,0.6)" }}>
+                  <span className="group-hover:text-white/80 transition-colors"
+                    style={{ fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.38)" }}>
                     Our Services
                   </span>
-                  <svg className="w-3 h-3 text-yellow-500/60 group-hover:text-yellow-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 transition-colors" style={{ color: "rgba(255,255,255,0.3)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </motion.div>
@@ -181,12 +172,12 @@ function Hero() {
 
             <motion.div className="flex flex-wrap gap-x-6 gap-y-4 mt-10 pt-8"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }}
-              style={{ borderTop: "1px solid rgba(201,168,76,0.08)" }}>
+              style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
               {[{ v: "4.8★", l: "Rating" }, { v: "28+", l: "Reviews" }, { v: "10+", l: "Years" }, { v: "Veteran", l: "Owned" }].map((b, i) => (
                 <motion.div key={b.l} className="flex flex-col gap-0.5"
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4 + i * 0.08 }}>
-                  <span className="font-serif font-semibold" style={{ fontSize: 17, color: "hsl(43,65%,52%)" }}>{b.v}</span>
-                  <span style={{ fontSize: 8, letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>{b.l}</span>
+                  <span className="font-serif font-semibold" style={{ fontSize: 17, color: "rgba(255,255,255,0.85)" }}>{b.v}</span>
+                  <span style={{ fontSize: 8, letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(255,255,255,0.22)" }}>{b.l}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -220,13 +211,13 @@ function Hero() {
                   <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                     className="px-3 py-1.5 whitespace-nowrap"
                     style={{
-                      background: "rgba(8,5,2,0.92)",
-                      border: "1px solid rgba(201,168,76,0.28)",
+                      background: "rgba(8,6,4,0.88)",
+                      border: "1px solid rgba(255,255,255,0.1)",
                       backdropFilter: "blur(14px)",
                       fontSize: 8,
                       letterSpacing: "0.28em",
                       textTransform: "uppercase",
-                      color: "rgba(201,168,76,0.7)",
+                      color: "rgba(255,255,255,0.48)",
                     }}>
                     {badge.label}
                   </motion.div>
@@ -246,12 +237,12 @@ function Marquee() {
   const doubled = [...items, ...items];
   return (
     <div className="relative overflow-hidden py-4 section-divider"
-      style={{ background: "hsl(22,16%,6%)", borderTop: "1px solid rgba(201,168,76,0.08)", borderBottom: "1px solid rgba(201,168,76,0.08)" }}>
+      style={{ background: "hsl(22,16%,6%)", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
       <div className="marquee-track">
         {doubled.map((item, i) => (
           <div key={i} className="flex items-center gap-8 flex-shrink-0 px-8">
-            <span style={{ fontSize: 10, letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(255,255,255,0.22)", whiteSpace: "nowrap" }}>{item}</span>
-            <span style={{ color: "rgba(201,168,76,0.4)", fontSize: 8 }}>✦</span>
+            <span style={{ fontSize: 10, letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(255,255,255,0.20)", whiteSpace: "nowrap" }}>{item}</span>
+            <span style={{ color: "rgba(255,255,255,0.14)", fontSize: 14 }}>·</span>
           </div>
         ))}
       </div>
@@ -278,12 +269,12 @@ function Stats() {
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="group flex flex-col items-center text-center gap-2 p-5 sm:p-6 relative overflow-hidden"
-              style={{ border: "1px solid rgba(201,168,76,0.08)" }}
-              whileHover={{ borderColor: "rgba(201,168,76,0.25)", y: -4, transition: { duration: 0.2 } }}>
+              style={{ border: "1px solid rgba(255,255,255,0.06)" }}
+              whileHover={{ borderColor: "rgba(255,255,255,0.15)", y: -4, transition: { duration: 0.2 } }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06), transparent 70%)" }} />
+                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.03), transparent 70%)" }} />
               <div className="relative z-10">
-                <span className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl" style={{ color: "hsl(43,65%,55%)" }}>
+                <span className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl" style={{ color: "rgba(255,255,255,0.90)" }}>
                   {s.display ? s.display : <CountUp end={s.end} suffix="" duration={1.8} />}{s.suffix}
                 </span>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-white/55 mt-2">{s.label}</p>
