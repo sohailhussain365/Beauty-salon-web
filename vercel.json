@@ -1,0 +1,8 @@
+{
+  "buildCommand": "pnpm --filter @workspace/matthew-dillard... --if-present run build",
+  "outputDirectory": "artifacts/matthew-dillard/dist/public",
+  "installCommand": "pnpm install",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
