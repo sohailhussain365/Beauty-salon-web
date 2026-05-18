@@ -258,11 +258,11 @@ function ContactMain() {
                   <motion.button type="submit"
                     className="w-full py-4 text-xs tracking-[0.28em] uppercase text-black font-medium mt-2 relative overflow-hidden"
                     style={{ background: "linear-gradient(135deg, hsl(43,72%,54%), hsl(35,78%,47%))", boxShadow: "0 4px 20px rgba(201,168,76,0.3)" }}
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.7 }}
+                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                     whileHover={{ scale: 1.02, boxShadow: "0 6px 28px rgba(201,168,76,0.5)" }}
                     whileTap={{ scale: 0.98 }}
                     animate={{ boxShadow: ["0 4px 20px rgba(201,168,76,0.25)", "0 4px 32px rgba(201,168,76,0.45)", "0 4px 20px rgba(201,168,76,0.25)"] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" } as never}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                   >Send Message</motion.button>
                 </form>
               )}
