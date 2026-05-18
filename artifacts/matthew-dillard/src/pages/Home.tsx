@@ -64,142 +64,199 @@ function ParticleField() {
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-[1]" aria-hidden="true" />;
 }
 
-// ─── Full-height editorial photo ──────────────────────────────────────────────
-function SalonElement() {
-  return (
-    <div className="absolute inset-y-0 right-0 w-[46%] hidden lg:block overflow-hidden" aria-hidden="true">
-      <motion.img
-        src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1100&q=90"
-        alt="Luxury hair artistry"
-        className="w-full h-full object-cover"
-        style={{ objectPosition: "55% 15%", filter: "brightness(0.76) saturate(0.82) contrast(1.05)" }}
-        initial={{ scale: 1.07, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 2.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-      />
-      {/* Left gradient bleed */}
-      <div className="absolute inset-y-0 left-0 w-56 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to right, hsl(22,18%,3%) 0%, hsl(22,18%,3%) 6%, rgba(5,3,2,0.55) 45%, transparent 100%)" }} />
-      {/* Top fade */}
-      <div className="absolute top-0 inset-x-0 h-36 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to bottom, hsl(22,18%,3%) 0%, transparent 100%)" }} />
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 inset-x-0 h-48 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to top, hsl(22,18%,3%) 0%, transparent 100%)" }} />
-      {/* Corner label */}
-      <motion.div className="absolute bottom-14 right-8 z-20"
-        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.0, duration: 1.0 }}>
-        <div className="flex flex-col items-end gap-2">
-          <div className="h-px w-10" style={{ background: "rgba(201,168,76,0.5)" }} />
-          <p style={{ fontSize: 8, letterSpacing: "0.44em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)" }}>
-            Artistry · Precision
-          </p>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const opacity     = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
+  const yContent    = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+  const yPhoto      = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex overflow-hidden" data-testid="hero">
+    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden" data-testid="hero">
 
-      {/* ── Deep background ── */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0" style={{
-          background: "radial-gradient(ellipse 110% 100% at 22% 50%, hsl(26,18%,8%) 0%, hsl(22,18%,4%) 48%, hsl(20,18%,2%) 100%)"
-        }} />
-        {/* Warm glow left */}
-        <motion.div className="absolute rounded-full pointer-events-none"
-          style={{ width: 700, height: 700, top: "10%", left: "-10%", background: "radial-gradient(ellipse, rgba(190,148,72,0.07) 0%, transparent 65%)" }}
-          animate={{ scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }} />
-      </div>
+      {/* ── Full-bleed background photo with subtle parallax ── */}
+      <motion.div className="absolute inset-0 scale-[1.06]" style={{ y: yPhoto }}>
+        <motion.img
+          src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1800&q=90"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover"
+          style={{ objectPosition: "60% 18%", filter: "brightness(0.60) saturate(0.85)" }}
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1.0 }}
+          transition={{ duration: 2.8, ease: [0.16, 1, 0.3, 1] }}
+        />
+      </motion.div>
 
-      {/* ── Particle field ── */}
+      {/* ── Layered gradient overlays ── */}
+      {/* Left-side darkness — makes text very readable */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: "linear-gradient(108deg, rgba(5,3,2,0.96) 0%, rgba(5,3,2,0.82) 32%, rgba(5,3,2,0.50) 58%, rgba(5,3,2,0.18) 100%)"
+      }} />
+      {/* Bottom vignette */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: "linear-gradient(to top, rgba(5,3,2,0.92) 0%, rgba(5,3,2,0.35) 28%, transparent 56%)"
+      }} />
+      {/* Top vignette */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: "linear-gradient(to bottom, rgba(5,3,2,0.75) 0%, transparent 28%)"
+      }} />
+      {/* Warm gold atmospheric glow — center-right */}
+      <div className="absolute pointer-events-none" style={{
+        inset: 0,
+        background: "radial-gradient(ellipse 55% 65% at 72% 46%, rgba(201,168,76,0.07) 0%, transparent 70%)"
+      }} />
+
+      {/* ── Decorative geometric rings (desktop only) ── */}
+      {/* Outer ring — slow rotation */}
+      <motion.div
+        className="absolute rounded-full pointer-events-none hidden lg:block"
+        style={{
+          width: 720, height: 720,
+          right: "-4%", top: "50%", translateY: "-50%",
+          border: "1px solid rgba(201,168,76,0.11)",
+        }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+        aria-hidden="true"
+      />
+      {/* Mid ring — counter-rotation */}
+      <motion.div
+        className="absolute rounded-full pointer-events-none hidden lg:block"
+        style={{
+          width: 520, height: 520,
+          right: "4.8%", top: "50%", translateY: "-50%",
+          border: "1px solid rgba(201,168,76,0.09)",
+        }}
+        animate={{ rotate: -360 }}
+        transition={{ duration: 64, repeat: Infinity, ease: "linear" }}
+        aria-hidden="true"
+      />
+      {/* Inner ring — static */}
+      <div
+        className="absolute rounded-full pointer-events-none hidden lg:block"
+        style={{
+          width: 340, height: 340,
+          right: "13.2%", top: "50%", translateY: "-50%",
+          border: "1px solid rgba(201,168,76,0.07)",
+        }}
+        aria-hidden="true"
+      />
+      {/* Tiny innermost ring — pulsing glow */}
+      <motion.div
+        className="absolute rounded-full pointer-events-none hidden lg:block"
+        style={{
+          width: 180, height: 180,
+          right: "19.6%", top: "50%", translateY: "-50%",
+          background: "radial-gradient(ellipse, rgba(201,168,76,0.09) 0%, transparent 70%)",
+          border: "1px solid rgba(201,168,76,0.13)",
+        }}
+        animate={{ scale: [1, 1.08, 1], opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        aria-hidden="true"
+      />
+      {/* Glowing orb behind rings */}
+      <div
+        className="absolute pointer-events-none hidden lg:block"
+        style={{
+          width: 540, height: 540,
+          right: "1%", top: "50%", translateY: "-50%",
+          borderRadius: "50%",
+          background: "radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 65%)",
+          filter: "blur(28px)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Particles ── */}
       <ParticleField />
 
-      {/* ── Subtle background tools ── */}
-      <BeautyElements />
-
-      {/* ── Full-height editorial photo — right 46% ── */}
-      <SalonElement />
-
-      {/* ── Text block — left 56% ── */}
+      {/* ── Content ── */}
       <motion.div
-        className="relative z-10 flex items-center w-full lg:w-[56%] min-h-screen px-7 sm:px-12 lg:px-16 xl:px-22 pt-28 pb-20"
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-28 pb-24 flex items-center min-h-screen"
         style={{ opacity }}
       >
-        <motion.div className="w-full max-w-[560px]" style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "16%"]) }}>
+        <motion.div className="max-w-[580px] w-full" style={{ y: yContent }}>
 
           {/* Eyebrow */}
-          <motion.div className="flex items-center gap-3 mb-7"
-            initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9, delay: 0.3 }}>
-            <motion.div className="h-px shrink-0" initial={{ width: 0 }} animate={{ width: 32 }}
+          <motion.div className="flex items-center gap-3 mb-8"
+            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 0.3 }}>
+            <motion.div
+              className="h-px shrink-0"
+              initial={{ width: 0 }} animate={{ width: 32 }}
               transition={{ duration: 1.1, delay: 0.5 }}
-              style={{ background: "linear-gradient(to right, rgba(201,168,76,0.6), rgba(201,168,76,0.1))" }} />
-            <span style={{ fontSize: 9, letterSpacing: "0.44em", textTransform: "uppercase", color: "rgba(255,255,255,0.30)" }}>
+              style={{ background: "linear-gradient(to right, rgba(201,168,76,0.7), rgba(201,168,76,0.1))" }}
+            />
+            <span style={{ fontSize: 9, letterSpacing: "0.44em", textTransform: "uppercase", color: "rgba(255,255,255,0.32)" }}>
               Luxury Hair Artistry · Prosper TX
             </span>
           </motion.div>
 
-          {/* ── Headline — refined scale ── */}
-          <h1 className="font-serif leading-[0.93] mb-8">
+          {/* Headline */}
+          <h1 className="font-serif leading-[0.90] mb-9">
             {[
-              { text: "Elevate", weight: 400, italic: false, size: "clamp(38px, 5.4vw, 78px)" },
-              { text: "Your",    weight: 500, italic: true,  size: "clamp(38px, 5.4vw, 78px)" },
-              { text: "Hair.",   weight: 700, italic: true,  size: "clamp(38px, 5.4vw, 78px)" },
+              { text: "Elevate", weight: 400, italic: false },
+              { text: "Your",    weight: 500, italic: true },
+              { text: "Hair.",   weight: 700, italic: true, shimmer: true },
             ].map((line, li) => (
               <div key={li} className="overflow-hidden">
                 <motion.span
                   className="block"
-                  initial={{ y: "108%", opacity: 0 }}
+                  initial={{ y: "110%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 1.15, ease: [0.16, 1, 0.3, 1], delay: 0.38 + li * 0.20 }}
                   style={{
-                    fontSize: line.size,
+                    fontSize: "clamp(54px, 8vw, 112px)",
                     fontWeight: line.weight,
                     fontStyle: line.italic ? "italic" : "normal",
-                    color: li === 2 ? "rgba(255,255,255,0.96)" : "rgba(255,255,255,0.84)",
+                    color: li === 2 ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.86)",
+                    letterSpacing: "-0.02em",
                     display: "block",
-                    letterSpacing: "-0.01em",
                   }}
                 >
-                  {li === 2 ? <span className="shimmer-text">{line.text}</span> : line.text}
+                  {line.shimmer ? <span className="shimmer-text">{line.text}</span> : line.text}
                 </motion.span>
               </div>
             ))}
           </h1>
 
+          {/* Divider line */}
+          <motion.div
+            className="mb-7 h-px"
+            initial={{ width: 0 }} animate={{ width: 56 }}
+            transition={{ duration: 1.0, delay: 1.0 }}
+            style={{ background: "linear-gradient(to right, rgba(201,168,76,0.5), transparent)" }}
+          />
+
           {/* Description */}
           <motion.p
-            className="mb-9 leading-[1.7]"
-            style={{ fontSize: "clamp(13px,1.1vw,14.5px)", color: "rgba(255,255,255,0.36)", letterSpacing: "0.02em", maxWidth: 380 }}
-            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 1.0 }}
+            className="mb-10 leading-[1.80]"
+            style={{ fontSize: "clamp(13px, 1.1vw, 15px)", color: "rgba(255,255,255,0.40)", maxWidth: 420, letterSpacing: "0.015em" }}
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 1.05 }}
           >
             Where craft meets confidence. An elevated salon experience for those who demand the extraordinary — in Prosper, TX.
           </motion.p>
 
-          {/* CTA row */}
-          <motion.div className="flex flex-col sm:flex-row items-start sm:items-center gap-5"
-            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, delay: 1.2 }}>
+          {/* CTAs */}
+          <motion.div
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-5"
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 1.25 }}
+          >
             <Link href="/booking">
               <motion.div
-                className="group relative overflow-hidden px-10 py-4 cursor-pointer w-full sm:w-auto text-center"
-                style={{ background: "linear-gradient(135deg, hsl(43,70%,52%), hsl(35,74%,44%))", boxShadow: "0 6px 32px rgba(201,168,76,0.26)" }}
-                whileHover={{ scale: 1.04, boxShadow: "0 8px 48px rgba(201,168,76,0.52)" }}
+                className="group relative overflow-hidden px-10 py-4 cursor-pointer"
+                style={{ background: "linear-gradient(135deg, hsl(43,70%,52%), hsl(35,74%,44%))", boxShadow: "0 6px 36px rgba(201,168,76,0.30)" }}
+                whileHover={{ scale: 1.04, boxShadow: "0 8px 56px rgba(201,168,76,0.58)" }}
                 whileTap={{ scale: 0.97 }}
-                animate={{ boxShadow: ["0 6px 28px rgba(201,168,76,0.20)", "0 6px 44px rgba(201,168,76,0.46)", "0 6px 28px rgba(201,168,76,0.20)"] }}
+                animate={{ boxShadow: ["0 6px 28px rgba(201,168,76,0.22)", "0 6px 50px rgba(201,168,76,0.50)", "0 6px 28px rgba(201,168,76,0.22)"] }}
                 transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" } as never}
                 data-testid="hero-book"
               >
-                <span className="relative z-10 flex items-center justify-center gap-3 font-semibold"
+                <span className="relative z-10 flex items-center gap-3 font-semibold"
                   style={{ fontSize: 10.5, letterSpacing: "0.28em", textTransform: "uppercase", color: "#000" }}>
                   Book Appointment
                   <motion.svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -212,12 +269,16 @@ function Hero() {
               </motion.div>
             </Link>
             <Link href="/services">
-              <motion.div className="flex items-center gap-3 cursor-pointer group py-4 sm:py-0" whileHover={{ x: 5 }} data-testid="hero-services">
-                <span className="group-hover:text-white/70 transition-colors duration-300"
+              <motion.div
+                className="flex items-center gap-3 cursor-pointer group py-3 sm:py-0"
+                whileHover={{ x: 5 }}
+                data-testid="hero-services"
+              >
+                <span className="group-hover:text-white/65 transition-colors duration-300"
                   style={{ fontSize: 10.5, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.34)" }}>
                   Our Services
                 </span>
-                <svg className="w-3.5 h-3.5 transition-colors duration-300 group-hover:text-white/50"
+                <svg className="w-3.5 h-3.5 group-hover:text-white/50 transition-colors duration-300"
                   style={{ color: "rgba(255,255,255,0.24)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -225,33 +286,45 @@ function Hero() {
             </Link>
           </motion.div>
 
-          {/* Stats */}
-          <motion.div className="flex flex-wrap gap-x-8 gap-y-4 mt-14 pt-9"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }}
-            style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-            {[{ v: "4.8★", l: "Rating" }, { v: "28+", l: "Reviews" }, { v: "10+", l: "Years" }, { v: "Veteran", l: "Owned" }].map((b, i) => (
+          {/* Stats row */}
+          <motion.div
+            className="flex flex-wrap gap-x-7 gap-y-4 mt-14 pt-9"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ delay: 1.65 }}
+            style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+          >
+            {[
+              { v: "4.8★", l: "Rating" },
+              { v: "28+",  l: "Reviews" },
+              { v: "10+",  l: "Years" },
+              { v: "Veteran", l: "Owned" },
+            ].map((b, i) => (
               <motion.div key={b.l} className="flex flex-col gap-1"
-                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.7 + i * 0.09 }}>
-                <span className="font-serif font-bold" style={{ fontSize: 21, color: "rgba(255,255,255,0.88)" }}>{b.v}</span>
-                <span style={{ fontSize: 8, letterSpacing: "0.38em", textTransform: "uppercase", color: "rgba(255,255,255,0.20)" }}>{b.l}</span>
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.75 + i * 0.09 }}>
+                <span className="font-serif font-bold" style={{ fontSize: 22, color: "rgba(255,255,255,0.90)" }}>{b.v}</span>
+                <span style={{ fontSize: 8, letterSpacing: "0.38em", textTransform: "uppercase", color: "rgba(255,255,255,0.24)" }}>{b.l}</span>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Mobile photo */}
-          <div className="lg:hidden mt-10 overflow-hidden relative" style={{ aspectRatio: "16/10" }}>
-            <img
-              src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=82"
-              alt="Luxury hair artistry"
-              className="w-full h-full object-cover"
-              style={{ objectPosition: "55% 15%", filter: "brightness(0.74) saturate(0.84)" }}
-            />
-            <div className="absolute inset-x-0 bottom-0 h-1/3"
-              style={{ background: "linear-gradient(to top, rgba(5,3,2,0.90) 0%, transparent 100%)" }} />
-          </div>
-
         </motion.div>
       </motion.div>
+
+      {/* ── Scroll indicator ── */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden sm:flex flex-col items-center gap-2 pointer-events-none"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+        transition={{ delay: 2.6 }}
+        aria-hidden="true"
+      >
+        <span style={{ fontSize: 7.5, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(255,255,255,0.20)" }}>Scroll</span>
+        <motion.div className="w-px h-8"
+          style={{ background: "linear-gradient(to bottom, rgba(201,168,76,0.55), transparent)" }}
+          animate={{ scaleY: [0.35, 1, 0.35], opacity: [0.4, 0.9, 0.4] }}
+          transition={{ duration: 1.9, repeat: Infinity, ease: "easeInOut" }} />
+      </motion.div>
+
     </section>
   );
 }
