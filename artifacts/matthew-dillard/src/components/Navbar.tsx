@@ -91,10 +91,6 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
                   style={{ fontSize: 18, color: "hsl(22,20%,8%)", fontWeight: 700, letterSpacing: "0.04em" }}>
                   Matthew Dillard
                 </span>
-                <span className="uppercase tracking-widest"
-                  style={{ fontSize: 7, color: "hsl(43,60%,42%)", marginTop: 3, letterSpacing: "0.44em", fontWeight: 600 }}>
-                  Hair Salons · Prosper TX
-                </span>
               </div>
             </div>
           </Link>

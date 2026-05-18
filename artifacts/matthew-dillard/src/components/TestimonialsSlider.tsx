@@ -65,21 +65,27 @@ export default function TestimonialsSlider() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="flex items-center justify-between flex-wrap gap-4 mb-14"
+          className="text-center mb-14"
         >
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-px" style={{ background: "hsl(22,15%,20%)" }} />
-              <span style={{ fontSize: 13, letterSpacing: "0.32em", textTransform: "uppercase", color: "hsl(22,20%,12%)", fontWeight: 600 }}>Client Voices</span>
-            </div>
-            <h2 className="font-serif" style={{ fontSize: "clamp(28px, 4vw, 48px)", color: "hsl(22,20%,8%)" }}>
-              What They <span className="text-gold-gradient italic">Say</span>
-            </h2>
+          {/* Centered label with flanking lines */}
+          <div className="flex items-center justify-center gap-4 mb-5">
+            <motion.span className="h-px" initial={{ width: 0 }} animate={inView ? { width: 44 } : {}}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.25))" }} />
+            <span style={{ fontSize: 11, letterSpacing: "0.38em", textTransform: "uppercase", color: "hsl(22,20%,14%)", fontWeight: 600 }}>
+              Client Voices
+            </span>
+            <motion.span className="h-px" initial={{ width: 0 }} animate={inView ? { width: 44 } : {}}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.25), transparent)" }} />
           </div>
+          <h2 className="font-serif" style={{ fontSize: "clamp(28px, 4vw, 48px)", color: "hsl(22,20%,8%)" }}>
+            What They <span className="text-gold-gradient italic">Say</span>
+          </h2>
           {/* Review counter */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2 mt-3">
             <div className="flex gap-0.5">
-              {[1,2,3,4,5].map(i => <span key={i} style={{ color: "hsl(22,15%,22%)", fontSize: 12 }}>★</span>)}
+              {[1,2,3,4,5].map(i => <span key={i} style={{ color: "hsl(43,65%,46%)", fontSize: 12 }}>★</span>)}
             </div>
             <span style={{ fontSize: 11, color: "rgba(22,15,8,0.38)", marginLeft: 4 }}>4.8 · 28 Reviews</span>
           </div>

@@ -50,15 +50,7 @@ function Hero() {
         style={{ opacity }}
       >
         {/* ════════════ LEFT PANEL ════════════ */}
-        <div className="w-full lg:w-[52%] flex flex-col justify-center px-8 sm:px-12 lg:px-14 xl:px-20 pt-28 pb-14 lg:pt-0 lg:pb-0">
-
-          <motion.p
-            className="mb-6"
-            style={{ fontSize: 10, letterSpacing: "0.38em", textTransform: "uppercase", color: "#999" }}
-            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}>
-            Luxury Hair Artistry · Prosper, TX
-          </motion.p>
+        <div className="w-full lg:w-[52%] flex flex-col justify-center px-8 sm:px-12 lg:px-14 xl:px-20 pt-28 pb-14 lg:pt-28 lg:pb-0">
 
           <h1 className="mb-7 select-none" style={{ lineHeight: 0.9 }}>
             {["ELEVATE,", "RESTORE,", "SHINE."].map((word, i) => (
@@ -291,10 +283,15 @@ function Stats() {
   return (
     <section className="py-16 md:py-24 section-divider relative overflow-hidden" style={{ background: "hsl(30,10%,96%)" }}>
       <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8">
-        <motion.div className="flex items-center gap-3 mb-10"
+        <motion.div className="flex items-center justify-center gap-4 mb-10"
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
-          <div className="h-[1.5px] w-8" style={{ background: "hsl(22,15%,20%)" }} />
-          <span style={{ fontSize: 13, letterSpacing: "0.32em", textTransform: "uppercase", color: "hsl(22,20%,12%)", fontWeight: 600 }}>At a Glance</span>
+          <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 40 }} viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.25))" }} />
+          <span style={{ fontSize: 11, letterSpacing: "0.38em", textTransform: "uppercase", color: "hsl(22,20%,14%)", fontWeight: 600 }}>At a Glance</span>
+          <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 40 }} viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.25), transparent)" }} />
         </motion.div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
           {stats.map((s, i) => (
@@ -343,39 +340,39 @@ function ServicesPreview() {
   return (
     <section className="py-20 md:py-32 section-divider relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="mb-12 md:mb-16">
-          {/* Section label — left-aligned with flanking lines */}
+        <div className="mb-12 md:mb-16 text-center">
+          {/* Centered label with flanking lines */}
           <motion.div
-            className="flex items-center gap-3 mb-4"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="flex items-center justify-center gap-4 mb-5"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7 }}>
             <motion.span
-              className="shrink-0 h-px"
+              className="h-px"
               initial={{ width: 0 }}
-              whileInView={{ width: 28 }}
+              whileInView={{ width: 44 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              style={{ background: "hsl(22,15%,22%)" }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.25))" }}
             />
             <span
-              className="shrink-0 uppercase font-semibold"
+              className="uppercase font-semibold shrink-0"
               style={{ fontSize: 11, letterSpacing: "0.38em", color: "hsl(22,20%,14%)" }}>
               Specialties
             </span>
             <motion.span
               className="h-px"
               initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
+              whileInView={{ width: 44 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              style={{ background: "linear-gradient(90deg, hsl(22,15%,22%), rgba(22,15,8,0.08))", flexGrow: 1 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.25), transparent)" }}
             />
           </motion.div>
 
           {/* Main heading */}
-          <div className="overflow-hidden mb-2">
+          <div className="overflow-hidden mb-3">
             <motion.h2
               className="heading-bebas"
               style={{ fontSize: "clamp(52px, 8vw, 106px)", color: "hsl(22,20%,8%)", lineHeight: 0.92 }}
@@ -388,10 +385,10 @@ function ServicesPreview() {
             </motion.h2>
           </div>
 
-          {/* Subtitle — tight to heading */}
+          {/* Subtitle */}
           <motion.p
-            className="text-sm leading-relaxed font-serif italic"
-            style={{ color: "rgba(22,15,8,0.45)", maxWidth: 400 }}
+            className="text-sm leading-relaxed font-serif italic mx-auto"
+            style={{ color: "rgba(22,15,8,0.45)", maxWidth: 380 }}
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
