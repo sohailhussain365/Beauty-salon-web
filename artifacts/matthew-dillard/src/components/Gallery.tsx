@@ -5,57 +5,57 @@ const GALLERY_ITEMS = [
   {
     title: "Golden Balayage",
     category: "Balayage",
-    gradient: "linear-gradient(145deg, hsl(35,50%,15%) 0%, hsl(25,30%,10%) 100%)",
-    accent: "rgba(201,168,76,0.25)",
+    image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80",
+    accent: "rgba(201,168,76,0.35)",
     size: "tall",
   },
   {
     title: "Platinum Perfection",
     category: "Blonde Specialist",
-    gradient: "linear-gradient(145deg, hsl(220,20%,14%) 0%, hsl(220,18%,9%) 100%)",
-    accent: "rgba(200,210,235,0.2)",
+    image: "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=600&q=80",
+    accent: "rgba(200,210,235,0.3)",
     size: "normal",
   },
   {
     title: "Bridal Updo",
     category: "Bridal Styling",
-    gradient: "linear-gradient(145deg, hsl(300,15%,13%) 0%, hsl(280,12%,8%) 100%)",
-    accent: "rgba(220,180,200,0.2)",
+    image: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=600&q=80",
+    accent: "rgba(220,180,200,0.3)",
     size: "normal",
   },
   {
     title: "Rich Auburn",
     category: "Hair Coloring",
-    gradient: "linear-gradient(145deg, hsl(15,45%,14%) 0%, hsl(10,30%,9%) 100%)",
-    accent: "rgba(200,100,60,0.25)",
+    image: "https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=600&q=80",
+    accent: "rgba(200,100,60,0.35)",
     size: "wide",
   },
   {
     title: "Dimensional Cut",
     category: "Luxury Haircuts",
-    gradient: "linear-gradient(145deg, hsl(200,20%,12%) 0%, hsl(200,15%,8%) 100%)",
-    accent: "rgba(100,160,200,0.18)",
+    image: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80",
+    accent: "rgba(100,160,200,0.25)",
     size: "normal",
   },
   {
     title: "Glossy Extensions",
     category: "Extensions",
-    gradient: "linear-gradient(145deg, hsl(40,25%,12%) 0%, hsl(30,18%,8%) 100%)",
-    accent: "rgba(201,168,76,0.2)",
+    image: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80",
+    accent: "rgba(201,168,76,0.28)",
     size: "tall",
   },
   {
     title: "Bond Repair Treatment",
     category: "Hair Treatments",
-    gradient: "linear-gradient(145deg, hsl(160,20%,11%) 0%, hsl(160,15%,7%) 100%)",
-    accent: "rgba(80,180,140,0.18)",
+    image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80",
+    accent: "rgba(80,180,140,0.25)",
     size: "normal",
   },
   {
     title: "Textured Style",
     category: "Hair Styling",
-    gradient: "linear-gradient(145deg, hsl(260,18%,13%) 0%, hsl(260,14%,8%) 100%)",
-    accent: "rgba(160,120,220,0.18)",
+    image: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80",
+    accent: "rgba(160,120,220,0.25)",
     size: "normal",
   },
 ];
@@ -81,51 +81,36 @@ function GalleryItem({ item, index, inView, onClick }: GalleryItemProps) {
       animate={inView ? { opacity: 1, scale: 1 } : {}}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.06 }}
       className={`group relative overflow-hidden cursor-pointer ${heightClass}`}
-      style={{
-        background: item.gradient,
-        border: "1px solid rgba(201,168,76,0.07)",
-      }}
+      style={{ border: "1px solid rgba(201,168,76,0.10)", background: "hsl(22,14%,8%)" }}
       onClick={() => onClick(item)}
       data-testid={`gallery-item-${index}`}
     >
-      {/* Ambient light */}
+      {/* Photo */}
+      <img
+        src={item.image}
+        alt={item.title}
+        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+        loading="lazy"
+      />
+
+      {/* Permanent dark gradient at bottom for legibility */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: `radial-gradient(ellipse at 50% 50%, ${item.accent} 0%, transparent 70%)`,
-        }}
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.18) 50%, transparent 100%)" }}
         aria-hidden="true"
       />
 
-      {/* Abstract hair pattern */}
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-px opacity-10 group-hover:opacity-25 transition-opacity duration-700"
-            style={{
-              height: "120%",
-              left: `${20 + i * 15}%`,
-              background: `linear-gradient(to bottom, transparent, ${item.accent.replace("0.", "0.6")}, transparent)`,
-              transform: `rotate(${-5 + i * 3}deg)`,
-              transformOrigin: "center",
-            }}
-            aria-hidden="true"
-          />
-        ))}
-        <div
-          className="w-20 h-20 rounded-full opacity-15 group-hover:opacity-30 group-hover:scale-150 transition-all duration-700"
-          style={{
-            background: `radial-gradient(ellipse, ${item.accent.replace("0.", "0.8")} 0%, transparent 70%)`,
-          }}
-          aria-hidden="true"
-        />
-      </div>
+      {/* Hover colour wash */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: `radial-gradient(ellipse at 50% 30%, ${item.accent} 0%, transparent 65%)` }}
+        aria-hidden="true"
+      />
 
-      {/* Hover overlay */}
+      {/* Hover darkening */}
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-        style={{ background: "rgba(0,0,0,0.35)" }}
+        style={{ background: "rgba(0,0,0,0.22)" }}
         aria-hidden="true"
       />
 
@@ -217,18 +202,18 @@ export default function Gallery() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-lg h-72 md:h-96"
-              style={{
-                background: selected.gradient,
-                border: "1px solid rgba(201,168,76,0.2)",
-              }}
+              className="relative w-full max-w-lg h-72 md:h-96 overflow-hidden"
+              style={{ border: "1px solid rgba(201,168,76,0.25)" }}
               onClick={(e) => e.stopPropagation()}
             >
+              <img
+                src={selected.image}
+                alt={selected.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
               <div
                 className="absolute inset-0"
-                style={{
-                  background: `radial-gradient(ellipse at 50% 50%, ${selected.accent.replace("0.", "0.5")} 0%, transparent 65%)`,
-                }}
+                style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 50%, transparent 100%)" }}
                 aria-hidden="true"
               />
               <div className="absolute bottom-6 left-6">

@@ -35,8 +35,8 @@ export default function BeforeAfter() {
   };
   const onTouchEnd = () => setDragging(false);
 
-  const BEFORE_GRADIENT = "linear-gradient(145deg, hsl(22,18%,13%) 0%, hsl(22,14%,9%) 100%)";
-  const AFTER_GRADIENT = "linear-gradient(145deg, hsl(35,45%,16%) 0%, hsl(30,30%,10%) 100%)";
+  const BEFORE_IMG = "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1200&q=80";
+  const AFTER_IMG  = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=80";
 
   return (
     <section
@@ -92,64 +92,43 @@ export default function BeforeAfter() {
           onTouchEnd={onTouchEnd}
           data-testid="before-after-slider"
         >
-          {/* After (full) */}
-          <div className="absolute inset-0" style={{ background: AFTER_GRADIENT }}>
-            {/* After visual */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-full h-full overflow-hidden">
-                {/* Stylized strands */}
-                {[...Array(8)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute top-0 bottom-0 w-px opacity-15"
-                    style={{
-                      left: `${10 + i * 10}%`,
-                      background: `linear-gradient(to bottom, transparent, rgba(201,168,76,${0.3 + i * 0.05}) 40%, rgba(201,168,76,${0.1 + i * 0.03}) 70%, transparent)`,
-                      transform: `skewX(${-3 + i * 1}deg)`,
-                    }}
-                    aria-hidden="true"
-                  />
-                ))}
-                <div
-                  className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full"
-                  style={{ background: "radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%)" }}
-                  aria-hidden="true"
-                />
-              </div>
-            </div>
+          {/* After (full — photo) */}
+          <div className="absolute inset-0 overflow-hidden">
+            <img
+              src={AFTER_IMG}
+              alt="After transformation"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              draggable={false}
+            />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)" }} aria-hidden="true" />
+            <div className="absolute inset-0" style={{ background: "rgba(201,168,76,0.06)" }} aria-hidden="true" />
             <div className="absolute bottom-6 right-6 text-right">
-              <span className="block text-[9px] tracking-[0.35em] uppercase text-yellow-400/70 mb-1">After</span>
-              <span className="block text-lg font-serif text-white/80">Transformed</span>
+              <span className="block text-[9px] tracking-[0.35em] uppercase text-yellow-400/80 mb-1">After</span>
+              <span className="block text-lg font-serif text-white/90">Transformed</span>
             </div>
           </div>
 
-          {/* Before (clipped) */}
+          {/* Before (clipped — photo) */}
           <div
             className="absolute inset-0 overflow-hidden"
             style={{ width: `${position}%` }}
           >
             <div
               className="absolute inset-0"
-              style={{ background: BEFORE_GRADIENT, width: `${100 * (100 / position)}%`, maxWidth: "none" }}
+              style={{ width: `${100 * (100 / Math.max(position, 0.1))}%`, maxWidth: "none" }}
             >
-              {/* Before visual */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute top-0 bottom-0 w-px opacity-8"
-                    style={{
-                      left: `${10 + i * 13}%`,
-                      background: "linear-gradient(to bottom, transparent, rgba(180,160,130,0.2) 50%, transparent)",
-                      transform: `skewX(${-2 + i * 1}deg)`,
-                    }}
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
+              <img
+                src={BEFORE_IMG}
+                alt="Before transformation"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+                style={{ minWidth: `${100 * (100 / Math.max(position, 0.1))}%` }}
+                draggable={false}
+              />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)" }} aria-hidden="true" />
+              <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.25)" }} aria-hidden="true" />
               <div className="absolute bottom-6 left-6">
-                <span className="block text-[9px] tracking-[0.35em] uppercase text-white/40 mb-1">Before</span>
-                <span className="block text-lg font-serif text-white/60">Original</span>
+                <span className="block text-[9px] tracking-[0.35em] uppercase text-white/55 mb-1">Before</span>
+                <span className="block text-lg font-serif text-white/70">Natural</span>
               </div>
             </div>
           </div>

@@ -4,18 +4,18 @@ import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
 
 const ITEMS = [
-  { title: "Golden Balayage", category: "Balayage", gradient: "linear-gradient(145deg, hsl(35,50%,15%), hsl(25,30%,10%))", accent: "rgba(201,168,76,0.3)", size: "tall" },
-  { title: "Platinum Perfection", category: "Blonde Specialist", gradient: "linear-gradient(145deg, hsl(220,20%,14%), hsl(220,18%,9%))", accent: "rgba(200,210,235,0.25)", size: "normal" },
-  { title: "Bridal Updo", category: "Bridal Styling", gradient: "linear-gradient(145deg, hsl(300,15%,13%), hsl(280,12%,8%))", accent: "rgba(220,180,200,0.25)", size: "normal" },
-  { title: "Rich Auburn", category: "Hair Coloring", gradient: "linear-gradient(145deg, hsl(15,45%,14%), hsl(10,30%,9%))", accent: "rgba(200,100,60,0.3)", size: "wide" },
-  { title: "Dimensional Cut", category: "Luxury Haircuts", gradient: "linear-gradient(145deg, hsl(200,20%,12%), hsl(200,15%,8%))", accent: "rgba(100,160,200,0.22)", size: "normal" },
-  { title: "Glossy Extensions", category: "Extensions", gradient: "linear-gradient(145deg, hsl(40,25%,12%), hsl(30,18%,8%))", accent: "rgba(201,168,76,0.25)", size: "tall" },
-  { title: "Bond Repair", category: "Hair Treatments", gradient: "linear-gradient(145deg, hsl(160,20%,11%), hsl(160,15%,7%))", accent: "rgba(80,180,140,0.22)", size: "normal" },
-  { title: "Textured Style", category: "Hair Styling", gradient: "linear-gradient(145deg, hsl(260,18%,13%), hsl(260,14%,8%))", accent: "rgba(160,120,220,0.22)", size: "normal" },
-  { title: "Honey Highlights", category: "Balayage", gradient: "linear-gradient(145deg, hsl(38,42%,14%), hsl(32,28%,9%))", accent: "rgba(201,168,76,0.22)", size: "normal" },
-  { title: "Copper Wave", category: "Hair Coloring", gradient: "linear-gradient(145deg, hsl(20,40%,13%), hsl(15,28%,8%))", accent: "rgba(180,90,50,0.25)", size: "tall" },
-  { title: "Sculpted Bob", category: "Luxury Haircuts", gradient: "linear-gradient(145deg, hsl(210,18%,12%), hsl(210,14%,8%))", accent: "rgba(120,170,210,0.2)", size: "normal" },
-  { title: "Bridal Waves", category: "Bridal Styling", gradient: "linear-gradient(145deg, hsl(290,14%,12%), hsl(270,12%,8%))", accent: "rgba(200,160,200,0.22)", size: "wide" },
+  { title: "Golden Balayage", category: "Balayage", image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80", accent: "rgba(201,168,76,0.35)", size: "tall" },
+  { title: "Platinum Perfection", category: "Blonde Specialist", image: "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=600&q=80", accent: "rgba(200,210,235,0.3)", size: "normal" },
+  { title: "Bridal Updo", category: "Bridal Styling", image: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=600&q=80", accent: "rgba(220,180,200,0.3)", size: "normal" },
+  { title: "Rich Auburn", category: "Hair Coloring", image: "https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=600&q=80", accent: "rgba(200,100,60,0.35)", size: "wide" },
+  { title: "Dimensional Cut", category: "Luxury Haircuts", image: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80", accent: "rgba(100,160,200,0.25)", size: "normal" },
+  { title: "Glossy Extensions", category: "Extensions", image: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80", accent: "rgba(201,168,76,0.28)", size: "tall" },
+  { title: "Bond Repair", category: "Hair Treatments", image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80", accent: "rgba(80,180,140,0.25)", size: "normal" },
+  { title: "Textured Style", category: "Hair Styling", image: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80", accent: "rgba(160,120,220,0.25)", size: "normal" },
+  { title: "Honey Highlights", category: "Balayage", image: "https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?auto=format&fit=crop&w=600&q=80", accent: "rgba(201,168,76,0.3)", size: "normal" },
+  { title: "Copper Wave", category: "Hair Coloring", image: "https://images.unsplash.com/photo-1520939817895-060bdaf4fe1b?auto=format&fit=crop&w=600&q=80", accent: "rgba(180,90,50,0.3)", size: "tall" },
+  { title: "Sculpted Bob", category: "Luxury Haircuts", image: "https://images.unsplash.com/photo-1634128221889-82ed6efebfc3?auto=format&fit=crop&w=600&q=80", accent: "rgba(120,170,210,0.25)", size: "normal" },
+  { title: "Bridal Waves", category: "Bridal Styling", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80", accent: "rgba(200,160,200,0.28)", size: "wide" },
 ];
 
 const CATEGORIES = ["All", "Balayage", "Blonde Specialist", "Hair Coloring", "Luxury Haircuts", "Bridal Styling", "Extensions", "Hair Treatments", "Hair Styling"];
@@ -76,35 +76,34 @@ export default function GalleryPage() {
                     exit={{ opacity: 0, scale: 0.94 }}
                     transition={{ duration: 0.5, delay: i * 0.04 }}
                     className={`group relative overflow-hidden cursor-pointer ${heightClass}`}
-                    style={{ background: item.gradient, border: "1px solid rgba(201,168,76,0.07)" }}
+                    style={{ background: "hsl(22,14%,7%)", border: "1px solid rgba(201,168,76,0.10)" }}
                     onClick={() => setSelected(item)}
                     data-testid={`gallery-item-${i}`}
                   >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 55%, transparent 100%)" }}
+                      aria-hidden="true"
+                    />
                     <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      style={{ background: `radial-gradient(ellipse at 50% 50%, ${item.accent} 0%, transparent 70%)` }}
+                      style={{ background: `radial-gradient(ellipse at 50% 30%, ${item.accent} 0%, transparent 65%)` }}
                       aria-hidden="true"
                     />
-                    {[...Array(5)].map((_, si) => (
-                      <div
-                        key={si}
-                        className="absolute top-0 bottom-0 w-px opacity-10 group-hover:opacity-20 transition-opacity duration-700"
-                        style={{
-                          left: `${15 + si * 16}%`,
-                          background: `linear-gradient(to bottom, transparent, ${item.accent} 50%, transparent)`,
-                          transform: `rotate(${-4 + si * 2}deg)`,
-                        }}
-                        aria-hidden="true"
-                      />
-                    ))}
                     <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{ background: "rgba(0,0,0,0.3)" }}
+                      style={{ background: "rgba(0,0,0,0.2)" }}
                       aria-hidden="true"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <span className="block text-[7px] tracking-[0.35em] uppercase text-yellow-400/60 mb-0.5">{item.category}</span>
-                      <span className="block text-xs font-serif text-white/80 group-hover:text-white">{item.title}</span>
+                    <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
+                      <span className="block text-[7px] tracking-[0.35em] uppercase text-yellow-400/70 mb-0.5">{item.category}</span>
+                      <span className="block text-xs font-serif text-white/85 group-hover:text-white">{item.title}</span>
                     </div>
                   </motion.div>
                 );
@@ -130,13 +129,18 @@ export default function GalleryPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.88, opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-xl h-80 md:h-[420px]"
-              style={{ background: selected.gradient, border: "1px solid rgba(201,168,76,0.2)" }}
+              className="relative w-full max-w-xl h-80 md:h-[420px] overflow-hidden"
+              style={{ border: "1px solid rgba(201,168,76,0.25)" }}
               onClick={(e) => e.stopPropagation()}
             >
+              <img
+                src={selected.image}
+                alt={selected.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
               <div
                 className="absolute inset-0"
-                style={{ background: `radial-gradient(ellipse at 50% 50%, ${selected.accent.replace("0.", "0.5")} 0%, transparent 65%)` }}
+                style={{ background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.12) 55%, transparent 100%)" }}
                 aria-hidden="true"
               />
               <div className="absolute bottom-8 left-8">
