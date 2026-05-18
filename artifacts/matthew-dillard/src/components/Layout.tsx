@@ -9,9 +9,10 @@ import FloatingBooking from "@/components/FloatingBooking";
 interface LayoutProps {
   children: React.ReactNode;
   transparentNav?: boolean;
+  lightNav?: boolean;
 }
 
-export default function Layout({ children, transparentNav = false }: LayoutProps) {
+export default function Layout({ children, transparentNav = false, lightNav = false }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
 
@@ -23,7 +24,7 @@ export default function Layout({ children, transparentNav = false }: LayoutProps
       <ScrollProgress />
       <ParticleBackground />
       <div className="relative z-10 min-h-screen flex flex-col">
-        <Navbar transparentTop={transparentNav} />
+        <Navbar transparentTop={transparentNav} lightTop={lightNav} />
         <main className="flex-1">{children}</main>
         <Footer />
       </div>

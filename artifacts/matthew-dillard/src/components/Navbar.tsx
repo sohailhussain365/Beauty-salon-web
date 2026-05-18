@@ -22,7 +22,7 @@ function ScissorsIcon() {
   );
 }
 
-export default function Navbar({ transparentTop = false }: { transparentTop?: boolean }) {
+export default function Navbar({ transparentTop = false, lightTop = false }: { transparentTop?: boolean; lightTop?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [location] = useLocation();
@@ -42,6 +42,7 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
   }, [open]);
 
   const glass = !transparentTop || scrolled;
+  const isLight = lightTop && !scrolled;
 
   return (
     <>
@@ -55,7 +56,7 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
           backdropFilter: glass ? "blur(28px) saturate(1.4)" : "none",
           WebkitBackdropFilter: glass ? "blur(28px) saturate(1.4)" : "none",
           boxShadow: glass ? "0 1px 0 rgba(255,255,255,0.05), 0 8px 40px rgba(0,0,0,0.5)" : "none",
-          transition: "background 0.5s, box-shadow 0.5s",
+          transition: "background 0.5s, box-shadow 0.5s, color 0.5s",
         }}
       >
         {/* Top accent line — very subtle */}
@@ -82,12 +83,12 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
                 <ScissorsIcon />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-serif transition-colors duration-300 group-hover:text-white"
-                  style={{ fontSize: 18, color: "rgba(255,255,255,0.90)", fontWeight: 600, letterSpacing: "0.04em" }}>
+                <span className="font-serif transition-colors duration-300"
+                  style={{ fontSize: 18, color: isLight ? "#111" : "rgba(255,255,255,0.90)", fontWeight: 600, letterSpacing: "0.04em", transition: "color 0.5s" }}>
                   Matthew Dillard
                 </span>
                 <span className="uppercase tracking-widest"
-                  style={{ fontSize: 7, color: "rgba(255,255,255,0.22)", marginTop: 3, letterSpacing: "0.42em" }}>
+                  style={{ fontSize: 7, color: isLight ? "#999" : "rgba(255,255,255,0.22)", marginTop: 3, letterSpacing: "0.42em", transition: "color 0.5s" }}>
                   Hair Salons · Prosper TX
                 </span>
               </div>
@@ -113,7 +114,10 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
                       letterSpacing: "0.16em",
                       textTransform: "uppercase",
                       fontWeight: 500,
-                      color: active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.50)",
+                      color: isLight
+                        ? (active ? "#111" : "#777")
+                        : (active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.50)"),
+                      transition: "color 0.5s",
                     }}>
                       {l.label}
                     </span>
@@ -136,8 +140,8 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
           <div className="flex items-center gap-5">
             <a
               href="tel:+19725717787"
-              className="hidden lg:flex items-center gap-2 transition-colors duration-300 hover:text-white/60"
-              style={{ fontSize: 10, letterSpacing: "0.14em", color: "rgba(255,255,255,0.26)" }}
+              className="hidden lg:flex items-center gap-2 transition-colors duration-300"
+              style={{ fontSize: 10, letterSpacing: "0.14em", color: isLight ? "#888" : "rgba(255,255,255,0.26)", transition: "color 0.5s" }}
               data-testid="nav-phone"
             >
               <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
