@@ -78,11 +78,11 @@ function Hero() {
       {/* ── Full-bleed background photo with subtle parallax ── */}
       <motion.div className="absolute inset-0 scale-[1.06]" style={{ y: yPhoto }}>
         <motion.img
-          src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1800&q=90"
+          src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1800&q=90"
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover"
-          style={{ objectPosition: "60% 18%", filter: "brightness(0.60) saturate(0.85)" }}
+          style={{ objectPosition: "50% 30%", filter: "brightness(0.52) saturate(0.90) contrast(1.08)" }}
           initial={{ opacity: 0, scale: 1.06 }}
           animate={{ opacity: 1, scale: 1.0 }}
           transition={{ duration: 2.8, ease: [0.16, 1, 0.3, 1] }}
@@ -111,10 +111,10 @@ function Hero() {
       {/* ── Decorative geometric rings (desktop only) ── */}
       {/* Outer ring — slow rotation */}
       <motion.div
-        className="absolute rounded-full pointer-events-none hidden lg:block"
+        className="absolute rounded-full pointer-events-none hidden lg:block -translate-y-1/2"
         style={{
           width: 720, height: 720,
-          right: "-4%", top: "50%", translateY: "-50%",
+          right: "-4%", top: "50%",
           border: "1px solid rgba(201,168,76,0.11)",
         }}
         animate={{ rotate: 360 }}
@@ -123,10 +123,10 @@ function Hero() {
       />
       {/* Mid ring — counter-rotation */}
       <motion.div
-        className="absolute rounded-full pointer-events-none hidden lg:block"
+        className="absolute rounded-full pointer-events-none hidden lg:block -translate-y-1/2"
         style={{
           width: 520, height: 520,
-          right: "4.8%", top: "50%", translateY: "-50%",
+          right: "4.8%", top: "50%",
           border: "1px solid rgba(201,168,76,0.09)",
         }}
         animate={{ rotate: -360 }}
@@ -135,20 +135,20 @@ function Hero() {
       />
       {/* Inner ring — static */}
       <div
-        className="absolute rounded-full pointer-events-none hidden lg:block"
+        className="absolute rounded-full pointer-events-none hidden lg:block -translate-y-1/2"
         style={{
           width: 340, height: 340,
-          right: "13.2%", top: "50%", translateY: "-50%",
+          right: "13.2%", top: "50%",
           border: "1px solid rgba(201,168,76,0.07)",
         }}
         aria-hidden="true"
       />
       {/* Tiny innermost ring — pulsing glow */}
       <motion.div
-        className="absolute rounded-full pointer-events-none hidden lg:block"
+        className="absolute rounded-full pointer-events-none hidden lg:block -translate-y-1/2"
         style={{
           width: 180, height: 180,
-          right: "19.6%", top: "50%", translateY: "-50%",
+          right: "19.6%", top: "50%",
           background: "radial-gradient(ellipse, rgba(201,168,76,0.09) 0%, transparent 70%)",
           border: "1px solid rgba(201,168,76,0.13)",
         }}
@@ -158,10 +158,10 @@ function Hero() {
       />
       {/* Glowing orb behind rings */}
       <div
-        className="absolute pointer-events-none hidden lg:block"
+        className="absolute pointer-events-none hidden lg:block -translate-y-1/2"
         style={{
           width: 540, height: 540,
-          right: "1%", top: "50%", translateY: "-50%",
+          right: "1%", top: "50%",
           borderRadius: "50%",
           background: "radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 65%)",
           filter: "blur(28px)",
