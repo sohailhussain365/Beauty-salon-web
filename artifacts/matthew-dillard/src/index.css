@@ -580,6 +580,25 @@
   }
 }
 
+/* ── Light sections ────────────────────────────────────────── */
+.section-light {
+  background: hsl(30, 10%, 94%);
+  color: hsl(22, 20%, 12%);
+}
+.section-light .gold-divider::after {
+  background: hsl(30, 10%, 94%);
+}
+.card-light {
+  background: #ffffff;
+  border: 1px solid rgba(22, 15, 8, 0.07);
+  box-shadow: 0 2px 20px rgba(22, 15, 8, 0.055);
+}
+.heading-bebas {
+  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
 /* ── Legacy orb (kept for layout refs) ─────────────────────── */
 @keyframes orb-core-pulse {
   0%, 100% { opacity: 0.72; transform: scale(1); }

@@ -291,13 +291,13 @@ function Marquee() {
   const items = ["Luxury Hair Artistry", "Balayage Specialist", "Master Colorist", "Prosper, Texas", "Veteran Owned", "LGBTQ+ Friendly", "Bridal Styling", "Blonde Specialist"];
   const doubled = [...items, ...items];
   return (
-    <div className="relative overflow-hidden py-4 section-divider"
-      style={{ background: "hsl(22,16%,6%)", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+    <div className="relative overflow-hidden py-5"
+      style={{ background: "hsl(22,18%,5%)", borderTop: "1px solid rgba(201,168,76,0.12)", borderBottom: "1px solid rgba(201,168,76,0.12)" }}>
       <div className="marquee-track">
         {doubled.map((item, i) => (
-          <div key={i} className="flex items-center gap-8 flex-shrink-0 px-8">
-            <span style={{ fontSize: 10, letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(255,255,255,0.20)", whiteSpace: "nowrap" }}>{item}</span>
-            <span style={{ color: "rgba(255,255,255,0.14)", fontSize: 14 }}>·</span>
+          <div key={i} className="flex items-center gap-9 flex-shrink-0 px-9">
+            <span style={{ fontSize: 9.5, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(255,255,255,0.38)", whiteSpace: "nowrap" }}>{item}</span>
+            <span style={{ color: "rgba(201,168,76,0.45)", fontSize: 11 }}>✦</span>
           </div>
         ))}
       </div>
@@ -314,26 +314,32 @@ function Stats() {
     { end: 100, suffix: "%", label: "Veteran Owned", sub: "Community Proud" },
   ];
   return (
-    <section className="py-16 md:py-24 section-divider" style={{ background: "hsl(22,16%,5%)" }}>
+    <section className="py-16 md:py-24 section-light">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-4">
+        {/* Section eyebrow */}
+        <motion.div className="flex items-center gap-3 mb-10"
+          initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
+          <div className="h-px w-7" style={{ background: "hsl(43,65%,52%)" }} />
+          <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "hsl(43,62%,44%)" }}>At a Glance</span>
+        </motion.div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
           {stats.map((s, i) => (
             <motion.div key={s.label}
               initial={{ opacity: 0, y: 50, scale: 0.92 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group flex flex-col items-center text-center gap-2 p-5 sm:p-6 relative overflow-hidden"
-              style={{ border: "1px solid rgba(255,255,255,0.06)" }}
-              whileHover={{ borderColor: "rgba(255,255,255,0.15)", y: -4, transition: { duration: 0.2 } }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.03), transparent 70%)" }} />
+              className="group flex flex-col items-center text-center gap-2 p-6 sm:p-8 relative overflow-hidden card-light"
+              whileHover={{ y: -5, boxShadow: "0 8px 40px rgba(22,15,8,0.1)", transition: { duration: 0.2 } }}>
+              {/* Gold top bar on hover */}
+              <div className="absolute top-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+                style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} aria-hidden="true" />
               <div className="relative z-10">
-                <span className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl" style={{ color: "rgba(255,255,255,0.90)" }}>
+                <span className="heading-bebas block" style={{ fontSize: "clamp(42px, 5.5vw, 64px)", color: "hsl(22,20%,8%)", lineHeight: 1 }}>
                   {s.display ? s.display : <CountUp end={s.end} suffix="" duration={1.8} />}{s.suffix}
                 </span>
-                <p className="text-[10px] tracking-[0.2em] uppercase text-white/55 mt-2">{s.label}</p>
-                <p className="text-[9px] tracking-[0.15em] uppercase text-white/25 mt-0.5">{s.sub}</p>
+                <p style={{ fontSize: 9, letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(22,15,8,0.5)", marginTop: 10 }}>{s.label}</p>
+                <p style={{ fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(22,15,8,0.3)", marginTop: 3 }}>{s.sub}</p>
               </div>
             </motion.div>
           ))}
@@ -357,30 +363,29 @@ function ServicesPreview() {
   return (
     <section className="py-20 md:py-32 section-divider relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <motion.div className="flex items-center justify-center gap-4 mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        <div className="mb-12 md:mb-16">
+          <motion.div className="flex items-center gap-3 mb-5"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7 }}>
-            <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 48 }} viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }} style={{ background: "linear-gradient(90deg, transparent, hsl(43,65%,52%))" }} />
-            <span className="text-[9px] tracking-[0.4em] uppercase text-yellow-400/60">Specialties</span>
-            <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 48 }} viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }} style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} />
+            transition={{ duration: 0.6 }}>
+            <div className="h-px w-7" style={{ background: "hsl(43,65%,52%)" }} />
+            <span className="text-[9px] tracking-[0.42em] uppercase text-yellow-400/65">Specialties</span>
           </motion.div>
-          <div className="overflow-hidden">
-            <motion.h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif"
-              initial={{ y: "110%", opacity: 0 }}
+          <div className="overflow-hidden mb-4">
+            <motion.h2
+              className="heading-bebas"
+              style={{ fontSize: "clamp(52px, 8vw, 106px)", color: "rgba(255,255,255,0.90)", lineHeight: 0.92 }}
+              initial={{ y: "108%", opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}>
-              <span className="text-white/90">Crafted </span>
-              <span className="text-gold-gradient italic">Services</span>
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}>
+              Crafted{" "}
+              <span style={{ color: "hsl(43,65%,52%)" }}>Services</span>
             </motion.h2>
           </div>
-          <motion.p className="mt-5 text-sm text-white/38 tracking-wide max-w-md mx-auto"
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+          <motion.p className="text-sm text-white/38 max-w-md leading-relaxed font-serif italic"
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
             Every service is a statement. Every result, a transformation.
           </motion.p>
         </div>

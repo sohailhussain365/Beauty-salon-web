@@ -62,51 +62,65 @@ function StorySection() {
     { num: "03", title: "Continued Education", desc: "The world of hair never stops evolving. Matthew regularly trains with industry leaders to bring the latest techniques directly to your chair." },
   ];
   return (
-    <section className="py-24 md:py-32 section-divider relative overflow-hidden">
-      <AmbientBg />
+    <section className="py-24 md:py-32 section-light relative overflow-hidden">
+      {/* Light ambient sparkles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        {[...Array(6)].map((_, i) => (
+          <motion.div key={i} className="absolute"
+            style={{ left: `${8 + i * 15}%`, top: `${15 + (i % 3) * 28}%`, color: "rgba(201,168,76,0.12)", fontSize: 12 + (i % 3) * 4 }}
+            animate={{ opacity: [0.04, 0.18, 0.04], scale: [0.7, 1.2, 0.7] }}
+            transition={{ duration: 5 + i * 0.8, delay: i * 0.7, repeat: Infinity, ease: "easeInOut" }}>✦</motion.div>
+        ))}
+      </div>
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
 
           {/* Left */}
           <div>
-            <motion.div className="flex items-center gap-4 mb-8"
-              initial={{ opacity: 0, x: -40 }}
+            <motion.div className="flex items-center gap-3 mb-7"
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
-              <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 32 }} viewport={{ once: true }}
+              <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 28 }} viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }} style={{ background: "hsl(43,65%,52%)" }} />
-              <span className="text-[9px] tracking-[0.4em] uppercase text-yellow-400/60">Who We Are</span>
+              <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "hsl(43,60%,42%)" }}>Who We Are</span>
             </motion.div>
 
-            <div className="overflow-hidden mb-4">
-              <motion.h2 className="text-4xl md:text-5xl font-serif leading-[1.1] text-white/88"
-                initial={{ y: "110%", opacity: 0 }}
+            <div className="overflow-hidden mb-2">
+              <motion.h2
+                className="heading-bebas"
+                style={{ fontSize: "clamp(48px, 6.5vw, 84px)", color: "hsl(22,20%,8%)", lineHeight: 0.92 }}
+                initial={{ y: "108%", opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
-                More Than a Salon —
+                transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}>
+                More Than a Salon
               </motion.h2>
             </div>
             <div className="overflow-hidden mb-8">
-              <motion.h2 className="text-4xl md:text-5xl font-serif leading-[1.1]"
-                initial={{ y: "110%", opacity: 0 }}
+              <motion.h2
+                className="heading-bebas"
+                style={{ fontSize: "clamp(48px, 6.5vw, 84px)", lineHeight: 0.92, color: "hsl(43,65%,52%)" }}
+                initial={{ y: "108%", opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}>
-                <span className="text-gold-gradient italic">A Philosophy</span>
+                transition={{ duration: 0.85, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}>
+                A Philosophy
               </motion.h2>
             </div>
 
-            <motion.p className="text-sm leading-relaxed text-white/42 mb-4"
-              initial={{ opacity: 0, y: 30 }}
+            <motion.p className="text-sm leading-relaxed mb-4"
+              style={{ color: "rgba(22,15,8,0.52)" }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8, delay: 0.2 }}>
               Matthew Dillard Hair Salons was built on a simple belief: every person who sits in the chair deserves to feel extraordinary when they leave. Our Prosper, Texas studio is a sanctuary — designed to feel exclusive without feeling intimidating.
             </motion.p>
-            <motion.p className="text-sm leading-relaxed text-white/42 mb-10"
-              initial={{ opacity: 0, y: 30 }}
+            <motion.p className="text-sm leading-relaxed mb-10"
+              style={{ color: "rgba(22,15,8,0.52)" }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8, delay: 0.3 }}>
@@ -120,9 +134,9 @@ function StorySection() {
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.55, delay: 0.35 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="px-4 py-2 text-[9px] tracking-[0.3em] uppercase text-yellow-400/65"
-                  style={{ border: "1px solid rgba(201,168,76,0.18)" }}
-                  whileHover={{ borderColor: "rgba(201,168,76,0.5)", color: "rgba(201,168,76,1)", y: -2 }}
+                  className="px-4 py-2 text-[9px] tracking-[0.3em] uppercase"
+                  style={{ color: "hsl(43,60%,42%)", border: "1px solid rgba(201,168,76,0.32)", background: "rgba(201,168,76,0.06)" }}
+                  whileHover={{ borderColor: "rgba(201,168,76,0.65)", y: -2 }}
                 >{badge}</motion.span>
               ))}
             </div>
@@ -132,25 +146,24 @@ function StorySection() {
           <div className="space-y-3">
             {pillars.map((p, i) => (
               <motion.div key={p.num}
-                initial={{ opacity: 0, y: 70, x: 40, filter: "blur(8px)" }}
+                initial={{ opacity: 0, y: 50, x: 30, filter: "blur(6px)" }}
                 whileInView={{ opacity: 1, y: 0, x: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, amount: 0.08 }}
-                transition={{ duration: 0.9, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.85, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
               >
-                <TiltCard className="group p-7 relative overflow-hidden cursor-default"
-                  style={{ background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))", border: "1px solid rgba(201,168,76,0.08)" }}>
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: "radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.07), transparent 65%)" }} aria-hidden="true" />
+                <TiltCard className="group p-7 relative overflow-hidden cursor-default card-light"
+                  style={{}}>
                   <div className="absolute top-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
                     style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} aria-hidden="true" />
                   <div className="relative z-10 flex items-start gap-5">
-                    <motion.span className="font-serif text-yellow-400/30 group-hover:text-yellow-400/65 transition-colors text-sm flex-shrink-0 mt-0.5"
-                      animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 3, repeat: Infinity }}>
+                    <motion.span
+                      style={{ fontFamily: "serif", color: "rgba(201,168,76,0.55)", fontSize: 13, flexShrink: 0, marginTop: 2 }}
+                      animate={{ opacity: [0.4, 0.75, 0.4] }} transition={{ duration: 3, repeat: Infinity }}>
                       {p.num}
                     </motion.span>
                     <div>
-                      <h3 className="text-sm font-serif font-semibold text-white/80 group-hover:text-white transition-colors mb-2">{p.title}</h3>
-                      <p className="text-xs text-white/35 leading-relaxed">{p.desc}</p>
+                      <h3 className="text-sm font-serif font-semibold mb-2" style={{ color: "hsl(22,20%,10%)" }}>{p.title}</h3>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(22,15,8,0.48)" }}>{p.desc}</p>
                     </div>
                   </div>
                 </TiltCard>
@@ -214,20 +227,19 @@ function ValuesSection() {
     <section className="py-24 md:py-32 section-divider relative overflow-hidden">
       <AmbientBg />
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
-        <div className="text-center mb-14">
-          <motion.div className="flex items-center justify-center gap-4 mb-6"
-            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.7 }}>
-            <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 40 }} viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }} style={{ background: "linear-gradient(90deg, transparent, hsl(43,65%,52%))" }} />
-            <span className="text-[9px] tracking-[0.4em] uppercase text-yellow-400/60">Our Values</span>
-            <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 40 }} viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }} style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} />
+        <div className="mb-14">
+          <motion.div className="flex items-center gap-3 mb-5"
+            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.7 }}>
+            <div className="h-px w-7" style={{ background: "hsl(43,65%,52%)" }} />
+            <span className="text-[9px] tracking-[0.42em] uppercase text-yellow-400/65">Our Values</span>
           </motion.div>
           <div className="overflow-hidden">
-            <motion.h2 className="text-4xl md:text-5xl font-serif text-white/88"
-              initial={{ y: "110%", opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
-              What We <span className="text-gold-gradient italic">Stand For</span>
+            <motion.h2
+              className="heading-bebas"
+              style={{ fontSize: "clamp(50px, 7.5vw, 100px)", color: "rgba(255,255,255,0.90)", lineHeight: 0.92 }}
+              initial={{ y: "108%", opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}>
+              What We <span style={{ color: "hsl(43,65%,52%)" }}>Stand For</span>
             </motion.h2>
           </div>
         </div>

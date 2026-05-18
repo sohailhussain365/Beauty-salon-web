@@ -45,13 +45,37 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative py-16 md:py-20 overflow-hidden"
+      className="relative pt-20 pb-12 md:pt-24 overflow-hidden"
       style={{
         background: "hsl(22,20%,4%)",
-        borderTop: "1px solid rgba(201,168,76,0.1)",
+        borderTop: "1px solid rgba(201,168,76,0.12)",
       }}
       data-testid="footer"
     >
+      {/* Top gold glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.22), transparent)" }}
+        aria-hidden="true" />
+
+      {/* Large brand name above grid */}
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 mb-14">
+        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="group block">
+          <div className="overflow-hidden">
+            <motion.div
+              className="heading-bebas"
+              style={{ fontSize: "clamp(52px, 8vw, 108px)", color: "rgba(255,255,255,0.07)", letterSpacing: "0.01em", lineHeight: 1, userSelect: "none" }}
+              initial={{ y: "105%", opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
+              Matthew{" "}
+              <span style={{ color: "rgba(201,168,76,0.18)" }}>Dillard</span>
+            </motion.div>
+          </div>
+          <div className="h-px mt-2 mb-0" style={{ background: "linear-gradient(90deg, rgba(201,168,76,0.18), transparent)" }} />
+        </button>
+      </div>
+
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="grid md:grid-cols-3 gap-12 md:gap-8 mb-12">
           {/* Brand */}
@@ -60,10 +84,10 @@ export default function Footer() {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="text-left group"
             >
-              <span className="block text-xl font-serif tracking-[0.08em] text-white/80 group-hover:text-yellow-400 transition-colors duration-300">
+              <span className="block text-lg font-serif tracking-[0.08em] text-white/75 group-hover:text-yellow-400 transition-colors duration-300">
                 Matthew <span className="text-gold-gradient">Dillard</span>
               </span>
-              <span className="block text-[9px] tracking-[0.35em] uppercase text-white/30 mt-1">
+              <span className="block text-[9px] tracking-[0.35em] uppercase text-white/28 mt-1">
                 Hair Salons · Prosper, Texas
               </span>
             </button>

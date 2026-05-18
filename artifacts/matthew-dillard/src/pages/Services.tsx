@@ -211,30 +211,30 @@ export default function ServicesPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
           {/* Section header */}
-          <div className="text-center mb-16">
-            <motion.div className="flex items-center justify-center gap-4 mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+          <div className="mb-16">
+            <motion.div className="flex items-center gap-3 mb-5"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7 }}>
-              <motion.span className="h-px"
-                initial={{ width: 0 }} whileInView={{ width: 48 }} viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                style={{ background: "linear-gradient(90deg, transparent, hsl(43,65%,52%))" }} />
-              <span className="text-[9px] tracking-[0.4em] uppercase text-yellow-400/60">Specialties</span>
-              <motion.span className="h-px"
-                initial={{ width: 0 }} whileInView={{ width: 48 }} viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                style={{ background: "linear-gradient(90deg, hsl(43,65%,52%), transparent)" }} />
+              <div className="h-px w-7" style={{ background: "hsl(43,65%,52%)" }} />
+              <span className="text-[9px] tracking-[0.42em] uppercase text-yellow-400/65">Specialties</span>
             </motion.div>
-            <div className="overflow-hidden">
-              <motion.p className="text-sm text-white/35 max-w-md mx-auto"
-                initial={{ y: "110%", opacity: 0 }}
+            <div className="overflow-hidden mb-4">
+              <motion.h2
+                className="heading-bebas"
+                style={{ fontSize: "clamp(52px, 8vw, 106px)", color: "rgba(255,255,255,0.90)", lineHeight: 0.92 }}
+                initial={{ y: "108%", opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-              >Every service is a statement. Every result, a transformation.</motion.p>
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}>
+                All <span style={{ color: "hsl(43,65%,52%)" }}>Services</span>
+              </motion.h2>
             </div>
+            <motion.p className="text-sm text-white/38 max-w-md leading-relaxed font-serif italic"
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+              Every service is a statement. Every result, a transformation.
+            </motion.p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
