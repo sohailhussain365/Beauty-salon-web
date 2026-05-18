@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
 
@@ -63,9 +62,6 @@ const SERVICES = [
 ];
 
 export default function ServicesPage() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-
   return (
     <Layout>
       <PageHero
@@ -74,15 +70,16 @@ export default function ServicesPage() {
         subtitle="Eight ways we transform your hair — every one a statement in luxury craft."
         breadcrumb="What We Offer"
       />
-      <section ref={ref} className="py-24 md:py-32">
+      <section className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-8">
           <div className="grid md:grid-cols-2 gap-5">
             {SERVICES.map((svc, i) => (
               <motion.div
                 key={svc.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.12 }}
+                transition={{ duration: 0.7, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
                 className="group relative p-9 overflow-hidden"
                 style={{
                   background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))",
@@ -136,8 +133,9 @@ export default function ServicesPage() {
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8 }}
             className="text-center mt-16 pt-16"
             style={{ borderTop: "1px solid rgba(201,168,76,0.08)" }}
           >

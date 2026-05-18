@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
 
@@ -54,16 +54,17 @@ const REVIEWS = [
   },
 ];
 
-function ReviewCard({ review, index, inView }: { review: typeof REVIEWS[0]; index: number; inView: boolean }) {
+function ReviewCard({ review, index }: { review: typeof REVIEWS[0]; index: number }) {
   const [expanded, setExpanded] = useState(false);
   const isLong = review.text.length > 180;
   const displayText = isLong && !expanded ? review.text.slice(0, 180) + "…" : review.text;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.7, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
       className="group relative p-8 overflow-hidden flex flex-col gap-5"
       style={{
         background: "linear-gradient(145deg, hsl(22,16%,9%), hsl(22,14%,7%))",
@@ -128,14 +129,13 @@ function ReviewCard({ review, index, inView }: { review: typeof REVIEWS[0]; inde
 }
 
 function OverallRating() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true });
   return (
-    <section ref={ref} className="py-16 section-divider">
+    <section className="py-16 section-divider">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
           className="p-10 md:p-14 text-center relative overflow-hidden"
           style={{
@@ -168,9 +168,6 @@ function OverallRating() {
 }
 
 export default function TestimonialsPage() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-
   return (
     <Layout>
       <PageHero
@@ -180,17 +177,18 @@ export default function TestimonialsPage() {
         breadcrumb="Reviews"
       />
       <OverallRating />
-      <section ref={ref} className="py-24 md:py-32">
+      <section className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {REVIEWS.map((review, i) => (
-              <ReviewCard key={i} review={review} index={i} inView={inView} />
+              <ReviewCard key={i} review={review} index={i} />
             ))}
           </div>
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.6 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.8 }}
             className="text-center mt-16 pt-12"
             style={{ borderTop: "1px solid rgba(201,168,76,0.06)" }}
           >

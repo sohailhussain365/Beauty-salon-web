@@ -1,0 +1,59 @@
+13:50:10.010 Running build in Washington, D.C., USA (East) – iad1
+13:50:10.010 Build machine configuration: 2 cores, 8 GB
+13:50:10.137 Cloning github.com/sohailhussain365/Beauty-salon-web (Branch: main, Commit: f82da08)
+13:50:10.138 Previous build caches not available.
+13:50:10.450 Cloning completed: 312.000ms
+13:50:10.748 Running "vercel build"
+13:50:10.769 Vercel CLI 53.3.2
+13:50:11.301 Running "install" command: `pnpm install`...
+13:50:11.758 Scope: all 2 workspace projects
+13:50:11.801  WARN  GET https://registry.npmjs.org/prettier error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.803  WARN  GET https://registry.npmjs.org/typescript error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.804  WARN  GET https://registry.npmjs.org/@hookform%2Fresolvers error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.804  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-accordion error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.805  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-alert-dialog error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.805  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-aspect-ratio error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.805  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-avatar error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.806  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-checkbox error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.806  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-collapsible error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.806  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-context-menu error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.806  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-dialog error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.806  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-dropdown-menu error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.807  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-hover-card error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.807  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-label error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.807  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-menubar error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:11.807  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-navigation-menu error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:50:21.804  WARN  GET https://registry.npmjs.org/prettier error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.804  WARN  GET https://registry.npmjs.org/typescript error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.804  WARN  GET https://registry.npmjs.org/@hookform%2Fresolvers error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.805  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-accordion error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.805  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-alert-dialog error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.806  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-aspect-ratio error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.806  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-avatar error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.806  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-checkbox error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.808  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-collapsible error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.810  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-context-menu error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.810  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-dialog error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.811  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-dropdown-menu error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.811  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-hover-card error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.811  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-label error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.811  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-menubar error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:50:21.811  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-navigation-menu error (ERR_INVALID_THIS). Will retry in 1 minute. 1 retries left.
+13:51:21.812  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-popover error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.813  ERR_PNPM_META_FETCH_FAIL  GET https://registry.npmjs.org/prettier: Value of "this" must be of type URLSearchParams
+13:51:21.814  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-progress error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.815  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-radio-group error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.815  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-scroll-area error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.816  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-select error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.816  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-separator error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.817  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-slider error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.817  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-slot error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.818  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-switch error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.822  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-tabs error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.822  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-toast error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.823  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-toggle error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.824  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-toggle-group error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.824  WARN  GET https://registry.npmjs.org/@radix-ui%2Freact-tooltip error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.825  WARN  GET https://registry.npmjs.org/@tailwindcss%2Ftypography error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.826  WARN  GET https://registry.npmjs.org/cmdk error (ERR_INVALID_THIS). Will retry in 10 seconds. 2 retries left.
+13:51:21.840 Error: Command "pnpm install" exited with 1

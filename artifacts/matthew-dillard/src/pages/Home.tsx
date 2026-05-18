@@ -8,148 +8,187 @@ import CtaSection from "@/components/CtaSection";
 import BeforeAfter from "@/components/BeforeAfter";
 import TestimonialsSlider from "@/components/TestimonialsSlider";
 
-// ─── 3D Orb ───────────────────────────────────────────────────────────────────
-function OrbElement() {
+// ─── Salon Centerpiece ────────────────────────────────────────────────────────
+function SalonElement() {
   return (
-    <div className="relative select-none" style={{ width: 300, height: 300, perspective: "620px" }}>
-      {/* Outer ambient halo */}
+    <div className="relative select-none" style={{ width: 340, height: 340 }} aria-hidden="true">
+      {/* Large ambient halo */}
       <div
         className="absolute rounded-full pointer-events-none"
         style={{
-          inset: -40,
-          background: "radial-gradient(ellipse, rgba(201,168,76,0.10) 0%, transparent 65%)",
-          animation: "orb-halo-drift 5s ease-in-out infinite",
+          inset: -70,
+          background: "radial-gradient(ellipse, rgba(201,168,76,0.18) 0%, rgba(180,130,50,0.06) 50%, transparent 70%)",
+          animation: "orb-halo-drift 6s ease-in-out infinite",
         }}
-        aria-hidden="true"
       />
-      {/* Ring 1 — widest, fastest */}
-      <div
-        className="absolute inset-0"
-        style={{ animation: "ring-spin-1 14s linear infinite" }}
-        aria-hidden="true"
+
+      {/* Outer precision ring — clockwise with graduation marks */}
+      <motion.div
+        className="absolute inset-0 rounded-full"
+        style={{ border: "1.5px solid rgba(201,168,76,0.55)", boxShadow: "0 0 24px rgba(201,168,76,0.14)" }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
       >
-        <div
-          className="w-full h-full rounded-full"
-          style={{
-            border: "1.5px solid rgba(201,168,76,0.55)",
-            boxShadow: "0 0 18px rgba(201,168,76,0.18), inset 0 0 18px rgba(201,168,76,0.06)",
+        {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
+          <div
+            key={deg}
+            style={{
+              position: "absolute", top: "50%", left: "50%",
+              transformOrigin: "0 0", transform: `rotate(${deg}deg)`,
+            }}
+          >
+            <div style={{
+              position: "absolute",
+              top: -170, left: deg % 90 === 0 ? -1.5 : -0.75,
+              width: deg % 90 === 0 ? 3 : 1.5,
+              height: deg % 90 === 0 ? 13 : 6,
+              background: `rgba(201,168,76,${deg % 90 === 0 ? 0.9 : 0.45})`,
+            }} />
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Middle ring — counter-clockwise */}
+      <motion.div
+        className="absolute rounded-full"
+        style={{ inset: 26, border: "1px solid rgba(201,168,76,0.38)" }}
+        animate={{ rotate: -360 }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+      >
+        {[45, 135, 225, 315].map((deg) => (
+          <div
+            key={deg}
+            style={{
+              position: "absolute", top: "50%", left: "50%",
+              transformOrigin: "0 0", transform: `rotate(${deg}deg)`,
+            }}
+          >
+            <div style={{
+              position: "absolute",
+              top: -144, left: -2,
+              width: 4, height: 4, borderRadius: "50%",
+              background: "rgba(201,168,76,0.55)",
+            }} />
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Inner decorative ring */}
+      <div
+        className="absolute rounded-full"
+        style={{ inset: 54, border: "1px solid rgba(201,168,76,0.22)", boxShadow: "inset 0 0 30px rgba(201,168,76,0.06)" }}
+      />
+
+      {/* Golden core glow */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div style={{
+          width: 140, height: 140, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(201,168,76,0.32) 0%, rgba(201,168,76,0.1) 45%, transparent 72%)",
+          boxShadow: "0 0 80px rgba(201,168,76,0.35), 0 0 160px rgba(201,168,76,0.1)",
+          animation: "orb-core-pulse 4s ease-in-out infinite",
+        }} />
+      </div>
+
+      {/* ✦ SCISSORS — golden centerpiece */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          style={{ color: "hsl(43,80%,65%)", width: 96, height: 96 }}
+          animate={{
+            scale: [1, 1.07, 1],
+            filter: [
+              "drop-shadow(0 0 10px rgba(201,168,76,0.55))",
+              "drop-shadow(0 0 28px rgba(201,168,76,0.95))",
+              "drop-shadow(0 0 10px rgba(201,168,76,0.55))",
+            ],
           }}
-        />
-      </div>
-      {/* Ring 2 — tilted differently */}
-      <div
-        className="absolute"
-        style={{ inset: 18, animation: "ring-spin-2 21s linear infinite" }}
-        aria-hidden="true"
-      >
-        <div
-          className="w-full h-full rounded-full"
-          style={{ border: "1px solid rgba(201,168,76,0.38)" }}
-        />
-      </div>
-      {/* Ring 3 — innermost, reverse */}
-      <div
-        className="absolute"
-        style={{ inset: 34, animation: "ring-spin-3 29s linear infinite" }}
-        aria-hidden="true"
-      >
-        <div
-          className="w-full h-full rounded-full"
-          style={{ border: "1px solid rgba(201,168,76,0.22)" }}
-        />
-      </div>
-      {/* Core glow */}
-      <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-        <div
-          className="rounded-full"
-          style={{
-            width: 100,
-            height: 100,
-            background:
-              "radial-gradient(circle, rgba(201,168,76,0.6) 0%, rgba(201,168,76,0.18) 40%, transparent 70%)",
-            boxShadow: "0 0 50px rgba(201,168,76,0.35), 0 0 100px rgba(201,168,76,0.12)",
-            animation: "orb-core-pulse 3.5s ease-in-out infinite",
-          }}
-        />
-      </div>
-      {/* MD monogram */}
-      <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-        <span
-          className="font-serif font-bold select-none"
-          style={{ fontSize: 22, letterSpacing: "0.12em", color: "rgba(201,168,76,0.38)" }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
         >
-          MD
-        </span>
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
+            {/* Upper blade */}
+            <motion.g
+              animate={{ rotate: [0, 12, 0] }}
+              transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+              style={{ transformOrigin: "50px 50px" }}
+            >
+              <circle cx="20" cy="20" r="13" strokeWidth="2.5" />
+              <line x1="31" y1="25" x2="50" y2="50" strokeWidth="2.5" />
+              <path d="M 50 50 L 86 18" strokeWidth="2.5" />
+            </motion.g>
+            {/* Lower blade */}
+            <motion.g
+              animate={{ rotate: [0, -12, 0] }}
+              transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+              style={{ transformOrigin: "50px 50px" }}
+            >
+              <circle cx="20" cy="80" r="13" strokeWidth="2.5" />
+              <line x1="31" y1="75" x2="50" y2="50" strokeWidth="2.5" />
+              <path d="M 50 50 L 86 82" strokeWidth="2.5" />
+            </motion.g>
+            {/* Pivot */}
+            <circle cx="50" cy="50" r="5" fill="hsl(43,80%,65%)" stroke="none" />
+          </svg>
+        </motion.div>
       </div>
-      {/* Orbiting dot 1 — outer ring */}
+
+      {/* Orbiting golden dot — outer ring */}
+      <motion.div
+        className="absolute"
+        style={{ top: "calc(50% - 6px)", left: "calc(50% - 6px)" }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+      >
+        <div style={{
+          position: "absolute", top: -170, left: -6,
+          width: 12, height: 12, borderRadius: "50%",
+          background: "hsl(43,80%,62%)",
+          boxShadow: "0 0 20px 6px rgba(201,168,76,0.9)",
+        }} />
+      </motion.div>
+
+      {/* Orbiting champagne dot — middle ring */}
       <motion.div
         className="absolute"
         style={{ top: "calc(50% - 5px)", left: "calc(50% - 5px)" }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-        aria-hidden="true"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 8.5, repeat: Infinity, ease: "linear" }}
       >
-        <div
-          style={{
-            position: "absolute",
-            top: -143,
-            left: -5,
-            width: 10,
-            height: 10,
-            borderRadius: "50%",
-            background: "hsl(43,70%,54%)",
-            boxShadow: "0 0 14px 3px rgba(201,168,76,0.75)",
-          }}
-        />
+        <div style={{
+          position: "absolute", top: -131, left: -5,
+          width: 10, height: 10, borderRadius: "50%",
+          background: "rgba(255,230,150,0.95)",
+          boxShadow: "0 0 16px 4px rgba(201,168,76,0.72)",
+        }} />
       </motion.div>
-      {/* Orbiting dot 2 — inner ring, opposite direction */}
+
+      {/* Orbiting hair-dye droplet */}
       <motion.div
         className="absolute"
-        style={{ top: "calc(50% - 4px)", left: "calc(50% - 4px)" }}
-        animate={{ rotate: -360 }}
-        transition={{ duration: 7.5, repeat: Infinity, ease: "linear" }}
-        aria-hidden="true"
+        style={{ top: "50%", left: "50%" }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 13, repeat: Infinity, ease: "linear" }}
       >
-        <div
-          style={{
-            position: "absolute",
-            top: -108,
-            left: -4,
-            width: 8,
-            height: 8,
-            borderRadius: "50%",
-            background: "rgba(255,220,140,0.9)",
-            boxShadow: "0 0 10px 2px rgba(201,168,76,0.6)",
-          }}
-        />
-      </motion.div>
-      {/* Corner tick marks */}
-      {[0, 90, 180, 270].map((deg) => (
-        <div
-          key={deg}
-          className="absolute"
-          style={{
-            top: "calc(50% - 1px)",
-            left: "calc(50% - 1px)",
-            width: 2,
-            height: 2,
-            transformOrigin: "1px 1px",
-            transform: `rotate(${deg}deg)`,
-          }}
-          aria-hidden="true"
+        <motion.div
+          style={{ position: "absolute", top: -152, left: -8, color: "rgba(201,168,76,0.72)", width: 16 }}
+          animate={{ rotate: -360 }}
+          transition={{ duration: 13, repeat: Infinity, ease: "linear" }}
         >
-          <div
-            style={{
-              position: "absolute",
-              top: -152,
-              left: -4,
-              width: 8,
-              height: 1,
-              background: "rgba(201,168,76,0.5)",
-            }}
-          />
-        </div>
-      ))}
+          <svg viewBox="0 0 30 40" fill="currentColor">
+            <path d="M15 2 C15 2,2 18,2 26 A13 13 0 0 0 28 26 C28 18 15 2 15 2 Z" />
+          </svg>
+        </motion.div>
+      </motion.div>
+
+      {/* Golden sparkle at top */}
+      <motion.div
+        className="absolute"
+        style={{ top: -8, left: "50%", translateX: "-50%", color: "rgba(201,168,76,0.85)", width: 18 }}
+        animate={{ opacity: [0.4, 1, 0.4], scale: [0.8, 1.3, 0.8], rotate: [0, 45, 0] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <svg viewBox="0 0 40 40" fill="currentColor">
+          <path d="M20 2 L21.5 17 L36 18 L21.5 20 L20 38 L18.5 20 L4 18 L18.5 17 Z" />
+        </svg>
+      </motion.div>
     </div>
   );
 }
@@ -367,7 +406,7 @@ function Hero() {
               }}
               aria-hidden="true"
             />
-            <OrbElement />
+            <SalonElement />
             {/* Floating mini-badges around orb */}
             {[
               { label: "Master Colorist", angle: -40, r: 200 },
