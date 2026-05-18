@@ -400,45 +400,105 @@ function ServicesPreview() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px"
+          style={{ background: "rgba(22,15,8,0.08)" }}>
           {SERVICES_PREVIEW.map((svc, i) => (
             <motion.div key={svc.title}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, amount: 0.06 }}
-              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative p-7 sm:p-8 overflow-hidden cursor-pointer"
-              style={{ background: "#ffffff", border: "1px solid rgba(22,15,8,0.07)", boxShadow: "0 2px 16px rgba(22,15,8,0.04)" }}
-              whileHover={{ borderColor: "rgba(22,15,8,0.18)", y: -6, transition: { duration: 0.2 } }}>
+              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative overflow-hidden cursor-pointer"
+              style={{ background: "hsl(30,10%,98%)" }}>
+
+              {/* Gold left-border accent — slides in on hover */}
+              <div className="absolute left-0 top-0 bottom-0 w-[3px] scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-500"
+                style={{ background: "linear-gradient(to top, hsl(43,70%,44%), hsl(43,80%,58%))" }}
+                aria-hidden="true" />
+
+              {/* Subtle hover background */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "radial-gradient(ellipse at 20% 10%, rgba(22,15,8,0.03), transparent 65%)" }} aria-hidden="true" />
-              <div className="absolute top-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                style={{ background: "linear-gradient(90deg, hsl(22,15%,12%), transparent)" }} aria-hidden="true" />
-              <div className="relative z-10">
-                <div className="mb-5 text-3xl" style={{ color: "rgba(22,15,8,0.55)" }}>{svc.icon}</div>
-                <div className="overflow-hidden mb-3">
-                  <h3 className="text-base font-serif font-semibold transition-colors" style={{ color: "hsl(22,20%,10%)" }}>
-                    {svc.title}
-                  </h3>
+                style={{ background: "linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%)" }}
+                aria-hidden="true" />
+
+              <div className="relative z-10 p-8 flex flex-col h-full min-h-[200px]">
+                {/* Top row — icon + number */}
+                <div className="flex items-start justify-between mb-6">
+                  {/* Icon box */}
+                  <div
+                    className="w-11 h-11 flex items-center justify-center transition-all duration-400 group-hover:scale-110"
+                    style={{
+                      background: "rgba(22,15,8,0.04)",
+                      border: "1px solid rgba(22,15,8,0.10)",
+                      color: "rgba(22,15,8,0.58)",
+                      fontSize: 18,
+                    }}>
+                    {svc.icon}
+                  </div>
+                  {/* Index number */}
+                  <span
+                    className="font-serif transition-colors duration-300"
+                    style={{ fontSize: 11, color: "rgba(22,15,8,0.18)", letterSpacing: "0.08em", marginTop: 2 }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                 </div>
-                <p className="text-xs leading-relaxed" style={{ color: "rgba(22,15,8,0.48)" }}>{svc.desc}</p>
-                <div className="h-px mt-5 w-0 group-hover:w-10 transition-all duration-500" style={{ background: "hsl(22,15%,20%)" }} />
+
+                {/* Title */}
+                <h3
+                  className="font-serif font-semibold mb-2 transition-colors duration-300 group-hover:text-black"
+                  style={{ fontSize: 17, color: "hsl(22,20%,10%)", lineHeight: 1.3 }}>
+                  {svc.title}
+                </h3>
+
+                {/* Divider */}
+                <div className="mb-3 h-px w-8 transition-all duration-500 group-hover:w-14"
+                  style={{ background: "linear-gradient(90deg, hsl(43,70%,46%), rgba(201,168,76,0.3))" }} />
+
+                {/* Description */}
+                <p className="text-xs leading-relaxed flex-1" style={{ color: "rgba(22,15,8,0.50)" }}>
+                  {svc.desc}
+                </p>
+
+                {/* CTA — reveals on hover */}
+                <div className="mt-5 flex items-center gap-2 overflow-hidden">
+                  <span
+                    className="text-[9px] tracking-[0.28em] uppercase font-semibold translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-350"
+                    style={{ color: "hsl(43,60%,36%)" }}>
+                    Explore
+                  </span>
+                  <svg
+                    className="w-2.5 h-2.5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-350 delay-75"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    style={{ color: "hsl(43,60%,40%)" }}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <motion.div className="text-center mt-10"
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}>
+        <motion.div className="flex items-center justify-between mt-8"
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
+          <p className="text-[10px] tracking-[0.28em] uppercase" style={{ color: "rgba(22,15,8,0.28)" }}>
+            {SERVICES_PREVIEW.length} signature services
+          </p>
           <Link href="/services">
-            <motion.span className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase cursor-pointer py-3 px-1"
-              style={{ color: "rgba(22,15,8,0.50)" }}
-              whileHover={{ color: "hsl(22,20%,8%)", x: 3 }}>
-              View All Services
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </motion.span>
+            <motion.div
+              className="group inline-flex items-center gap-3 cursor-pointer"
+              whileHover={{ x: 4 }}
+              transition={{ duration: 0.2 }}>
+              <span className="text-[10px] tracking-[0.30em] uppercase font-semibold"
+                style={{ color: "hsl(22,20%,10%)" }}>
+                View All Services
+              </span>
+              <div className="w-7 h-7 flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                style={{ border: "1px solid rgba(22,15,8,0.20)", color: "rgba(22,15,8,0.60)" }}>
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
+            </motion.div>
           </Link>
         </motion.div>
       </div>
