@@ -28,46 +28,75 @@ function CountUp({ end, suffix = "", duration = 2 }: { end: number; suffix?: str
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-// ─── Hero Photo Element ────────────────────────────────────────────────────────
+// ─── Particle Field ───────────────────────────────────────────────────────────
+function ParticleField() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    let animId: number;
+    const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
+    window.addEventListener("resize", resize, { passive: true });
+    resize();
+    const pts = Array.from({ length: 65 }, () => ({
+      x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+      r: Math.random() * 1.1 + 0.2,
+      vx: (Math.random() - 0.5) * 0.22, vy: -(Math.random() * 0.38 + 0.06),
+      a: Math.random() * 0.28 + 0.04,
+    }));
+    const tick = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of pts) {
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${p.a})`; ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if (p.y < -4) { p.y = canvas.height + 4; p.x = Math.random() * canvas.width; }
+        if (p.x < -4) p.x = canvas.width + 4;
+        if (p.x > canvas.width + 4) p.x = -4;
+      }
+      animId = requestAnimationFrame(tick);
+    };
+    tick();
+    return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize); };
+  }, []);
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-[1]" aria-hidden="true" />;
+}
+
+// ─── Full-height editorial photo ──────────────────────────────────────────────
 function SalonElement() {
   return (
-    <div className="relative w-full max-w-[360px] mx-auto select-none" aria-hidden="true">
-      {/* Ambient glow */}
-      <div className="absolute -inset-10 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 70%)" }} />
-
-      {/* Corner bracket accents */}
-      <div className="absolute -top-3 -left-3 w-8 h-8 border-t border-l" style={{ borderColor: "rgba(201,168,76,0.5)" }} />
-      <div className="absolute -top-3 -right-3 w-8 h-8 border-t border-r" style={{ borderColor: "rgba(201,168,76,0.5)" }} />
-      <div className="absolute -bottom-3 -left-3 w-8 h-8 border-b border-l" style={{ borderColor: "rgba(201,168,76,0.5)" }} />
-      <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b border-r" style={{ borderColor: "rgba(201,168,76,0.5)" }} />
-
-      {/* Photo */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: "3/4" }}>
-        <motion.img
-          src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=900&q=85"
-          alt="Luxury hair artistry"
-          className="w-full h-full object-cover object-top"
-          style={{ filter: "brightness(0.78) saturate(0.88)" }}
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-        />
-        {/* Bottom gradient */}
-        <div className="absolute inset-x-0 bottom-0 h-2/5 pointer-events-none"
-          style={{ background: "linear-gradient(to top, rgba(5,3,2,0.82) 0%, transparent 100%)" }} />
-        {/* Bottom label */}
-        <div className="absolute bottom-5 inset-x-0 px-6">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="h-px flex-1" style={{ background: "rgba(255,255,255,0.12)" }} />
-            <span style={{ fontSize: 7, letterSpacing: "0.48em", textTransform: "uppercase", color: "rgba(255,255,255,0.28)" }}>ARTISTRY</span>
-            <div className="h-px flex-1" style={{ background: "rgba(255,255,255,0.12)" }} />
-          </div>
-          <p className="text-center" style={{ fontSize: 8.5, letterSpacing: "0.32em", textTransform: "uppercase", color: "rgba(255,255,255,0.42)" }}>
-            Matthew Dillard · Prosper TX
+    <div className="absolute inset-y-0 right-0 w-[46%] hidden lg:block overflow-hidden" aria-hidden="true">
+      <motion.img
+        src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1000&q=88"
+        alt="Luxury hair artistry"
+        className="w-full h-full object-cover object-center"
+        style={{ filter: "brightness(0.66) saturate(0.80) contrast(1.06)" }}
+        initial={{ scale: 1.12, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 2.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+      />
+      {/* Left gradient bleed */}
+      <div className="absolute inset-y-0 left-0 w-52 pointer-events-none z-10"
+        style={{ background: "linear-gradient(to right, hsl(22,18%,3%) 0%, hsl(22,18%,3%) 5%, transparent 100%)" }} />
+      {/* Top fade */}
+      <div className="absolute top-0 inset-x-0 h-36 pointer-events-none z-10"
+        style={{ background: "linear-gradient(to bottom, hsl(22,18%,3%) 0%, transparent 100%)" }} />
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 inset-x-0 h-48 pointer-events-none z-10"
+        style={{ background: "linear-gradient(to top, hsl(22,18%,3%) 0%, transparent 100%)" }} />
+      {/* Label chip */}
+      <motion.div className="absolute bottom-12 right-10 z-20"
+        initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.2, duration: 0.9 }}>
+        <div className="px-4 py-2.5"
+          style={{ background: "rgba(4,3,2,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.07)" }}>
+          <p style={{ fontSize: 8, letterSpacing: "0.44em", textTransform: "uppercase", color: "rgba(255,255,255,0.38)" }}>
+            Artistry · Precision · Care
           </p>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -76,156 +105,151 @@ function SalonElement() {
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden" data-testid="hero">
-      <motion.div className="absolute inset-0" style={{ y: bgY }}>
-        <div className="absolute inset-0" style={{
-          background: "radial-gradient(ellipse 120% 90% at 30% 55%, hsl(26,18%,9%) 0%, hsl(22,18%,4%) 60%, hsl(20,18%,3%) 100%)"
-        }} />
-        <motion.div className="absolute rounded-full pointer-events-none"
-          style={{ width: "min(700px,100vw)", height: "min(700px,100vw)", top: "30%", left: "25%", translateX: "-50%", translateY: "-50%", background: "radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 62%)" }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }} />
-        <motion.div className="absolute rounded-full pointer-events-none"
-          style={{ width: "min(500px,80vw)", height: "min(500px,80vw)", top: "60%", right: "10%", background: "radial-gradient(ellipse, rgba(201,168,76,0.04) 0%, transparent 62%)" }}
-          animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.8, 0.4] }}
-          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }} />
-      </motion.div>
+    <section ref={ref} className="relative min-h-screen flex overflow-hidden" data-testid="hero">
 
+      {/* ── Deep background ── */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0" style={{
+          background: "radial-gradient(ellipse 110% 100% at 22% 50%, hsl(26,18%,8%) 0%, hsl(22,18%,4%) 48%, hsl(20,18%,2%) 100%)"
+        }} />
+        {/* Warm glow left */}
+        <motion.div className="absolute rounded-full pointer-events-none"
+          style={{ width: 700, height: 700, top: "10%", left: "-10%", background: "radial-gradient(ellipse, rgba(190,148,72,0.07) 0%, transparent 65%)" }}
+          animate={{ scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }} />
+      </div>
+
+      {/* ── Particle field ── */}
+      <ParticleField />
+
+      {/* ── Subtle background tools ── */}
       <BeautyElements />
 
-      <motion.div className="relative z-10 w-full max-w-[1380px] mx-auto px-5 sm:px-8 lg:px-12 pt-28 pb-16" style={{ opacity }}>
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-8 items-center min-h-[85vh]">
+      {/* ── Full-height editorial photo — right 46% ── */}
+      <SalonElement />
 
-          {/* ── Left: text ── */}
-          <div className="flex flex-col justify-center order-2 lg:order-1">
-            <motion.div className="flex items-center gap-3 mb-7"
-              initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
-              <motion.div className="h-px shrink-0" initial={{ width: 0 }} animate={{ width: 32 }}
-                transition={{ duration: 0.8, delay: 0.5 }} style={{ background: "rgba(255,255,255,0.18)" }} />
-              <span style={{ fontSize: "clamp(8px,1.5vw,9px)", letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(255,255,255,0.32)" }}>
-                Luxury Hair Artistry · Prosper TX
-              </span>
-            </motion.div>
+      {/* ── Text block — left 56% ── */}
+      <motion.div
+        className="relative z-10 flex items-center w-full lg:w-[56%] min-h-screen px-7 sm:px-12 lg:px-16 xl:px-22 pt-28 pb-20"
+        style={{ opacity }}
+      >
+        <motion.div className="w-full max-w-[560px]" style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "16%"]) }}>
 
-            <h1 className="font-serif leading-[1.0] mb-7">
-              {["Elevate", "Your Hair."].map((line, li) => (
-                <div key={li} className="overflow-hidden">
-                  <motion.span className="block"
-                    initial={{ y: "105%", opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.35 + li * 0.16 }}
-                    style={{
-                      fontSize: "clamp(42px, 6.5vw, 86px)",
-                      color: li === 0 ? "rgba(255,255,255,0.88)" : undefined,
-                      fontWeight: li === 0 ? 500 : 700,
-                    }}
-                  >
-                    {li === 1 ? <span className="shimmer-text italic">{line}</span> : line}
-                  </motion.span>
-                </div>
-              ))}
-            </h1>
+          {/* Eyebrow line */}
+          <motion.div className="flex items-center gap-3 mb-10"
+            initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9, delay: 0.3 }}>
+            <motion.div className="h-px shrink-0" initial={{ width: 0 }} animate={{ width: 40 }}
+              transition={{ duration: 1.1, delay: 0.5 }} style={{ background: "rgba(255,255,255,0.18)" }} />
+            <span style={{ fontSize: 9, letterSpacing: "0.46em", textTransform: "uppercase", color: "rgba(255,255,255,0.28)" }}>
+              Luxury Hair Artistry · Prosper TX
+            </span>
+          </motion.div>
 
-            <motion.p className="mb-10 max-w-md text-sm leading-relaxed"
-              style={{ color: "rgba(255,255,255,0.38)", letterSpacing: "0.03em" }}
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.75 }}>
-              Where craft meets confidence. An elevated salon experience for those who demand the extraordinary.
-            </motion.p>
+          {/* ── Oversized 3-line headline ── */}
+          <h1 className="font-serif leading-[0.90] mb-10">
+            {[
+              { text: "Elevate", weight: 400, italic: false, size: "clamp(56px, 8.5vw, 122px)" },
+              { text: "Your",    weight: 500, italic: true,  size: "clamp(56px, 8.5vw, 122px)" },
+              { text: "Hair.",   weight: 700, italic: true,  size: "clamp(56px, 8.5vw, 122px)" },
+            ].map((line, li) => (
+              <div key={li} className="overflow-hidden">
+                <motion.span
+                  className="block"
+                  initial={{ y: "112%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1.25, ease: [0.16, 1, 0.3, 1], delay: 0.38 + li * 0.22 }}
+                  style={{
+                    fontSize: line.size,
+                    fontWeight: line.weight,
+                    fontStyle: line.italic ? "italic" : "normal",
+                    color: li === 2 ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.85)",
+                    display: "block",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {li === 2 ? <span className="shimmer-text">{line.text}</span> : line.text}
+                </motion.span>
+              </div>
+            ))}
+          </h1>
 
-            <motion.div className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
-              initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.95 }}>
-              <Link href="/booking">
-                <motion.div
-                  className="group relative overflow-hidden px-8 sm:px-9 py-4 cursor-pointer w-full sm:w-auto text-center"
-                  style={{ background: "linear-gradient(135deg, hsl(43,68%,50%), hsl(35,72%,42%))", boxShadow: "0 6px 32px rgba(201,168,76,0.38)" }}
-                  whileHover={{ scale: 1.04, boxShadow: "0 8px 40px rgba(201,168,76,0.55)" }}
-                  animate={{ boxShadow: ["0 6px 32px rgba(201,168,76,0.3)", "0 6px 48px rgba(201,168,76,0.55)", "0 6px 32px rgba(201,168,76,0.3)"] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" } as never}
-                  data-testid="hero-book">
-                  <span className="relative z-10 flex items-center justify-center gap-3 font-medium"
-                    style={{ fontSize: 11, letterSpacing: "0.26em", textTransform: "uppercase", color: "#000" }}>
-                    Book Appointment
-                    <motion.svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                      animate={{ x: [0, 3, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </motion.svg>
-                  </span>
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: "linear-gradient(135deg, hsl(43,78%,58%), hsl(35,80%,50%))" }} />
-                </motion.div>
-              </Link>
-              <Link href="/services">
-                <motion.div className="flex items-center gap-2.5 cursor-pointer group py-4 sm:py-0" whileHover={{ x: 4 }} data-testid="hero-services">
-                  <span className="group-hover:text-white/80 transition-colors"
-                    style={{ fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.38)" }}>
-                    Our Services
-                  </span>
-                  <svg className="w-3 h-3 transition-colors" style={{ color: "rgba(255,255,255,0.3)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </motion.div>
-              </Link>
-            </motion.div>
+          {/* Description */}
+          <motion.p
+            className="mb-10 leading-relaxed"
+            style={{ fontSize: "clamp(13px,1.15vw,15px)", color: "rgba(255,255,255,0.34)", letterSpacing: "0.025em", maxWidth: 400 }}
+            initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 1.05 }}
+          >
+            Where craft meets confidence. An elevated salon experience for those who demand the extraordinary.
+          </motion.p>
 
-            <motion.div className="flex flex-wrap gap-x-6 gap-y-4 mt-10 pt-8"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }}
-              style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-              {[{ v: "4.8★", l: "Rating" }, { v: "28+", l: "Reviews" }, { v: "10+", l: "Years" }, { v: "Veteran", l: "Owned" }].map((b, i) => (
-                <motion.div key={b.l} className="flex flex-col gap-0.5"
-                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4 + i * 0.08 }}>
-                  <span className="font-serif font-semibold" style={{ fontSize: 17, color: "rgba(255,255,255,0.85)" }}>{b.v}</span>
-                  <span style={{ fontSize: 8, letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(255,255,255,0.22)" }}>{b.l}</span>
-                </motion.div>
-              ))}
-            </motion.div>
+          {/* CTA row */}
+          <motion.div className="flex flex-col sm:flex-row items-start sm:items-center gap-5"
+            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, delay: 1.2 }}>
+            <Link href="/booking">
+              <motion.div
+                className="group relative overflow-hidden px-10 py-4 cursor-pointer w-full sm:w-auto text-center"
+                style={{ background: "linear-gradient(135deg, hsl(43,70%,52%), hsl(35,74%,44%))", boxShadow: "0 6px 32px rgba(201,168,76,0.26)" }}
+                whileHover={{ scale: 1.04, boxShadow: "0 8px 48px rgba(201,168,76,0.52)" }}
+                whileTap={{ scale: 0.97 }}
+                animate={{ boxShadow: ["0 6px 28px rgba(201,168,76,0.20)", "0 6px 44px rgba(201,168,76,0.46)", "0 6px 28px rgba(201,168,76,0.20)"] }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" } as never}
+                data-testid="hero-book"
+              >
+                <span className="relative z-10 flex items-center justify-center gap-3 font-semibold"
+                  style={{ fontSize: 10.5, letterSpacing: "0.28em", textTransform: "uppercase", color: "#000" }}>
+                  Book Appointment
+                  <motion.svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    animate={{ x: [0, 4, 0] }} transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </motion.svg>
+                </span>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: "linear-gradient(135deg, hsl(43,80%,58%), hsl(35,82%,52%))" }} />
+              </motion.div>
+            </Link>
+            <Link href="/services">
+              <motion.div className="flex items-center gap-3 cursor-pointer group py-4 sm:py-0" whileHover={{ x: 5 }} data-testid="hero-services">
+                <span className="group-hover:text-white/70 transition-colors duration-300"
+                  style={{ fontSize: 10.5, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.34)" }}>
+                  Our Services
+                </span>
+                <svg className="w-3.5 h-3.5 transition-colors duration-300 group-hover:text-white/50"
+                  style={{ color: "rgba(255,255,255,0.24)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </motion.div>
+            </Link>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div className="flex flex-wrap gap-x-8 gap-y-4 mt-14 pt-9"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }}
+            style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+            {[{ v: "4.8★", l: "Rating" }, { v: "28+", l: "Reviews" }, { v: "10+", l: "Years" }, { v: "Veteran", l: "Owned" }].map((b, i) => (
+              <motion.div key={b.l} className="flex flex-col gap-1"
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.7 + i * 0.09 }}>
+                <span className="font-serif font-bold" style={{ fontSize: 21, color: "rgba(255,255,255,0.88)" }}>{b.v}</span>
+                <span style={{ fontSize: 8, letterSpacing: "0.38em", textTransform: "uppercase", color: "rgba(255,255,255,0.20)" }}>{b.l}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Mobile photo */}
+          <div className="lg:hidden mt-10 overflow-hidden relative" style={{ aspectRatio: "4/3" }}>
+            <img
+              src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80"
+              alt="Luxury hair artistry"
+              className="w-full h-full object-cover object-top"
+              style={{ filter: "brightness(0.70) saturate(0.82)" }}
+            />
+            <div className="absolute inset-x-0 bottom-0 h-1/3"
+              style={{ background: "linear-gradient(to top, rgba(5,3,2,0.88) 0%, transparent 100%)" }} />
           </div>
 
-          {/* ── Right: lightweight CSS 3D element ── */}
-          <motion.div
-            className="flex items-center justify-center order-1 lg:order-2 relative py-8 lg:py-0"
-            initial={{ opacity: 0, scale: 0.82 }} animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}>
-            <SalonElement />
-
-            {/* Floating badge chips */}
-            {[
-              { label: "Master Colorist", angle: -40, r: 195 },
-              { label: "Balayage Expert", angle: 160, r: 185 },
-              { label: "Prosper, TX", angle: 88, r: 202 },
-            ].map((badge) => {
-              const rad = (badge.angle * Math.PI) / 180;
-              return (
-                <motion.div key={badge.label} className="absolute hidden sm:block"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    translateX: `calc(-50% + ${Math.cos(rad) * badge.r}px)`,
-                    translateY: `calc(-50% + ${Math.sin(rad) * badge.r}px)`,
-                  }}
-                  initial={{ opacity: 0, scale: 0.7 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.7, delay: 1.6 }}>
-                  <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                    className="px-3 py-1.5 whitespace-nowrap"
-                    style={{
-                      background: "rgba(8,6,4,0.88)",
-                      border: "1px solid rgba(255,255,255,0.1)",
-                      backdropFilter: "blur(14px)",
-                      fontSize: 8,
-                      letterSpacing: "0.28em",
-                      textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.48)",
-                    }}>
-                    {badge.label}
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );
