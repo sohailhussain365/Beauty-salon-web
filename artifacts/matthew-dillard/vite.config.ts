@@ -10,6 +10,7 @@ const isReplit = process.env.REPL_ID !== undefined;
 
 export default defineConfig({
   base: basePath,
+  appType: "spa",
   plugins: [
     react(),
     tailwindcss(),
