@@ -1,45 +1,48 @@
-# [Project name]
+# Matthew Dillard Hair Salons
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A luxury hair salon website for Matthew Dillard Hair Salons — showcasing services, gallery, testimonials, and online booking. Built as a Vite + React SPA with a dark gold luxury aesthetic.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- Frontend artifact: `@workspace/matthew-dillard` (runs via workflow, port from `$PORT`)
+- `pnpm --filter @workspace/matthew-dillard run dev` — start dev server locally
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Frontend: React 18 + Vite, Tailwind CSS v4, Framer Motion, wouter (routing)
+- Fonts: Playfair Display (headings) + Inter (body)
+- Theme: dark luxury — gold `#c9a84c` on near-black `hsl(0,0%,4%)`
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/matthew-dillard/` — the frontend artifact (React + Vite SPA)
+- `artifacts/matthew-dillard/src/pages/` — page components (Home, About, Services, Gallery, Testimonials, Contact, Booking, not-found)
+- `artifacts/matthew-dillard/src/components/` — shared components (Navbar, Footer, Hero, SalonElement, Cursor, FloatingBooking, etc.)
+- `artifacts/matthew-dillard/src/index.css` — global styles, Tailwind config, CSS 3D gem keyframes
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- wouter is used instead of React Router or Next.js file routing — lightweight, hash-free SPA routing
+- `import.meta.env.BASE_URL` is stripped of trailing slash and passed as the wouter base for correct Replit path-based proxying
+- The 3D decorative element in the hero (SalonElement) is pure CSS — no JavaScript mouse tracking — for smooth mobile performance
+- Custom cursor (`Cursor.tsx`) automatically returns `null` on touch/coarse-pointer devices
+- All animation keyframes use `will-change: transform` and respect `prefers-reduced-motion`
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+Luxury hair salon marketing site with: animated hero with CSS 3D crystal element, services showcase, before/after slider, testimonials carousel, gallery page, about page, contact form, and booking CTA flow. Fully mobile-responsive.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Source of truth is the GitHub repo `https://github.com/sohailhussain365/Beauty-salon-web` — push improvements there for Vercel to deploy
+- Do NOT migrate to Replit hosting — user monitors progress via Vercel deployment
+- Push to GitHub via the REST API when git commands are blocked
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
-
-## Pointers
-
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- Git commit/push/remote-set-url are blocked in the main agent — use the GitHub REST API (blobs → tree → commit → update ref) to push changes directly
+- The frontend artifact path is `/matthew-dillard` in the Replit preview; Vercel deploys the root of `artifacts/matthew-dillard/`
+- `artifacts/matthew-dillard/` in this workspace mirrors the GitHub repo's same path — keep them in sync
