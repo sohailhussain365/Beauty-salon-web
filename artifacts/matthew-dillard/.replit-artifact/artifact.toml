@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Matthew Dillard Hair Salons"
+version = "1.0.0"
+id = "artifacts/matthew-dillard"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23835
+
+[services.development]
+run = "pnpm --filter @workspace/matthew-dillard run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/matthew-dillard", "run", "build" ]
+publicDir = "artifacts/matthew-dillard/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23835"
+BASE_PATH = "/"
