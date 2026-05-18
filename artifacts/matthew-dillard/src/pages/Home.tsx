@@ -311,6 +311,74 @@ function Hero() {
         </motion.div>
       </motion.div>
 
+      {/* ── Right-side floating visual card — desktop only ── */}
+      <motion.div
+        className="absolute right-[5%] top-1/2 -translate-y-1/2 z-10 hidden xl:flex flex-col items-end gap-4"
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 1.0 }}
+        aria-hidden="true"
+      >
+        {/* Main photo frame */}
+        <div className="relative overflow-hidden"
+          style={{ width: 260, height: 340, border: "1px solid rgba(201,168,76,0.18)", boxShadow: "0 32px 80px rgba(0,0,0,0.55)" }}>
+          <img
+            src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=85"
+            alt="Hair transformation result"
+            className="w-full h-full object-cover"
+            style={{ objectPosition: "50% 20%", filter: "brightness(0.82) saturate(0.88)" }}
+          />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,3,2,0.75) 0%, rgba(5,3,2,0.10) 45%, transparent 70%)" }} />
+          {/* Bottom label */}
+          <div className="absolute bottom-5 left-5 right-5">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="h-px flex-1" style={{ background: "rgba(201,168,76,0.45)" }} />
+              <span style={{ fontSize: 7, letterSpacing: "0.4em", textTransform: "uppercase", color: "rgba(201,168,76,0.85)" }}>Featured Work</span>
+              <div className="h-px flex-1" style={{ background: "rgba(201,168,76,0.45)" }} />
+            </div>
+            <p className="text-center font-serif italic" style={{ fontSize: 13, color: "rgba(255,255,255,0.70)" }}>Balayage Transformation</p>
+          </div>
+          {/* Corner accent lines */}
+          <div className="absolute top-3 left-3 w-6 h-6 pointer-events-none"
+            style={{ borderTop: "1px solid rgba(201,168,76,0.40)", borderLeft: "1px solid rgba(201,168,76,0.40)" }} />
+          <div className="absolute top-3 right-3 w-6 h-6 pointer-events-none"
+            style={{ borderTop: "1px solid rgba(201,168,76,0.40)", borderRight: "1px solid rgba(201,168,76,0.40)" }} />
+        </div>
+
+        {/* Floating stats badge */}
+        <motion.div
+          className="flex items-center gap-5 px-5 py-4"
+          style={{ background: "rgba(5,3,2,0.88)", border: "1px solid rgba(201,168,76,0.16)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", boxShadow: "0 16px 48px rgba(0,0,0,0.45)" }}
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        >
+          {[
+            { v: "4.8★", l: "Google" },
+            { v: "28+",  l: "Reviews" },
+            { v: "10+",  l: "Years" },
+          ].map((s, i) => (
+            <div key={s.l} className="flex items-center gap-5">
+              {i > 0 && <div className="w-px h-7 shrink-0" style={{ background: "rgba(255,255,255,0.07)" }} />}
+              <div className="flex flex-col items-center gap-0.5">
+                <span className="font-serif font-bold" style={{ fontSize: 17, color: "rgba(255,255,255,0.90)" }}>{s.v}</span>
+                <span style={{ fontSize: 7, letterSpacing: "0.32em", textTransform: "uppercase", color: "rgba(255,255,255,0.28)" }}>{s.l}</span>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Small accent tag */}
+        <motion.div
+          className="flex items-center gap-2 px-4 py-2"
+          style={{ border: "1px solid rgba(255,255,255,0.06)", background: "rgba(5,3,2,0.60)" }}
+          animate={{ opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "rgba(100,220,120,0.85)" }} />
+          <span style={{ fontSize: 8, letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.38)" }}>Now accepting clients</span>
+        </motion.div>
+      </motion.div>
+
       {/* ── Scroll indicator ── */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden sm:flex flex-col items-center gap-2 pointer-events-none"

@@ -68,7 +68,7 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
           aria-hidden="true"
         />
 
-        <div className="max-w-[1380px] mx-auto px-6 lg:px-10 h-[76px] flex items-center justify-between">
+        <div className="max-w-[1380px] mx-auto px-6 lg:px-10 h-[76px] relative flex items-center justify-between">
 
           {/* ── Logo ── */}
           <Link href="/">
@@ -94,8 +94,8 @@ export default function Navbar({ transparentTop = false }: { transparentTop?: bo
             </div>
           </Link>
 
-          {/* ── Desktop nav ── */}
-          <nav className="hidden lg:flex items-center" data-testid="desktop-nav">
+          {/* ── Desktop nav — absolutely centered ── */}
+          <nav className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2" data-testid="desktop-nav">
             {/* Thin left separator */}
             <div className="w-px h-5 mr-6" style={{ background: "rgba(255,255,255,0.08)" }} aria-hidden="true" />
             {LINKS.map((l) => {
