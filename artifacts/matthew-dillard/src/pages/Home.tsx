@@ -67,33 +67,33 @@ function ParticleField() {
 // ─── Full-height editorial photo ──────────────────────────────────────────────
 function SalonElement() {
   return (
-    <div className="absolute inset-y-0 right-0 w-[46%] hidden lg:block overflow-hidden" aria-hidden="true">
+    <div className="absolute inset-y-0 right-0 w-[44%] hidden lg:block overflow-hidden" aria-hidden="true">
       <motion.img
-        src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1000&q=88"
+        src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1100&q=90"
         alt="Luxury hair artistry"
-        className="w-full h-full object-cover object-center"
-        style={{ filter: "brightness(0.66) saturate(0.80) contrast(1.06)" }}
-        initial={{ scale: 1.12, opacity: 0 }}
+        className="w-full h-full object-cover"
+        style={{ objectPosition: "50% 18%", filter: "brightness(0.74) saturate(0.86) contrast(1.04)" }}
+        initial={{ scale: 1.08, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 2.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+        transition={{ duration: 2.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
       />
-      {/* Left gradient bleed */}
-      <div className="absolute inset-y-0 left-0 w-52 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to right, hsl(22,18%,3%) 0%, hsl(22,18%,3%) 5%, transparent 100%)" }} />
+      {/* Left gradient bleed — wide, soft */}
+      <div className="absolute inset-y-0 left-0 w-56 pointer-events-none z-10"
+        style={{ background: "linear-gradient(to right, hsl(22,18%,3%) 0%, hsl(22,18%,3%) 8%, rgba(5,3,2,0.6) 50%, transparent 100%)" }} />
       {/* Top fade */}
-      <div className="absolute top-0 inset-x-0 h-36 pointer-events-none z-10"
+      <div className="absolute top-0 inset-x-0 h-32 pointer-events-none z-10"
         style={{ background: "linear-gradient(to bottom, hsl(22,18%,3%) 0%, transparent 100%)" }} />
       {/* Bottom fade */}
-      <div className="absolute bottom-0 inset-x-0 h-48 pointer-events-none z-10"
+      <div className="absolute bottom-0 inset-x-0 h-44 pointer-events-none z-10"
         style={{ background: "linear-gradient(to top, hsl(22,18%,3%) 0%, transparent 100%)" }} />
-      {/* Label chip */}
-      <motion.div className="absolute bottom-12 right-10 z-20"
-        initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.2, duration: 0.9 }}>
-        <div className="px-4 py-2.5"
-          style={{ background: "rgba(4,3,2,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.07)" }}>
-          <p style={{ fontSize: 8, letterSpacing: "0.44em", textTransform: "uppercase", color: "rgba(255,255,255,0.38)" }}>
-            Artistry · Precision · Care
+      {/* Corner label — bottom right */}
+      <motion.div className="absolute bottom-14 right-8 z-20"
+        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.0, duration: 1.0 }}>
+        <div className="flex flex-col items-end gap-1.5">
+          <div className="h-px w-12" style={{ background: "rgba(201,168,76,0.45)" }} />
+          <p style={{ fontSize: 8, letterSpacing: "0.44em", textTransform: "uppercase", color: "rgba(255,255,255,0.36)" }}>
+            Artistry · Precision
           </p>
         </div>
       </motion.div>
@@ -138,34 +138,35 @@ function Hero() {
       >
         <motion.div className="w-full max-w-[560px]" style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "16%"]) }}>
 
-          {/* Eyebrow line */}
-          <motion.div className="flex items-center gap-3 mb-10"
+          {/* Eyebrow */}
+          <motion.div className="flex items-center gap-3 mb-7"
             initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9, delay: 0.3 }}>
-            <motion.div className="h-px shrink-0" initial={{ width: 0 }} animate={{ width: 40 }}
-              transition={{ duration: 1.1, delay: 0.5 }} style={{ background: "rgba(255,255,255,0.18)" }} />
-            <span style={{ fontSize: 9, letterSpacing: "0.46em", textTransform: "uppercase", color: "rgba(255,255,255,0.28)" }}>
+            <motion.div className="h-px shrink-0" initial={{ width: 0 }} animate={{ width: 32 }}
+              transition={{ duration: 1.1, delay: 0.5 }}
+              style={{ background: "linear-gradient(to right, rgba(201,168,76,0.6), rgba(201,168,76,0.1))" }} />
+            <span style={{ fontSize: 9, letterSpacing: "0.44em", textTransform: "uppercase", color: "rgba(255,255,255,0.30)" }}>
               Luxury Hair Artistry · Prosper TX
             </span>
           </motion.div>
 
-          {/* ── Oversized 3-line headline ── */}
-          <h1 className="font-serif leading-[0.90] mb-10">
+          {/* ── Headline — refined scale ── */}
+          <h1 className="font-serif leading-[0.93] mb-8">
             {[
-              { text: "Elevate", weight: 400, italic: false, size: "clamp(56px, 8.5vw, 122px)" },
-              { text: "Your",    weight: 500, italic: true,  size: "clamp(56px, 8.5vw, 122px)" },
-              { text: "Hair.",   weight: 700, italic: true,  size: "clamp(56px, 8.5vw, 122px)" },
+              { text: "Elevate", weight: 400, italic: false, size: "clamp(38px, 5.4vw, 78px)" },
+              { text: "Your",    weight: 500, italic: true,  size: "clamp(38px, 5.4vw, 78px)" },
+              { text: "Hair.",   weight: 700, italic: true,  size: "clamp(38px, 5.4vw, 78px)" },
             ].map((line, li) => (
               <div key={li} className="overflow-hidden">
                 <motion.span
                   className="block"
-                  initial={{ y: "112%", opacity: 0 }}
+                  initial={{ y: "108%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 1.25, ease: [0.16, 1, 0.3, 1], delay: 0.38 + li * 0.22 }}
+                  transition={{ duration: 1.15, ease: [0.16, 1, 0.3, 1], delay: 0.38 + li * 0.20 }}
                   style={{
                     fontSize: line.size,
                     fontWeight: line.weight,
                     fontStyle: line.italic ? "italic" : "normal",
-                    color: li === 2 ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.85)",
+                    color: li === 2 ? "rgba(255,255,255,0.96)" : "rgba(255,255,255,0.84)",
                     display: "block",
                     letterSpacing: "-0.01em",
                   }}
@@ -178,11 +179,11 @@ function Hero() {
 
           {/* Description */}
           <motion.p
-            className="mb-10 leading-relaxed"
-            style={{ fontSize: "clamp(13px,1.15vw,15px)", color: "rgba(255,255,255,0.34)", letterSpacing: "0.025em", maxWidth: 400 }}
-            initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 1.05 }}
+            className="mb-9 leading-[1.7]"
+            style={{ fontSize: "clamp(13px,1.1vw,14.5px)", color: "rgba(255,255,255,0.36)", letterSpacing: "0.02em", maxWidth: 380 }}
+            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 1.0 }}
           >
-            Where craft meets confidence. An elevated salon experience for those who demand the extraordinary.
+            Where craft meets confidence. An elevated salon experience for those who demand the extraordinary — in Prosper, TX.
           </motion.p>
 
           {/* CTA row */}
@@ -238,15 +239,15 @@ function Hero() {
           </motion.div>
 
           {/* Mobile photo */}
-          <div className="lg:hidden mt-10 overflow-hidden relative" style={{ aspectRatio: "4/3" }}>
+          <div className="lg:hidden mt-10 overflow-hidden relative" style={{ aspectRatio: "16/10" }}>
             <img
-              src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80"
+              src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=82"
               alt="Luxury hair artistry"
-              className="w-full h-full object-cover object-top"
-              style={{ filter: "brightness(0.70) saturate(0.82)" }}
+              className="w-full h-full object-cover"
+              style={{ objectPosition: "50% 20%", filter: "brightness(0.72) saturate(0.86)" }}
             />
             <div className="absolute inset-x-0 bottom-0 h-1/3"
-              style={{ background: "linear-gradient(to top, rgba(5,3,2,0.88) 0%, transparent 100%)" }} />
+              style={{ background: "linear-gradient(to top, rgba(5,3,2,0.90) 0%, transparent 100%)" }} />
           </div>
 
         </motion.div>
