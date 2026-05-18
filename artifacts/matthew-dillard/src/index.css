@@ -421,3 +421,97 @@
   animation: marquee-scroll 28s linear infinite;
 }
 .marquee-track:hover { animation-play-state: paused; }
+
+/* ── New Salon Animations ───────────────────────────────────── */
+@keyframes sparkle-float {
+  0%   { opacity: 0; transform: translateY(0) scale(0); }
+  20%  { opacity: 1; transform: translateY(-30px) scale(1); }
+  80%  { opacity: 0.6; transform: translateY(-120px) scale(0.8); }
+  100% { opacity: 0; transform: translateY(-200px) scale(0); }
+}
+
+@keyframes gem-pulse {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(201,168,76,0.4)); transform: scale(1); }
+  50%       { filter: drop-shadow(0 0 16px rgba(201,168,76,1)); transform: scale(1.15); }
+}
+
+@keyframes hair-wave {
+  0%, 100% { transform: scaleX(1) skewX(0deg); }
+  25%       { transform: scaleX(1.03) skewX(1deg); }
+  75%       { transform: scaleX(0.97) skewX(-1deg); }
+}
+
+@keyframes card-shine {
+  0%   { transform: translateX(-100%) skewX(-20deg); opacity: 0; }
+  50%  { opacity: 0.15; }
+  100% { transform: translateX(200%) skewX(-20deg); opacity: 0; }
+}
+
+@keyframes border-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0px rgba(201,168,76,0); }
+  50%       { box-shadow: 0 0 20px rgba(201,168,76,0.2), 0 0 40px rgba(201,168,76,0.08); }
+}
+
+@keyframes scale-108 {
+  to { transform: scale(1.08); }
+}
+
+.animate-sparkle-float {
+  animation: sparkle-float 6s ease-out infinite;
+}
+
+.animate-gem-pulse {
+  animation: gem-pulse 3s ease-in-out infinite;
+}
+
+.card-shine-hover:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%);
+  animation: card-shine 0.6s ease forwards;
+  pointer-events: none;
+}
+
+.group:hover .scale-on-group-hover {
+  transform: scale(1.07);
+}
+
+/* Smooth scale utility */
+.group-hover\:scale-108:hover {
+  transform: scale(1.08);
+}
+
+/* Gold text gradient animated */
+.shimmer-text-slow {
+  background: linear-gradient(90deg,
+    hsl(43, 65%, 52%) 0%,
+    hsl(43, 88%, 75%) 25%,
+    hsl(35, 80%, 60%) 50%,
+    hsl(43, 88%, 75%) 75%,
+    hsl(43, 65%, 52%) 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 6s linear infinite;
+}
+
+/* Elegant divider with sparkle */
+.gold-divider {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.35), transparent);
+}
+.gold-divider::after {
+  content: "✦";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(201,168,76,0.5);
+  font-size: 8px;
+  background: hsl(22,18%,5%);
+  padding: 0 8px;
+}
