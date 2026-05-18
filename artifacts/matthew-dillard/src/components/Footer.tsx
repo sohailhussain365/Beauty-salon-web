@@ -45,41 +45,36 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative pt-20 pb-12 md:pt-24 overflow-hidden"
+      className="relative overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, hsl(22,18%,5%) 0%, hsl(22,20%,4%) 100%)",
-        borderTop: "1px solid rgba(201,168,76,0.18)",
+        background: "hsl(30,8%,93%)",
+        borderTop: "1px solid rgba(22,15,8,0.08)",
       }}
       data-testid="footer"
     >
-      {/* Gold gradient top accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.55), transparent)" }}
+      {/* Premium top accent bar */}
+      <div className="h-[3px] w-full"
+        style={{ background: "linear-gradient(90deg, hsl(22,18%,10%) 0%, hsl(22,18%,10%) 60%, hsl(43,70%,44%) 100%)" }} />
+
+      {/* Decorative background texture */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.015]"
+        style={{
+          backgroundImage: "linear-gradient(rgba(22,15,8,1) 1px, transparent 1px), linear-gradient(90deg, rgba(22,15,8,1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
         aria-hidden="true" />
 
-      {/* Ambient gold orb */}
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(201,168,76,0.04) 0%, transparent 65%)" }}
-        aria-hidden="true" />
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(201,168,76,0.03) 0%, transparent 65%)" }}
-        aria-hidden="true" />
-
-      {/* Large brand name above grid */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 mb-14">
-        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="group block">
-          <div className="overflow-hidden">
+      {/* Huge editorial brand name */}
+      <div className="relative overflow-hidden pt-14 pb-0">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="group block w-full text-left">
             <motion.div
-              className="heading-bebas"
+              className="heading-bebas select-none leading-none"
               style={{
-                fontSize: "clamp(52px, 8vw, 108px)",
+                fontSize: "clamp(60px, 10vw, 128px)",
+                color: "hsl(22,20%,8%)",
                 letterSpacing: "0.01em",
-                lineHeight: 1,
-                userSelect: "none",
-                background: "linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.18) 50%, rgba(201,168,76,0.08) 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                lineHeight: 0.9,
               }}
               initial={{ y: "105%", opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
@@ -87,64 +82,69 @@ export default function Footer() {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
               Matthew{" "}
               <span style={{
-                background: "linear-gradient(135deg, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.25) 50%, rgba(201,168,76,0.12) 100%)",
+                background: "linear-gradient(135deg, hsl(43,65%,36%) 0%, hsl(43,75%,50%) 50%, hsl(43,65%,36%) 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}>Dillard</span>
             </motion.div>
-          </div>
-          <div className="h-px mt-2" style={{ background: "linear-gradient(90deg, rgba(201,168,76,0.40), transparent)" }} />
-        </button>
+            <div className="h-px mt-4" style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.20) 0%, rgba(22,15,8,0.06) 60%, transparent 100%)" }} />
+          </button>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-12 pb-12">
         <div className="grid md:grid-cols-3 gap-12 md:gap-8 mb-12">
-          {/* Brand */}
-          <div className="flex flex-col gap-4">
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="text-left group"
-            >
-              <span className="block text-lg font-serif tracking-[0.08em] transition-opacity group-hover:opacity-70" style={{ color: "#f5ecd5" }}>
-                Matthew <span style={{
-                  background: "linear-gradient(135deg, hsl(43,65%,52%), hsl(43,80%,66%), hsl(43,65%,52%))",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}>Dillard</span>
-              </span>
-              <span className="block text-[9px] tracking-[0.35em] uppercase mt-1" style={{ color: "rgba(201,168,76,0.45)" }}>
-                Hair Salons · Prosper, Texas
-              </span>
-            </button>
-            <p className="text-xs leading-relaxed max-w-xs" style={{ color: "rgba(245,236,213,0.40)" }}>
-              Luxury hair artistry in the heart of Prosper, Texas. Veteran-owned.
-              LGBTQ+ friendly. Where craft meets confidence.
-            </p>
-            <div className="flex items-center gap-3 mt-2">
+
+          {/* Brand column */}
+          <div className="flex flex-col gap-5">
+            <div>
+              <p className="text-xs tracking-[0.06em] leading-relaxed max-w-xs" style={{ color: "rgba(22,15,8,0.48)" }}>
+                Luxury hair artistry in the heart of Prosper, Texas. Veteran-owned.
+                LGBTQ+ friendly. Where craft meets confidence.
+              </p>
+            </div>
+
+            {/* Gold pill badge */}
+            <div className="flex flex-wrap gap-2">
+              {["Veteran Owned", "LGBTQ+ Friendly"].map(b => (
+                <span key={b}
+                  className="text-[8px] tracking-[0.28em] uppercase px-3 py-1.5 font-semibold"
+                  style={{
+                    color: "hsl(43,60%,36%)",
+                    border: "1.5px solid hsl(43,60%,72%)",
+                    background: "rgba(201,168,76,0.07)",
+                  }}>
+                  {b}
+                </span>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-3">
               {SOCIALS.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-9 h-9 flex items-center justify-center transition-all duration-300"
                   style={{
-                    color: "rgba(201,168,76,0.55)",
-                    border: "1px solid rgba(201,168,76,0.22)",
-                    background: "rgba(201,168,76,0.04)",
+                    color: "rgba(22,15,8,0.45)",
+                    border: "1px solid rgba(22,15,8,0.13)",
+                    background: "#ffffff",
                   }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.color = "rgba(201,168,76,0.90)";
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.50)";
-                    (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.10)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 12px rgba(201,168,76,0.20)";
+                    (e.currentTarget as HTMLElement).style.background = "hsl(22,18%,10%)";
+                    (e.currentTarget as HTMLElement).style.color = "#ffffff";
+                    (e.currentTarget as HTMLElement).style.borderColor = "hsl(22,18%,10%)";
+                    (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 12px rgba(22,15,8,0.15)";
                   }}
                   onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.color = "rgba(201,168,76,0.55)";
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.22)";
-                    (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.04)";
+                    (e.currentTarget as HTMLElement).style.background = "#ffffff";
+                    (e.currentTarget as HTMLElement).style.color = "rgba(22,15,8,0.45)";
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(22,15,8,0.13)";
+                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
                     (e.currentTarget as HTMLElement).style.boxShadow = "none";
                   }}
                   aria-label={s.label}
@@ -156,43 +156,45 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Navigation */}
-          <div className="flex flex-col gap-3">
-            <p className="text-[9px] tracking-[0.35em] uppercase mb-2 flex items-center gap-2"
-              style={{ color: "rgba(201,168,76,0.60)" }}>
-              <span className="w-4 h-px inline-block" style={{ background: "rgba(201,168,76,0.40)" }} />
+          {/* Navigate column */}
+          <div className="flex flex-col gap-4">
+            <p className="text-[10px] tracking-[0.40em] uppercase font-bold mb-1" style={{ color: "hsl(22,18%,12%)" }}>
               Navigate
             </p>
+            <div className="w-8 h-[2px] -mt-3 mb-1" style={{ background: "hsl(43,70%,46%)" }} />
             {NAV.map((link) => (
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
-                className="text-left text-xs tracking-wide transition-all duration-300 group flex items-center gap-2"
-                style={{ color: "rgba(245,236,213,0.40)" }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "rgba(201,168,76,0.80)"}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "rgba(245,236,213,0.40)"}
+                className="text-left text-sm font-medium tracking-wide transition-all duration-300 group flex items-center gap-0"
+                style={{ color: "rgba(22,15,8,0.55)" }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.color = "hsl(22,20%,8%)";
+                  (e.currentTarget as HTMLElement).style.paddingLeft = "10px";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.color = "rgba(22,15,8,0.55)";
+                  (e.currentTarget as HTMLElement).style.paddingLeft = "0";
+                }}
                 data-testid={`footer-nav-${link.label.toLowerCase()}`}
               >
-                <span className="w-0 group-hover:w-3 h-px transition-all duration-300 overflow-hidden inline-block"
-                  style={{ background: "rgba(201,168,76,0.60)" }} />
                 {link.label}
               </button>
             ))}
           </div>
 
-          {/* Contact info */}
-          <div className="flex flex-col gap-3">
-            <p className="text-[9px] tracking-[0.35em] uppercase mb-2 flex items-center gap-2"
-              style={{ color: "rgba(201,168,76,0.60)" }}>
-              <span className="w-4 h-px inline-block" style={{ background: "rgba(201,168,76,0.40)" }} />
+          {/* Contact column */}
+          <div className="flex flex-col gap-4">
+            <p className="text-[10px] tracking-[0.40em] uppercase font-bold mb-1" style={{ color: "hsl(22,18%,12%)" }}>
               Contact
             </p>
+            <div className="w-8 h-[2px] -mt-3 mb-1" style={{ background: "hsl(43,70%,46%)" }} />
             <a
               href="https://maps.google.com/?q=2281+E+University+Dr+Suite+101+Prosper+TX+75078"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs leading-relaxed transition-colors duration-300 hover:text-yellow-400/80"
-              style={{ color: "rgba(245,236,213,0.40)" }}
+              className="text-sm leading-relaxed transition-all duration-300 hover:text-black"
+              style={{ color: "rgba(22,15,8,0.52)" }}
               data-testid="footer-address"
             >
               2281 E University Dr Suite 101<br />
@@ -200,8 +202,8 @@ export default function Footer() {
             </a>
             <a
               href="tel:+19725717787"
-              className="text-xs transition-colors duration-300 hover:text-yellow-400/80"
-              style={{ color: "rgba(245,236,213,0.40)" }}
+              className="text-sm font-semibold transition-colors duration-300 hover:text-black"
+              style={{ color: "rgba(22,15,8,0.75)" }}
               data-testid="footer-phone"
             >
               +1 (972) 571-7787
@@ -210,8 +212,8 @@ export default function Footer() {
               href="https://matthewdillard.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs transition-colors duration-300 hover:text-yellow-400/80"
-              style={{ color: "rgba(245,236,213,0.40)" }}
+              className="text-sm transition-colors duration-300 hover:text-black"
+              style={{ color: "rgba(22,15,8,0.45)" }}
               data-testid="footer-website"
             >
               matthewdillard.com
@@ -220,29 +222,27 @@ export default function Footer() {
               href="https://matthewdillard.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 text-[9px] tracking-[0.25em] uppercase transition-all duration-300 w-fit group"
+              className="mt-2 inline-flex items-center gap-2 px-5 py-3 text-[9px] tracking-[0.30em] uppercase font-bold transition-all duration-300 w-fit"
               style={{
-                color: "rgba(201,168,76,0.70)",
-                border: "1px solid rgba(201,168,76,0.28)",
-                background: "rgba(201,168,76,0.05)",
+                color: "#ffffff",
+                background: "hsl(22,18%,10%)",
+                boxShadow: "0 2px 16px rgba(22,15,8,0.18)",
               }}
               onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = "hsl(43,70%,44%)";
                 (e.currentTarget as HTMLElement).style.color = "hsl(22,20%,8%)";
-                (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, hsl(43,65%,45%), hsl(43,75%,55%))";
-                (e.currentTarget as HTMLElement).style.borderColor = "transparent";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 16px rgba(201,168,76,0.30)";
+                (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(201,168,76,0.30)";
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.color = "rgba(201,168,76,0.70)";
-                (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.05)";
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.28)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                (e.currentTarget as HTMLElement).style.background = "hsl(22,18%,10%)";
+                (e.currentTarget as HTMLElement).style.color = "#ffffff";
+                (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 16px rgba(22,15,8,0.18)";
               }}
               data-testid="footer-book-btn"
             >
               Book Appointment
-              <svg className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
           </div>
@@ -251,14 +251,14 @@ export default function Footer() {
         {/* Bottom bar */}
         <div
           className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ borderTop: "1px solid rgba(201,168,76,0.10)" }}
+          style={{ borderTop: "1px solid rgba(22,15,8,0.08)" }}
         >
-          <p className="text-[10px] tracking-[0.2em]" style={{ color: "rgba(201,168,76,0.30)" }}>
+          <p className="text-[10px] tracking-[0.22em] font-medium" style={{ color: "rgba(22,15,8,0.32)" }}>
             &copy; {new Date().getFullYear()} Matthew Dillard Hair Salons. All rights reserved.
           </p>
           <div className="flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full" style={{ background: "rgba(201,168,76,0.35)" }} />
-            <p className="text-[10px] tracking-[0.2em]" style={{ color: "rgba(201,168,76,0.30)" }}>
+            <div className="w-1 h-1" style={{ background: "hsl(43,65%,48%)" }} />
+            <p className="text-[10px] tracking-[0.22em] font-medium" style={{ color: "rgba(22,15,8,0.32)" }}>
               Veteran Owned · LGBTQ+ Friendly · Prosper, TX
             </p>
           </div>

@@ -63,7 +63,7 @@ export default function BeforeAfter() {
         >
           <div className="flex items-center justify-center gap-4 mb-6">
             <span className="block w-12 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.22))" }} />
-            <span className="text-[9px] tracking-[0.4em] uppercase" style={{ color: "rgba(22,15,8,0.42)" }}>Transformation</span>
+            <span className="text-[13px] tracking-[0.28em] uppercase font-semibold" style={{ color: "hsl(22,20%,12%)" }}>Transformation</span>
             <span className="block w-12 h-px" style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.22), transparent)" }} />
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif" style={{ color: "hsl(22,20%,8%)" }}>

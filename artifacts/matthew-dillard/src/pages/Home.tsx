@@ -293,8 +293,8 @@ function Stats() {
       <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8">
         <motion.div className="flex items-center gap-3 mb-10"
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
-          <div className="h-px w-7" style={{ background: "hsl(22,15%,20%)" }} />
-          <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(22,15,8,0.45)" }}>At a Glance</span>
+          <div className="h-[1.5px] w-8" style={{ background: "hsl(22,15%,20%)" }} />
+          <span style={{ fontSize: 13, letterSpacing: "0.32em", textTransform: "uppercase", color: "hsl(22,20%,12%)", fontWeight: 600 }}>At a Glance</span>
         </motion.div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
           {stats.map((s, i) => (
@@ -349,8 +349,8 @@ function ServicesPreview() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}>
-            <div className="h-px w-7" style={{ background: "hsl(22,15%,20%)" }} />
-            <span className="text-[9px] tracking-[0.42em] uppercase" style={{ color: "rgba(22,15,8,0.42)" }}>Specialties</span>
+            <div className="h-[1.5px] w-8" style={{ background: "hsl(22,15%,20%)" }} />
+            <span className="text-[13px] tracking-[0.32em] uppercase font-semibold" style={{ color: "hsl(22,20%,12%)" }}>Specialties</span>
           </motion.div>
           <div className="overflow-hidden mb-4">
             <motion.h2

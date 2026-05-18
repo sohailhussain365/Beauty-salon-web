@@ -138,7 +138,7 @@ export default function PageHero({ title, titleGold, subtitle, breadcrumb }: Pag
               transition={{ duration: 0.7, delay: 0.3 }}
               style={{ background: "hsl(22,15%,20%)" }}
             />
-            <span style={{ fontSize: 9, letterSpacing: "0.45em", textTransform: "uppercase", color: "rgba(22,15,8,0.45)" }}>
+            <span style={{ fontSize: 13, letterSpacing: "0.32em", textTransform: "uppercase", color: "hsl(22,20%,12%)", fontWeight: 600 }}>
               {breadcrumb}
             </span>
           </motion.div>

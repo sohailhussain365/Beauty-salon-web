@@ -65,7 +65,7 @@ function StorySection() {
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
               <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 28 }} viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }} style={{ background: "hsl(22,15%,20%)" }} />
-              <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(22,15,8,0.42)" }}>Who We Are</span>
+              <span style={{ fontSize: 13, letterSpacing: "0.32em", textTransform: "uppercase", color: "hsl(22,20%,12%)", fontWeight: 600 }}>Who We Are</span>
             </motion.div>
 
             <div className="overflow-hidden mb-2">
@@ -210,7 +210,7 @@ function ValuesSection() {
           <motion.div className="flex items-center gap-3 mb-5"
             initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.7 }}>
             <div className="h-px w-7" style={{ background: "hsl(22,15%,20%)" }} />
-            <span className="text-[9px] tracking-[0.42em] uppercase" style={{ color: "rgba(22,15,8,0.42)" }}>Our Values</span>
+            <span className="text-[13px] tracking-[0.32em] uppercase font-semibold" style={{ color: "hsl(22,20%,12%)" }}>Our Values</span>
           </motion.div>
           <div className="overflow-hidden">
             <motion.h2
@@ -273,7 +273,7 @@ function Timeline() {
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.7 }}>
             <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 40 }} viewport={{ once: true }}
               transition={{ duration: 0.8 }} style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.22))" }} />
-            <span className="text-[9px] tracking-[0.4em] uppercase" style={{ color: "rgba(22,15,8,0.42)" }}>The Journey</span>
+            <span className="text-[13px] tracking-[0.32em] uppercase font-semibold" style={{ color: "hsl(22,20%,12%)" }}>The Journey</span>
             <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 40 }} viewport={{ once: true }}
               transition={{ duration: 0.8 }} style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.22), transparent)" }} />
           </motion.div>

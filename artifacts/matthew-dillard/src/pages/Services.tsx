@@ -198,7 +198,7 @@ export default function ServicesPage() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7 }}>
               <div className="h-px w-7" style={{ background: "hsl(22,15%,20%)" }} />
-              <span className="text-[9px] tracking-[0.42em] uppercase" style={{ color: "rgba(22,15,8,0.42)" }}>Specialties</span>
+              <span className="text-[13px] tracking-[0.32em] uppercase font-semibold" style={{ color: "hsl(22,20%,12%)" }}>Specialties</span>
             </motion.div>
             <div className="overflow-hidden mb-4">
               <motion.h2
@@ -232,7 +232,7 @@ export default function ServicesPage() {
               <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 64 }} viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.20))" }} />
-              <span className="text-[9px] tracking-[0.4em] uppercase" style={{ color: "rgba(22,15,8,0.40)" }}>Begin Your Journey</span>
+              <span className="text-[13px] tracking-[0.28em] uppercase font-semibold" style={{ color: "hsl(22,20%,12%)" }}>Begin Your Journey</span>
               <motion.span className="h-px" initial={{ width: 0 }} whileInView={{ width: 64 }} viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 style={{ background: "linear-gradient(90deg, rgba(22,15,8,0.20), transparent)" }} />

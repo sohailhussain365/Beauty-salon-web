@@ -70,7 +70,7 @@ export default function TestimonialsSlider() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <span className="w-8 h-px" style={{ background: "hsl(22,15%,20%)" }} />
-              <span style={{ fontSize: 9, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(22,15,8,0.42)" }}>Client Voices</span>
+              <span style={{ fontSize: 13, letterSpacing: "0.32em", textTransform: "uppercase", color: "hsl(22,20%,12%)", fontWeight: 600 }}>Client Voices</span>
             </div>
             <h2 className="font-serif" style={{ fontSize: "clamp(28px, 4vw, 48px)", color: "hsl(22,20%,8%)" }}>
               What They <span className="text-gold-gradient italic">Say</span>
