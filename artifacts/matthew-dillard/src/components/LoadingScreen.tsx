@@ -65,12 +65,12 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
                 style={{ background: "linear-gradient(90deg, transparent, rgba(22,15,8,0.30), transparent)" }}
               />
               <h1
-                className="text-5xl md:text-6xl font-serif tracking-[0.12em]"
+                className="text-5xl md:text-6xl font-serif tracking-[0.12em] text-center w-full"
                 style={{ fontWeight: 400, color: "hsl(22,20%,8%)" }}
               >
                 Matthew <span className="text-gold-gradient font-semibold">Dillard</span>
               </h1>
-              <p className="text-xs tracking-[0.4em] uppercase mt-1" style={{ color: "rgba(22,15,8,0.40)" }}>
+              <p className="text-xs tracking-[0.4em] uppercase mt-1 text-center" style={{ color: "rgba(22,15,8,0.40)" }}>
                 Hair Salons · Prosper, Texas
               </p>
               <motion.div
